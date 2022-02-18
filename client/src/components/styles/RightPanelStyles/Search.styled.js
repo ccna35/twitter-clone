@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const SearchElement = styled.div`
+  height: 53px;
   padding: 0.3rem 0;
   position: sticky;
   top: 0;

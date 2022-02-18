@@ -18,8 +18,10 @@ function App() {
       hoverLightGrey: "#eff3f4",
       bgColor: "#f7f9f9",
       FollowBgColor: "#0f1419",
+      EditProfileBgColor: "white",
       FollowBgHoverColor: "#4a4a49",
       borderColor: "#eff3f4",
+      borderGreyColor: "#d2dbe0",
     },
     breakpoints: {
       xs: "500px",

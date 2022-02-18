@@ -1,23 +1,57 @@
 import React from "react";
-import { StyledHome } from "./styles/Home.styled";
-import { UserStyle } from "./styles/User.styled";
+import {
+  UserNavbarIconContainer,
+  UserNavBar,
+  UserNavbarFullName,
+  UserNavbarInfo,
+  UserNavbarTweetCount,
+  UserStyle,
+  UserPhotoCoverContainer,
+  UserCoverContainer,
+  UserCover,
+  UserPhotoContainer,
+  UserPhoto,
+  UserProfileInfoContainer,
+  UserProfileDescription,
+} from "./styles/User.styled";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { EditProfileBtn } from "./styles/Button.styled";
 
 function User() {
   return (
-    <StyledHome>
-      Home, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro
-      accusamus ad ullam ut similique maiores nobis iusto nesciunt neque
-      provident totam aliquid praesentium ratione sint fugit distinctio velit
-      vitae aperiam eius, nulla eaque, tenetur harum! Iusto nulla dignissimos
-      suscipit adipisci aliquid totam beatae illum deserunt asperiores,
-      architecto, autem voluptates, laudantium exercitationem blanditiis
-      similique tempora neque maxime et natus? Vel hic modi repellat illum.
-      Eaque porro, expedita provident aliquam consequuntur ullam doloremque
-      veniam distinctio? Earum architecto numquam magni sunt accusamus,
-      possimus, cum dicta itaque quo odio qui tempora maiores ad porro
-      repudiandae. Fugit similique accusantium doloremque ullam doloribus nisi
-      harum tempora.
-    </StyledHome>
+    <UserStyle>
+      <UserNavBar>
+        <UserNavbarIconContainer>
+          <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
+        </UserNavbarIconContainer>
+        <UserNavbarInfo>
+          <UserNavbarFullName>Shawky Khalil</UserNavbarFullName>
+          <UserNavbarTweetCount>877 Tweets</UserNavbarTweetCount>
+        </UserNavbarInfo>
+      </UserNavBar>
+
+      <UserPhotoCoverContainer>
+        <UserCoverContainer>
+          <UserCover src="./images/cover.jfif" />
+        </UserCoverContainer>
+
+        <UserPhotoContainer>
+          <UserPhoto src="./images/user photo.jpg" />
+        </UserPhotoContainer>
+      </UserPhotoCoverContainer>
+
+      <UserProfileInfoContainer>
+        <EditProfileBtn>Edit Profile</EditProfileBtn>
+        <UserNavbarInfo>
+          <UserNavbarFullName>Shawky Khalil</UserNavbarFullName>
+          <UserNavbarTweetCount>@shawky_khalil</UserNavbarTweetCount>
+        </UserNavbarInfo>
+        <UserProfileDescription>
+          Web Developer and Digital Marketer
+        </UserProfileDescription>
+      </UserProfileInfoContainer>
+    </UserStyle>
   );
 }
 

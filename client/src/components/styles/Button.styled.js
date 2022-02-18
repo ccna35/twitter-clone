@@ -48,3 +48,20 @@ export const FollowUserBtn = styled.button`
     background-color: ${({ theme }) => theme.colors.FollowBgHoverColor};
   }
 `;
+
+export const EditProfileBtn = styled(FollowUserBtn)`
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 15rem;
+  color: black;
+  align-self: flex-end;
+  font-weight: 600;
+  border: 1px solid ${({ theme }) => theme.colors.borderGreyColor};
+  background-color: ${({ theme }) => theme.colors.EditProfileBgColor};
+  transition: background-color 0.5s;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.hoverLightGrey};
+  }
+`;

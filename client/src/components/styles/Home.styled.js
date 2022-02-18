@@ -16,11 +16,10 @@ export const HomeNavbar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
   position: sticky;
   top: 0;
   background-color: rgba(256, 256, 256, 0.8);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(15px);
 `;
 
 export const HomeNavbarText = styled.p`
