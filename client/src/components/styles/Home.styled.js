@@ -31,6 +31,9 @@ export const HomeNavbarText = styled.p`
 export const HomeUserPhotoContainer = styled.div`
   width: 35px;
   height: 35px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.xs}) {
+    display: none;
+  }
 `;
 
 export const HomeNavbarTextPhotoContainer = styled.div`

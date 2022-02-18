@@ -11,7 +11,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import NewTweet from "./NewTweet";
 import ShowNewTweets from "./ShowNewTweets";
 import Tweet from "./Tweet";
-import { UserPhoto, UserPhotoContainer } from "./styles/NewTweet.styled";
+import { UserPhoto } from "./styles/NewTweet.styled";
 
 function Home() {
   return (

@@ -34,3 +34,17 @@ export const MainTweetBtn = styled.button`
     background-color: ${({ theme }) => theme.colors.hoverBlue};
   }
 `;
+
+export const FollowUserBtn = styled.button`
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 15rem;
+  background-color: ${({ theme }) => theme.colors.FollowBgColor};
+  transition: background-color 0.5s;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.FollowBgHoverColor};
+  }
+`;

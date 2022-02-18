@@ -17,6 +17,8 @@ function App() {
       hoverLightBlue: "rgba(197, 239, 247, 0.5)",
       hoverLightGrey: "#eff3f4",
       bgColor: "#f7f9f9",
+      FollowBgColor: "#0f1419",
+      FollowBgHoverColor: "#4a4a49",
       borderColor: "#eff3f4",
     },
     breakpoints: {

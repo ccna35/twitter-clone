@@ -1,6 +1,7 @@
 import React from "react";
 import Search from "./RightPanelComponents/Search";
 import WhatsHappening from "./RightPanelComponents/WhatsHappening";
+import WhoToFollow from "./RightPanelComponents/WhoToFollow";
 import { RightPanelStyle } from "./styles/RightPanel.styled";
 
 function RightPanel() {
@@ -8,6 +9,7 @@ function RightPanel() {
     <RightPanelStyle>
       <Search />
       <WhatsHappening />
+      <WhoToFollow />
     </RightPanelStyle>
   );
 }
