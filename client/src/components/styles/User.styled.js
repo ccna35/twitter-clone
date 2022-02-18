@@ -106,3 +106,31 @@ export const UserProfileAboutContainer = styled.div`
   gap: 1rem;
   color: ${({ theme }) => theme.colors.secColor};
 `;
+
+export const AboutSingleContainer = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+export const AboutSingleText = styled.p``;
+
+// Following & Followers Info
+export const FollowingFollowersContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: ${({ theme }) => theme.colors.secColor};
+`;
+
+export const FollowContainer = styled.div`
+  display: flex;
+  gap: 0.3rem;
+  color: ${({ theme }) => theme.colors.secColor};
+`;
+
+export const FollowCount = styled.p`
+  color: black;
+  font-weight: 600;
+`;
+
+export const FollowText = styled.p``;

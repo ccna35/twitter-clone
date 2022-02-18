@@ -12,15 +12,18 @@ import NewTweet from "./NewTweet";
 import ShowNewTweets from "./ShowNewTweets";
 import Tweet from "./Tweet";
 import { UserPhoto } from "./styles/NewTweet.styled";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
     <StyledHome>
       <HomeNavbar>
         <HomeNavbarTextPhotoContainer>
-          <HomeUserPhotoContainer>
-            <UserPhoto src="./images/user photo.jpg" />
-          </HomeUserPhotoContainer>
+          <Link to="/user">
+            <HomeUserPhotoContainer>
+              <UserPhoto src="./images/user photo.jpg" />
+            </HomeUserPhotoContainer>
+          </Link>
           <HomeNavbarText>Home</HomeNavbarText>
         </HomeNavbarTextPhotoContainer>
         <FontAwesomeIcon icon={faStar} size="lg"></FontAwesomeIcon>

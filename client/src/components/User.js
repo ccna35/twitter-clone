@@ -13,9 +13,21 @@ import {
   UserPhoto,
   UserProfileInfoContainer,
   UserProfileDescription,
+  UserProfileAboutContainer,
+  AboutSingleContainer,
+  AboutSingleText,
+  FollowingFollowersContainer,
+  FollowContainer,
+  FollowCount,
+  FollowText,
 } from "./styles/User.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faMapMarkerAlt,
+  faCalendarAlt,
+  faBirthdayCake,
+} from "@fortawesome/free-solid-svg-icons";
 import { EditProfileBtn } from "./styles/Button.styled";
 
 function User() {
@@ -50,6 +62,32 @@ function User() {
         <UserProfileDescription>
           Web Developer and Digital Marketer
         </UserProfileDescription>
+
+        <UserProfileAboutContainer>
+          <AboutSingleContainer>
+            <FontAwesomeIcon icon={faMapMarkerAlt}></FontAwesomeIcon>
+            <AboutSingleText>Egypt</AboutSingleText>
+          </AboutSingleContainer>
+          <AboutSingleContainer>
+            <FontAwesomeIcon icon={faBirthdayCake}></FontAwesomeIcon>
+            <AboutSingleText>Born July 7, 1997</AboutSingleText>
+          </AboutSingleContainer>
+          <AboutSingleContainer>
+            <FontAwesomeIcon icon={faCalendarAlt}></FontAwesomeIcon>
+            <AboutSingleText>Joined December 2012</AboutSingleText>
+          </AboutSingleContainer>
+        </UserProfileAboutContainer>
+
+        <FollowingFollowersContainer>
+          <FollowContainer>
+            <FollowCount>459</FollowCount>
+            <FollowText>Following</FollowText>
+          </FollowContainer>
+          <FollowContainer>
+            <FollowCount>93</FollowCount>
+            <FollowText>Followers</FollowText>
+          </FollowContainer>
+        </FollowingFollowersContainer>
       </UserProfileInfoContainer>
     </UserStyle>
   );

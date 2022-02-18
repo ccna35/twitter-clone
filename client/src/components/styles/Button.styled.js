@@ -51,6 +51,7 @@ export const FollowUserBtn = styled.button`
 
 export const EditProfileBtn = styled(FollowUserBtn)`
   padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
   font-size: 1rem;
   border: none;
   outline: none;

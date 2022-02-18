@@ -22,13 +22,17 @@ import {
   faPhotoFilm,
 } from "@fortawesome/free-solid-svg-icons";
 import { MainTweetBtn } from "./styles/Button.styled";
+import { Link } from "react-router-dom";
 
 function NewTweet() {
   return (
     <NewTweetStyle>
-      <UserPhotoContainer>
-        <UserPhoto src="./images/user photo.jpg" />
-      </UserPhotoContainer>
+      <Link to="/user">
+        <UserPhotoContainer>
+          <UserPhoto src="./images/user photo.jpg" />
+        </UserPhotoContainer>
+      </Link>
+
       <TweetForm>
         <TweetInput type="text" placeholder="What’s happening" />
         <WhoCanReplyContainer>
