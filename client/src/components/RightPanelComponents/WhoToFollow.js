@@ -1,6 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import {
   FollowUserContainer,
   FollowUserHandle,
@@ -9,6 +7,7 @@ import {
   WhoToFollowContainer,
   WhoToFollowHeader,
 } from "../styles/RightPanelStyles/WhoToFollow.styled";
+import { TrendingShowMore } from "../styles/RightPanelStyles/WhatsHappening.styled";
 import { UserPhoto, UserPhotoContainer } from "../styles/NewTweet.styled";
 import { FollowUserBtn } from "../styles/Button.styled";
 
@@ -49,6 +48,7 @@ function WhoToFollow() {
         </FollowUserInfo>
         <FollowUserBtn>Follow</FollowUserBtn>
       </FollowUserContainer>
+      <TrendingShowMore>Show more</TrendingShowMore>
     </WhoToFollowContainer>
   );
 }

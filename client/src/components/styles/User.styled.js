@@ -46,7 +46,7 @@ export const UserNavbarIconContainer = styled.div`
   display: grid;
   place-items: center;
   border-radius: 50%;
-  transition: background-color 0.5s, color 0.5s;
+  transition: background-color 0.5s;
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverLightGrey};
   }
@@ -134,3 +134,42 @@ export const FollowCount = styled.p`
 `;
 
 export const FollowText = styled.p``;
+
+// User Tweets & Replies section
+export const TweetsRepliesBarContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+`;
+
+export const TweetsRepliesBarItem = styled.div`
+  flex-grow: 1;
+  padding: 1rem 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.5s;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.hoverLightGrey};
+  }
+`;
+
+export const TweetsRepliesBarText = styled.p`
+  color: ${(props) =>
+    props.active ? "black" : ({ theme }) => theme.colors.secColor};
+  ${(props) => props.active && "font-weight: 600;"}
+  position: relative;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -85%;
+    width: ${(props) => props.active && "100%"};
+    height: 4px;
+    border-radius: 10rem;
+    background-color: ${({ theme }) => theme.colors.mainColor};
+    transition: width 0.5s;
+  }
+`;

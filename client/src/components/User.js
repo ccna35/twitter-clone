@@ -20,6 +20,9 @@ import {
   FollowContainer,
   FollowCount,
   FollowText,
+  TweetsRepliesBarContainer,
+  TweetsRepliesBarItem,
+  TweetsRepliesBarText,
 } from "./styles/User.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -29,14 +32,24 @@ import {
   faBirthdayCake,
 } from "@fortawesome/free-solid-svg-icons";
 import { EditProfileBtn } from "./styles/Button.styled";
+import Tweet from "./Tweet";
+import { Link, useNavigate } from "react-router-dom";
 
 function User() {
+  const navigate = useNavigate();
+
+  let active = false;
+  const handleClick = (e) => {
+    console.log(e);
+  };
+
   return (
     <UserStyle>
       <UserNavBar>
-        <UserNavbarIconContainer>
+        <UserNavbarIconContainer onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
         </UserNavbarIconContainer>
+
         <UserNavbarInfo>
           <UserNavbarFullName>Shawky Khalil</UserNavbarFullName>
           <UserNavbarTweetCount>877 Tweets</UserNavbarTweetCount>
@@ -89,6 +102,29 @@ function User() {
           </FollowContainer>
         </FollowingFollowersContainer>
       </UserProfileInfoContainer>
+
+      <TweetsRepliesBarContainer>
+        <TweetsRepliesBarItem
+          lovely
+          onClick={(e) => console.log(e.target.hasAttributes())}
+        >
+          <TweetsRepliesBarText active>Tweets</TweetsRepliesBarText>
+        </TweetsRepliesBarItem>
+        <TweetsRepliesBarItem>
+          <TweetsRepliesBarText>Tweets & Replies</TweetsRepliesBarText>
+        </TweetsRepliesBarItem>
+        <TweetsRepliesBarItem>
+          <TweetsRepliesBarText>Media</TweetsRepliesBarText>
+        </TweetsRepliesBarItem>
+        <TweetsRepliesBarItem>
+          <TweetsRepliesBarText>Likes</TweetsRepliesBarText>
+        </TweetsRepliesBarItem>
+      </TweetsRepliesBarContainer>
+      <Tweet />
+      <Tweet />
+      <Tweet />
+      <Tweet />
+      <Tweet />
     </UserStyle>
   );
 }

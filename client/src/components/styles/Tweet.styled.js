@@ -72,6 +72,7 @@ export const TweetUpperBarIconContainer = styled.div`
   display: grid;
   place-items: center;
   border-radius: 50%;
+  color: ${({ theme }) => theme.colors.secColor};
   transition: background-color 0.5s, color 0.5s;
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverLightBlue};
