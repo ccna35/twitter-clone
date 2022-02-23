@@ -1,4 +1,5 @@
 import React from "react";
+import RightPanelLinks from "./RightPanelComponents/RightPanelLinks";
 import Search from "./RightPanelComponents/Search";
 import WhatsHappening from "./RightPanelComponents/WhatsHappening";
 import WhoToFollow from "./RightPanelComponents/WhoToFollow";
@@ -10,6 +11,7 @@ function RightPanel() {
       <Search />
       <WhatsHappening />
       <WhoToFollow />
+      <RightPanelLinks />
     </RightPanelStyle>
   );
 }

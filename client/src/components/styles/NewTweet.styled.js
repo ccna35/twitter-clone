@@ -12,8 +12,8 @@ export const NewTweetStyle = styled.div`
 `;
 
 export const UserPhotoContainer = styled.div`
-  width: 50px;
-  height: 50px;
+  width: ${(props) => (props.size === "small" ? "40px" : "50px")};
+  height: ${(props) => (props.size === "small" ? "40px" : "50px")};
 `;
 
 export const UserPhoto = styled.img`

@@ -55,7 +55,6 @@ export const UserNavbarIconContainer = styled.div`
 // Cover and User Photo
 export const UserPhotoCoverContainer = styled.div`
   width: 100%;
-  background-color: lightsalmon;
   position: relative;
 `;
 
@@ -63,7 +62,9 @@ export const UserPhotoCoverContainer = styled.div`
 export const UserCoverContainer = styled.div`
   width: 100%;
   height: 13rem;
-  background-color: lightcoral;
+  @media (max-width: ${({ theme }) => theme.breakpoints.xs}) {
+    height: 10rem;
+  }
 `;
 
 export const UserCover = styled.img`
@@ -79,6 +80,12 @@ export const UserPhotoContainer = styled.div`
   left: 28px;
   width: 130px;
   height: 130px;
+  @media (max-width: ${({ theme }) => theme.breakpoints.xs}) {
+    width: 110px;
+    height: 110px;
+    bottom: -55px;
+    left: 20px;
+  }
 `;
 
 export const UserPhoto = styled.img`
@@ -88,6 +95,9 @@ export const UserPhoto = styled.img`
   object-position: right top;
   border-radius: 50%;
   border: 4px solid white;
+  @media (max-width: ${({ theme }) => theme.breakpoints.xs}) {
+    border-width: 2px;
+  }
 `;
 
 // User Info example: name, birth date... etc

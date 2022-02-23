@@ -7,6 +7,7 @@ import LeftPanel from "./components/LeftPanel";
 import RightPanel from "./components/RightPanel";
 import { MainStyle } from "./components/styles/MainStyle.styled";
 import User from "./components/User";
+import MobileBar from "./components/MobileBar";
 
 function App() {
   const theme = {
@@ -45,6 +46,7 @@ function App() {
         </Router>
         {window.location.pathname !== "/" && <RightPanel />}
       </MainStyle>
+      <MobileBar />
     </ThemeProvider>
   );
 }

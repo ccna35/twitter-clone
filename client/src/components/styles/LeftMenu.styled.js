@@ -15,11 +15,11 @@ export const MenuItem = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     place-items: center;
-    /* border: 1px solid; */
     width: 3rem;
     height: 3rem;
     padding: 0;
     grid-template-columns: 1fr;
+    ${(props) => props.hide && "display: none;"}
   }
 `;
 
