@@ -35,6 +35,9 @@ export const TweetInfoContainer = styled.div`
 export const UserName = styled.p`
   font-weight: 700;
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
 `;
 
 export const UserHandle = styled.p`
@@ -92,7 +95,6 @@ export const TweetLowerBar = styled.div`
 
 export const TweetIconCountContainer = styled.div`
   display: flex;
-  gap: 0.5rem;
   align-items: center;
   transition: color 0.5s;
   &:hover {

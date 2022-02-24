@@ -20,11 +20,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsis,
   faCheckCircle,
-  faComment,
   faRetweet,
-  faHeart,
   faShare,
 } from "@fortawesome/free-solid-svg-icons";
+import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
+import { FaRegComment } from "react-icons/fa";
+import { MdVerified } from "react-icons/md";
+import { FiShare } from "react-icons/fi";
 
 function Tweet() {
   return (
@@ -36,11 +38,7 @@ function Tweet() {
         <TweetUpperBar>
           <TweetInfoContainer>
             <UserName>
-              ZDNet{" "}
-              <FontAwesomeIcon
-                icon={faCheckCircle}
-                color="#1d9bf0"
-              ></FontAwesomeIcon>
+              ZDNet <MdVerified color="#1d9bf0" />
             </UserName>
             <UserHandle>@ZDNet</UserHandle>
             <TimeSincePosted>4h</TimeSincePosted>
@@ -58,27 +56,27 @@ function Tweet() {
         <TweetLowerBar>
           <TweetIconCountContainer>
             <TweetLowerBarIconContainer>
-              <FontAwesomeIcon icon={faComment}></FontAwesomeIcon>
+              <FaRegComment />
             </TweetLowerBarIconContainer>
             <TweetCount>15</TweetCount>
           </TweetIconCountContainer>
 
           <TweetIconCountContainer TextColor="green">
             <TweetLowerBarIconContainer IconColor="green">
-              <FontAwesomeIcon icon={faRetweet}></FontAwesomeIcon>
+              <AiOutlineRetweet />
             </TweetLowerBarIconContainer>
             <TweetCount>35</TweetCount>
           </TweetIconCountContainer>
 
           <TweetIconCountContainer TextColor="red">
             <TweetLowerBarIconContainer IconColor="red">
-              <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>
+              <AiOutlineHeart />
             </TweetLowerBarIconContainer>
             <TweetCount>345</TweetCount>
           </TweetIconCountContainer>
 
           <TweetLowerBarIconContainer>
-            <FontAwesomeIcon icon={faShare}></FontAwesomeIcon>
+            <FiShare />
           </TweetLowerBarIconContainer>
         </TweetLowerBar>
       </TweetBody>

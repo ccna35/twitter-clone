@@ -25,6 +25,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { UserPhoto, UserPhotoContainer } from "./styles/NewTweet.styled";
+import { BiHomeCircle } from "react-icons/bi";
+import { BsBell } from "react-icons/bs";
+import { HiOutlineMail, HiOutlineUser } from "react-icons/hi";
+import { FiHash } from "react-icons/fi";
+import { BiBookmark } from "react-icons/bi";
+import { CgList, CgMoreO } from "react-icons/cg";
 
 function LeftPanel() {
   return (
@@ -36,38 +42,51 @@ function LeftPanel() {
           </LogoContainer>
           <Link to="/home">
             <MenuItem>
-              <FontAwesomeIcon icon={faHouseUser} size="lg"></FontAwesomeIcon>
+              {/* <FontAwesomeIcon icon={faHouseUser} size="lg"></FontAwesomeIcon> */}
+              <BiHomeCircle size="1.75rem" color="#0f1419" />
               <MenuItemText>Home</MenuItemText>
             </MenuItem>
           </Link>
           <MenuItem>
-            <FontAwesomeIcon icon={faHashtag} size="lg"></FontAwesomeIcon>
+            {/* <FontAwesomeIcon icon={faHashtag} size="lg"></FontAwesomeIcon> */}
+            <FiHash size="1.75rem" color="#0f1419" />
+
             <MenuItemText>Explore</MenuItemText>
           </MenuItem>
           <MenuItem>
-            <FontAwesomeIcon icon={faBell} size="lg"></FontAwesomeIcon>
+            {/* <FontAwesomeIcon icon={faBell} size="lg"></FontAwesomeIcon> */}
+            <BsBell size="1.75rem" color="#0f1419" />
             <MenuItemText>Notifications</MenuItemText>
           </MenuItem>
           <MenuItem>
-            <FontAwesomeIcon icon={faMessage} size="lg"></FontAwesomeIcon>
+            {/* <FontAwesomeIcon icon={faMessage} size="lg"></FontAwesomeIcon> */}
+            <HiOutlineMail size="1.75rem" color="#0f1419" />
             <MenuItemText>Messages</MenuItemText>
           </MenuItem>
           <MenuItem hide>
-            <FontAwesomeIcon icon={faBookmark} size="lg"></FontAwesomeIcon>
+            {/* <FontAwesomeIcon icon={faBookmark} size="lg"></FontAwesomeIcon> */}
+            <BiBookmark size="1.75rem" color="#0f1419" />
+
             <MenuItemText>Bookmarks</MenuItemText>
           </MenuItem>
           <MenuItem hide>
-            <FontAwesomeIcon icon={faListCheck} size="lg"></FontAwesomeIcon>
+            {/* <FontAwesomeIcon icon={faListCheck} size="lg"></FontAwesomeIcon> */}
+            <CgList size="1.75rem" color="#0f1419" />
+
             <MenuItemText>Lists</MenuItemText>
           </MenuItem>
           <Link to="/user">
             <MenuItem>
-              <FontAwesomeIcon icon={faUser} size="lg"></FontAwesomeIcon>
+              {/* <FontAwesomeIcon icon={faUser} size="lg"></FontAwesomeIcon> */}
+              <HiOutlineUser size="1.75rem" color="#0f1419" />
+
               <MenuItemText>Profile</MenuItemText>
             </MenuItem>
           </Link>
           <MenuItem>
-            <FontAwesomeIcon icon={faEllipsis} size="lg"></FontAwesomeIcon>
+            {/* <FontAwesomeIcon icon={faEllipsis} size="lg"></FontAwesomeIcon> */}
+            <CgMoreO size="1.75rem" color="#0f1419" />
+
             <MenuItemText>More</MenuItemText>
           </MenuItem>
           <TweetBtn tweetbtn>

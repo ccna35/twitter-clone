@@ -18,7 +18,7 @@ export const LeftPanelContainer = styled.div`
   top: 0;
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 5rem;
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     align-items: center;
   }
