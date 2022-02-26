@@ -42,50 +42,42 @@ function LeftPanel() {
           </LogoContainer>
           <Link to="/home">
             <MenuItem>
-              {/* <FontAwesomeIcon icon={faHouseUser} size="lg"></FontAwesomeIcon> */}
-              <BiHomeCircle size="1.75rem" color="#0f1419" />
+              <BiHomeCircle size="1.75rem" />
               <MenuItemText>Home</MenuItemText>
             </MenuItem>
           </Link>
           <MenuItem>
-            {/* <FontAwesomeIcon icon={faHashtag} size="lg"></FontAwesomeIcon> */}
-            <FiHash size="1.75rem" color="#0f1419" />
+            <FiHash size="1.75rem" />
 
             <MenuItemText>Explore</MenuItemText>
           </MenuItem>
           <MenuItem>
-            {/* <FontAwesomeIcon icon={faBell} size="lg"></FontAwesomeIcon> */}
-            <BsBell size="1.75rem" color="#0f1419" />
+            <BsBell size="1.75rem" />
             <MenuItemText>Notifications</MenuItemText>
           </MenuItem>
           <MenuItem>
-            {/* <FontAwesomeIcon icon={faMessage} size="lg"></FontAwesomeIcon> */}
-            <HiOutlineMail size="1.75rem" color="#0f1419" />
+            <HiOutlineMail size="1.75rem" />
             <MenuItemText>Messages</MenuItemText>
           </MenuItem>
           <MenuItem hide>
-            {/* <FontAwesomeIcon icon={faBookmark} size="lg"></FontAwesomeIcon> */}
-            <BiBookmark size="1.75rem" color="#0f1419" />
+            <BiBookmark size="1.75rem" />
 
             <MenuItemText>Bookmarks</MenuItemText>
           </MenuItem>
           <MenuItem hide>
-            {/* <FontAwesomeIcon icon={faListCheck} size="lg"></FontAwesomeIcon> */}
-            <CgList size="1.75rem" color="#0f1419" />
+            <CgList size="1.75rem" />
 
             <MenuItemText>Lists</MenuItemText>
           </MenuItem>
           <Link to="/user">
             <MenuItem>
-              {/* <FontAwesomeIcon icon={faUser} size="lg"></FontAwesomeIcon> */}
-              <HiOutlineUser size="1.75rem" color="#0f1419" />
+              <HiOutlineUser size="1.75rem" />
 
               <MenuItemText>Profile</MenuItemText>
             </MenuItem>
           </Link>
           <MenuItem>
-            {/* <FontAwesomeIcon icon={faEllipsis} size="lg"></FontAwesomeIcon> */}
-            <CgMoreO size="1.75rem" color="#0f1419" />
+            <CgMoreO size="1.75rem" />
 
             <MenuItemText>More</MenuItemText>
           </MenuItem>

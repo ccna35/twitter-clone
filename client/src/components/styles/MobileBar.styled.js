@@ -15,7 +15,7 @@ export const MobileBarContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid ${({ theme }) => theme.colors.borderColor};
+  border-top: 1px solid ${({ theme }) => theme.colors.borderColor};
 `;
 
 export const MobileTweetBtn = styled.div`

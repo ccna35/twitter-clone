@@ -18,7 +18,7 @@ export const HomeNavbar = styled.div`
   align-items: center;
   position: sticky;
   top: 0;
-  background-color: rgba(256, 256, 256, 0.8);
+  background-color: ${({ theme }) => theme.colors.NavbarBgColor};
   backdrop-filter: blur(15px);
 `;
 

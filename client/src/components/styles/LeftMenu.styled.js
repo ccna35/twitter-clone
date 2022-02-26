@@ -1,16 +1,17 @@
 import styled from "styled-components";
 
 export const MenuItem = styled.div`
+  color: ${({ theme }) => theme.colors.textColor};
   width: fit-content;
   border-radius: 10rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   align-items: center;
   ${(props) => props.tweetbtn && "justify-content: center;"}
   ${(props) => (props.tweetbtn ? "display: flex;" : "display: grid;")}
   ${(props) => props.tweetbtn || "grid-template-columns: 2rem 1fr;"}
   transition: background-color 0.5s;
   &:hover {
-    background-color: rgba(236, 240, 241, 1);
+    background-color: ${({ theme }) => theme.colors.LeftMenuBgHoverColor};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
@@ -26,6 +27,7 @@ export const MenuItem = styled.div`
 export const MenuItemText = styled.p`
   font-size: 1.5rem;
   font-weight: 300;
+  margin-left: 1rem;
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }

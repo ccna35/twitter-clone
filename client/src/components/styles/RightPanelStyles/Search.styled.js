@@ -5,7 +5,7 @@ export const SearchElement = styled.div`
   padding: 0.3rem 0;
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.BgColor};
 `;
 
 export const SearchContainer = styled.form`

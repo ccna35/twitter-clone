@@ -5,7 +5,7 @@ export const NewTweetStyle = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  border-bottom: 1px solid #eff3f4;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderColor};
   @media (max-width: ${({ theme }) => theme.breakpoints.xs}) {
     display: none;
   }
@@ -30,6 +30,7 @@ export const TweetForm = styled.form`
 `;
 
 export const TweetInput = styled.input`
+  background-color: ${({ theme }) => theme.colors.InputBgColor};
   width: 100%;
   border: none;
   outline: none;

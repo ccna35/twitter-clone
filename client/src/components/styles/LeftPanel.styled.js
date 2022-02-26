@@ -46,7 +46,7 @@ export const LogoMenuContainer = styled.div`
 `;
 
 export const LeftPanelUserContainer = styled.div`
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 10rem;
   display: grid;
   grid-template-columns: 3rem 7rem 1rem;

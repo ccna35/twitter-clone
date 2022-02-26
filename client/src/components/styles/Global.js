@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
   
   body {
     font-family: 'Source Sans Pro', sans-serif;
+    background-color: ${({ theme }) => theme.colors.BgColor};
   }
 
   a {
