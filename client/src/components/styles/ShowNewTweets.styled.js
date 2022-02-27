@@ -6,6 +6,6 @@ export const ShowNewTweetsContainer = styled.div`
   text-align: center;
   transition: background-color 0.5s;
   &:hover {
-    background-color: ${({ theme }) => theme.colors.borderColor};
+    background-color: ${({ theme }) => theme.colors.hoverTweetBg};
   }
 `;

@@ -19,6 +19,7 @@ export const HomeNavbar = styled.div`
   position: sticky;
   top: 0;
   background-color: ${({ theme }) => theme.colors.NavbarBgColor};
+  color: ${({ theme }) => theme.colors.textColor};
   backdrop-filter: blur(15px);
 `;
 

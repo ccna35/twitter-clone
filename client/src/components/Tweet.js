@@ -17,12 +17,7 @@ import {
   UserName,
 } from "./styles/Tweet.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEllipsis,
-  faCheckCircle,
-  faRetweet,
-  faShare,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";

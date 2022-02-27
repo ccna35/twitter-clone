@@ -11,25 +11,31 @@ import MobileBar from "./components/MobileBar";
 import { useState } from "react";
 
 function App() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
 
   const theme = {
     colors: {
       mainColor: "#1d9bf0",
       BgColor: dark ? "#000" : "white",
+      RightPanelBgColor: dark ? "#15181c" : "#f7f9f9",
       secColor: "#536471",
       hoverBlue: "#138bdb",
-      hoverLightBlue: "rgba(197, 239, 247, 0.5)",
-      hoverLightGrey: "#eff3f4",
+      hoverLightBlue: "#1fc0df24",
+      hoverLightGrey: dark ? "#1c1f23" : "#eff3f4",
+      hoverTweetBg: dark ? "#080808" : "#eff3f4",
       bgColor: "#f7f9f9",
-      FollowBgColor: "#0f1419",
-      EditProfileBgColor: "white",
-      FollowBgHoverColor: "#4a4a49",
+      FollowTextColor: dark ? "black" : "white",
+      FollowBgColor: dark ? "white" : "#0f1419",
+      FollowBgHoverColor: dark ? "lightgrey" : "#4a4a49",
+      EditProfileBgColor: dark ? "black" : "white",
+      EditProfileTextColor: dark ? "white" : "black",
       borderColor: dark ? "#2f3336" : "#eff3f4",
       borderGreyColor: "#d2dbe0",
       LeftMenuBgHoverColor: dark ? "#131414" : "rgba(236, 240, 241, 1)",
       textColor: dark ? "#d9d9d9" : "#0f1419",
       InputBgColor: dark ? "#000" : "white",
+      InputCursorColor: dark ? "#d9d9d9" : "#0f1419",
+      userPhotoBorder: dark ? "black" : "white",
       NavbarBgColor: "#00000000",
     },
     breakpoints: {

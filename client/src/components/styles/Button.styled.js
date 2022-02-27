@@ -43,6 +43,7 @@ export const FollowUserBtn = styled.button`
   outline: none;
   border-radius: 15rem;
   background-color: ${({ theme }) => theme.colors.FollowBgColor};
+  color: ${({ theme }) => theme.colors.FollowTextColor};
   transition: background-color 0.5s;
   &:hover {
     background-color: ${({ theme }) => theme.colors.FollowBgHoverColor};
@@ -59,8 +60,9 @@ export const EditProfileBtn = styled(FollowUserBtn)`
   color: black;
   align-self: flex-end;
   font-weight: 600;
-  border: 1px solid ${({ theme }) => theme.colors.borderGreyColor};
+  border: 1px solid ${({ theme }) => theme.colors.secColor};
   background-color: ${({ theme }) => theme.colors.EditProfileBgColor};
+  color: ${({ theme }) => theme.colors.EditProfileTextColor};
   transition: background-color 0.5s;
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverLightGrey};

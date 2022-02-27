@@ -8,7 +8,7 @@ export const TweetContainer = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.borderColor};
   transition: background-color 0.5s;
   &:hover {
-    background-color: ${({ theme }) => theme.colors.borderColor};
+    background-color: ${({ theme }) => theme.colors.hoverTweetBg};
   }
 `;
 
@@ -38,6 +38,7 @@ export const UserName = styled.p`
   display: flex;
   align-items: center;
   gap: 0.2rem;
+  color: ${({ theme }) => theme.colors.textColor};
 `;
 
 export const UserHandle = styled.p`
@@ -59,7 +60,9 @@ export const TimeSincePosted = styled.p`
   color: ${({ theme }) => theme.colors.secColor};
 `;
 
-export const TweetText = styled.p``;
+export const TweetText = styled.p`
+  color: ${({ theme }) => theme.colors.textColor};
+`;
 
 export const TweetImage = styled.img`
   width: 100%;
@@ -96,6 +99,7 @@ export const TweetLowerBar = styled.div`
 export const TweetIconCountContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: 0.25rem;
   transition: color 0.5s;
   &:hover {
     color: ${(props) =>
@@ -113,15 +117,15 @@ export const TweetLowerBarIconContainer = styled(TweetUpperBarIconContainer)`
   &:hover {
     background-color: ${(props) =>
       props.IconColor === "green"
-        ? "#b7f4d8"
+        ? "#0abd411f"
         : props.IconColor === "red"
-        ? "#ffe4e4"
+        ? "#eb0c4036"
         : ({ theme }) => theme.colors.hoverLightBlue};
     color: ${(props) =>
       props.IconColor === "green"
-        ? "#2ecc71"
+        ? "#07e938"
         : props.IconColor === "red"
-        ? "#f64747"
+        ? "#eb0770"
         : ({ theme }) => theme.colors.mainColor};
   }
 `;

@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 export const WhoToFollowContainer = styled.div`
   border-radius: 1.5rem;
-  background-color: ${({ theme }) => theme.colors.bgColor};
+  background-color: ${({ theme }) => theme.colors.RightPanelBgColor};
   overflow: hidden;
 `;
 
 export const WhoToFollowHeader = styled.h2`
   padding: 1rem;
+  color: ${({ theme }) => theme.colors.textColor};
 `;
 
 export const FollowUserContainer = styled.div`
@@ -31,6 +32,7 @@ export const FollowUserInfo = styled.div`
 
 export const FollowUserName = styled.p`
   font-weight: 700;
+  color: ${({ theme }) => theme.colors.textColor};
 `;
 
 export const FollowUserHandle = styled.p`

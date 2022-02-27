@@ -6,13 +6,12 @@ import {
   HomeUserPhotoContainer,
   StyledHome,
 } from "./styles/Home.styled";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import NewTweet from "./NewTweet";
 import ShowNewTweets from "./ShowNewTweets";
 import Tweet from "./Tweet";
 import { UserPhoto } from "./styles/NewTweet.styled";
 import { Link } from "react-router-dom";
+import { BsStars } from "react-icons/bs";
 
 function Home() {
   return (
@@ -26,7 +25,7 @@ function Home() {
           </Link>
           <HomeNavbarText>Home</HomeNavbarText>
         </HomeNavbarTextPhotoContainer>
-        <FontAwesomeIcon icon={faStar} size="lg"></FontAwesomeIcon>
+        <BsStars />
       </HomeNavbar>
       <NewTweet />
       <ShowNewTweets />

@@ -20,7 +20,7 @@ export const UserNavBar = styled.div`
   align-items: center;
   position: sticky;
   top: 0;
-  background-color: rgba(256, 256, 256, 0.8);
+  background-color: ${({ theme }) => theme.colors.NavbarBgColor};
   backdrop-filter: blur(15px);
 `;
 
@@ -32,6 +32,7 @@ export const UserNavbarInfo = styled.div`
 export const UserNavbarFullName = styled.h2`
   font-size: 1.2rem;
   font-weight: 600;
+  color: ${({ theme }) => theme.colors.textColor};
 `;
 
 export const UserNavbarTweetCount = styled.p`
@@ -46,6 +47,7 @@ export const UserNavbarIconContainer = styled.div`
   display: grid;
   place-items: center;
   border-radius: 50%;
+  color: ${({ theme }) => theme.colors.textColor};
   transition: background-color 0.5s;
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverLightGrey};
@@ -94,7 +96,7 @@ export const UserPhoto = styled.img`
   object-fit: cover;
   object-position: right top;
   border-radius: 50%;
-  border: 4px solid white;
+  border: 4px solid ${({ theme }) => theme.colors.userPhotoBorder};
   @media (max-width: ${({ theme }) => theme.breakpoints.xs}) {
     border-width: 2px;
   }
@@ -108,7 +110,9 @@ export const UserProfileInfoContainer = styled.div`
   gap: 1rem;
 `;
 
-export const UserProfileDescription = styled.p``;
+export const UserProfileDescription = styled.p`
+  color: ${({ theme }) => theme.colors.textColor};
+`;
 
 export const UserProfileAboutContainer = styled.div`
   display: flex;
@@ -141,6 +145,7 @@ export const FollowContainer = styled.div`
 export const FollowCount = styled.p`
   color: black;
   font-weight: 600;
+  color: ${({ theme }) => theme.colors.textColor};
 `;
 
 export const FollowText = styled.p``;

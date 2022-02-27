@@ -5,6 +5,7 @@ import {
   LeftPanelStyle,
   LeftPanelUserContainer,
   LeftPanelUserHandle,
+  LeftPanelUserIconContainer,
   LeftPanelUserInfo,
   LeftPanelUserName,
   Logo,
@@ -91,10 +92,12 @@ function LeftPanel() {
             <UserPhoto src="./images/user photo.jpg" />
           </UserPhotoContainer>
           <LeftPanelUserInfo>
-            <LeftPanelUserName>Antoine Vallas</LeftPanelUserName>
-            <LeftPanelUserHandle>@aavvallas</LeftPanelUserHandle>
+            <LeftPanelUserName>Shawky Khalil</LeftPanelUserName>
+            <LeftPanelUserHandle>@shawky_khalil</LeftPanelUserHandle>
           </LeftPanelUserInfo>
-          <FontAwesomeIcon icon={faEllipsis}></FontAwesomeIcon>
+          <LeftPanelUserIconContainer>
+            <FontAwesomeIcon icon={faEllipsis}></FontAwesomeIcon>
+          </LeftPanelUserIconContainer>
         </LeftPanelUserContainer>
       </LeftPanelContainer>
     </LeftPanelStyle>

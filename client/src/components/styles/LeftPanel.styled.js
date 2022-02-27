@@ -73,6 +73,7 @@ export const LeftPanelUserInfo = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  color: ${({ theme }) => theme.colors.textColor};
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }
@@ -85,3 +86,8 @@ export const LeftPanelUserName = styled.p`
 export const LeftPanelUserHandle = styled.p`
   color: ${({ theme }) => theme.colors.secColor};
 `;
+
+export const LeftPanelUserIconContainer = styled.div`
+  color: ${({ theme }) => theme.colors.secColor};
+`;
+

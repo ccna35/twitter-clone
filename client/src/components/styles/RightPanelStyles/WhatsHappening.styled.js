@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 export const WhatsHappeningContainer = styled.div`
   border-radius: 1.5rem;
-  background-color: ${({ theme }) => theme.colors.bgColor};
+  background-color: ${({ theme }) => theme.colors.RightPanelBgColor};
   overflow: hidden;
 `;
 
 export const WhatsHappeningHeader = styled.h2`
   padding: 1rem;
+  color: ${({ theme }) => theme.colors.textColor};
 `;
 
 export const TrendingNewsContainer = styled.div`
@@ -45,6 +46,7 @@ export const TrendingBarIconContainer = styled.div`
   display: grid;
   place-items: center;
   border-radius: 50%;
+  color: ${({ theme }) => theme.colors.secColor};
   transition: background-color 0.5s, color 0.5s;
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverLightBlue};
@@ -63,6 +65,7 @@ export const TrendingTweetCounts = styled(TrendingTitle)``;
 
 export const TrendingDescription = styled.p`
   font-weight: 600;
+  color: ${({ theme }) => theme.colors.textColor};
 `;
 
 export const TrendingImageContainer = styled.div`
