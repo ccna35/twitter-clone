@@ -12,7 +12,7 @@ import {
   WhoCanReplyText,
 } from "./styles/NewTweet.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEarth, faImage } from "@fortawesome/free-solid-svg-icons";
+import { faEarth } from "@fortawesome/free-solid-svg-icons";
 import { MainTweetBtn } from "./styles/Button.styled";
 import { Link } from "react-router-dom";
 import { AiOutlineFileGif, AiOutlineCalendar } from "react-icons/ai";
