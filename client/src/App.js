@@ -11,7 +11,7 @@ import MobileBar from "./components/MobileBar";
 import { useState } from "react";
 
 function App() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
 
   const theme = {
     colors: {
@@ -36,6 +36,8 @@ function App() {
       InputBgColor: dark ? "#000" : "white",
       InputCursorColor: dark ? "#d9d9d9" : "#0f1419",
       userPhotoBorder: dark ? "black" : "white",
+      MobileBarIcons: dark ? "#d9d9d9" : "#0f1419",
+      VerifiedBadge: dark ? "#d9d9d9" : "#1d9bf0",
       NavbarBgColor: "#00000000",
     },
     breakpoints: {

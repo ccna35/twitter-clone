@@ -18,10 +18,10 @@ function MobileBar() {
         <FontAwesomeIcon icon={faFeather} size="lg"></FontAwesomeIcon>
       </MobileTweetBtn>
       <MobileBarContainer>
-        <BiHomeCircle size="1.75rem" color="#0f1419" />
-        <RiSearchLine size="1.75rem" color="#0f1419" />
-        <BsBell size="1.75rem" color="#0f1419" />
-        <HiOutlineMail size="1.75rem" color="#0f1419" />
+        <BiHomeCircle size="1.75rem" />
+        <RiSearchLine size="1.75rem" />
+        <BsBell size="1.75rem" />
+        <HiOutlineMail size="1.75rem" />
       </MobileBarContainer>
     </MobileBarStyle>
   );

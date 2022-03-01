@@ -172,7 +172,9 @@ export const TweetsRepliesBarItem = styled.div`
 
 export const TweetsRepliesBarText = styled.p`
   color: ${(props) =>
-    props.active ? "black" : ({ theme }) => theme.colors.secColor};
+    props.active
+      ? ({ theme }) => theme.colors.EditProfileTextColor
+      : ({ theme }) => theme.colors.secColor};
   ${(props) => props.active && "font-weight: 600;"}
   position: relative;
   &::before {

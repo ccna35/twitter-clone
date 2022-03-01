@@ -12,17 +12,14 @@ import {
   WhoCanReplyText,
 } from "./styles/NewTweet.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEarth,
-  faImage,
-  faPoll,
-  faSmile,
-  faCalendar,
-  faLocationDot,
-  faPhotoFilm,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEarth, faImage } from "@fortawesome/free-solid-svg-icons";
 import { MainTweetBtn } from "./styles/Button.styled";
 import { Link } from "react-router-dom";
+import { AiOutlineFileGif, AiOutlineCalendar } from "react-icons/ai";
+import { FaRegSmile } from "react-icons/fa";
+import { CgPin } from "react-icons/cg";
+import { BiPoll } from "react-icons/bi";
+import { HiOutlinePhotograph } from "react-icons/hi";
 
 function NewTweet() {
   return (
@@ -42,22 +39,22 @@ function NewTweet() {
         <TweetOptionsContainer>
           <TweetIconsContainer>
             <TweetIconContainer>
-              <FontAwesomeIcon icon={faImage} size="lg"></FontAwesomeIcon>
+              <HiOutlinePhotograph size="1.25rem" />
             </TweetIconContainer>
             <TweetIconContainer>
-              <FontAwesomeIcon icon={faPhotoFilm} size="lg"></FontAwesomeIcon>
+              <AiOutlineFileGif size="1.25rem" />
             </TweetIconContainer>
             <TweetIconContainer>
-              <FontAwesomeIcon icon={faPoll} size="lg"></FontAwesomeIcon>
+              <BiPoll />
             </TweetIconContainer>
             <TweetIconContainer>
-              <FontAwesomeIcon icon={faSmile} size="lg"></FontAwesomeIcon>
+              <FaRegSmile size="1.25rem" />
             </TweetIconContainer>
             <TweetIconContainer>
-              <FontAwesomeIcon icon={faCalendar} size="lg"></FontAwesomeIcon>
+              <AiOutlineCalendar size="1.25rem" />
             </TweetIconContainer>
             <TweetIconContainer>
-              <FontAwesomeIcon icon={faLocationDot} size="lg"></FontAwesomeIcon>
+              <CgPin />
             </TweetIconContainer>
           </TweetIconsContainer>
           <MainTweetBtn>Tweet</MainTweetBtn>

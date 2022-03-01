@@ -16,6 +16,8 @@ export const MobileBarContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   border-top: 1px solid ${({ theme }) => theme.colors.borderColor};
+  background-color: ${({ theme }) => theme.colors.BgColor};
+  color: ${({ theme }) => theme.colors.MobileBarIcons};
 `;
 
 export const MobileTweetBtn = styled.div`

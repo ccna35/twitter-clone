@@ -32,7 +32,7 @@ export const TweetInfoContainer = styled.div`
   align-items: center;
 `;
 
-export const UserName = styled.p`
+export const UserName = styled.div`
   font-weight: 700;
   font-size: 1rem;
   display: flex;
@@ -111,7 +111,14 @@ export const TweetIconCountContainer = styled.div`
   }
 `;
 
+export const UserVerifiedIconContainer = styled.div`
+  color: ${({ theme }) => theme.colors.VerifiedBadge};
+  display: flex;
+`;
+
 export const TweetCount = styled.p``;
+
+export const TweetAuthor = styled.p``;
 
 export const TweetLowerBarIconContainer = styled(TweetUpperBarIconContainer)`
   &:hover {

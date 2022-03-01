@@ -2,6 +2,7 @@ import React from "react";
 import { UserPhoto, UserPhotoContainer } from "./styles/NewTweet.styled";
 import {
   TimeSincePosted,
+  TweetAuthor,
   TweetBody,
   TweetContainer,
   TweetCount,
@@ -15,6 +16,7 @@ import {
   TweetUpperBarIconContainer,
   UserHandle,
   UserName,
+  UserVerifiedIconContainer,
 } from "./styles/Tweet.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
@@ -33,7 +35,10 @@ function Tweet() {
         <TweetUpperBar>
           <TweetInfoContainer>
             <UserName>
-              ZDNet <MdVerified color="#1d9bf0" />
+              <TweetAuthor>ZDNet</TweetAuthor>
+              <UserVerifiedIconContainer>
+                <MdVerified />
+              </UserVerifiedIconContainer>
             </UserName>
             <UserHandle>@ZDNet</UserHandle>
             <TimeSincePosted>4h</TimeSincePosted>
