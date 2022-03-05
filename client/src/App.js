@@ -9,9 +9,17 @@ import { MainStyle } from "./components/styles/MainStyle.styled";
 import User from "./components/User";
 import MobileBar from "./components/MobileBar";
 import { useState } from "react";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import allReducers from "./reducers";
 
 function App() {
   const [dark, setDark] = useState(true);
+
+  const store = createStore(
+    allReducers,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
 
   const theme = {
     colors: {
@@ -50,19 +58,21 @@ function App() {
   };
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <MainStyle>
-        <Router>
-          {window.location.pathname !== "/" && <LeftPanel />}
-          <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/user" element={<User />} />
-          </Routes>
-        </Router>
-        {window.location.pathname !== "/" && <RightPanel />}
-      </MainStyle>
-      {window.location.pathname !== "/" && <MobileBar />}
+      <Provider store={store}>
+        <GlobalStyles />
+        <MainStyle>
+          <Router>
+            {window.location.pathname !== "/" && <LeftPanel />}
+            <Routes>
+              <Route path="/" element={<LoginPage />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/user" element={<User />} />
+            </Routes>
+          </Router>
+          {window.location.pathname !== "/" && <RightPanel />}
+        </MainStyle>
+        {window.location.pathname !== "/" && <MobileBar />}
+      </Provider>
     </ThemeProvider>
   );
 }

@@ -39,6 +39,7 @@ export const TweetInput = styled.input`
   font-family: inherit;
   font-weight: 300;
   caret-color: ${({ theme }) => theme.colors.InputCursorColor};
+  color: ${({ theme }) => theme.colors.textColor};
   &::placeholder {
     font-size: 1.5rem;
   }

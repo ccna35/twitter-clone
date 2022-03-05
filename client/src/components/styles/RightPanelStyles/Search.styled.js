@@ -25,4 +25,6 @@ export const SearchInput = styled.input`
   outline: none;
   flex-grow: 1;
   background: transparent;
+  caret-color: ${({ theme }) => theme.colors.InputCursorColor};
+  color: ${({ theme }) => theme.colors.textColor};
 `;

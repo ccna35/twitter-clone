@@ -20,12 +20,17 @@ import {
 } from "./styles/Tweet.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart, AiOutlineRetweet } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { FiShare } from "react-icons/fi";
+import { useSelector, useDispatch } from "react-redux";
+import { like } from "../actions";
 
 function Tweet() {
+  const counter = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
+
   return (
     <TweetContainer>
       <UserPhotoContainer>
@@ -61,18 +66,23 @@ function Tweet() {
             <TweetCount>15</TweetCount>
           </TweetIconCountContainer>
 
-          <TweetIconCountContainer TextColor="green">
-            <TweetLowerBarIconContainer IconColor="green">
+          <TweetIconCountContainer IconColor="green">
+            <TweetLowerBarIconContainer>
               <AiOutlineRetweet />
             </TweetLowerBarIconContainer>
             <TweetCount>35</TweetCount>
           </TweetIconCountContainer>
 
-          <TweetIconCountContainer TextColor="red">
-            <TweetLowerBarIconContainer IconColor="red">
-              <AiOutlineHeart />
+          <TweetIconCountContainer
+            IconColor="red"
+            onClick={() => dispatch(like())}
+          >
+            <TweetLowerBarIconContainer>
+              {counter ? <AiFillHeart color="#eb0770" /> : <AiOutlineHeart />}
             </TweetLowerBarIconContainer>
-            <TweetCount>345</TweetCount>
+            <TweetCount active={counter && "yes"}>
+              {counter ? "5" : "4"}
+            </TweetCount>
           </TweetIconCountContainer>
 
           <TweetLowerBarIconContainer>

@@ -102,12 +102,29 @@ export const TweetIconCountContainer = styled.div`
   gap: 0.25rem;
   transition: color 0.5s;
   &:hover {
-    color: ${(props) =>
-      props.TextColor === "green"
-        ? "#2ecc71"
-        : props.TextColor === "red"
-        ? "#f64747"
-        : ({ theme }) => theme.colors.mainColor};
+    div {
+      background-color: ${(props) =>
+        props.IconColor === "green"
+          ? "#0abd411f"
+          : props.IconColor === "red"
+          ? "#eb0c4036"
+          : ({ theme }) => theme.colors.hoverLightBlue};
+      color: ${(props) =>
+        props.IconColor === "green"
+          ? "#07e938"
+          : props.IconColor === "red"
+          ? "#eb0770"
+          : ({ theme }) => theme.colors.mainColor};
+    }
+
+    p {
+      color: ${(props) =>
+        props.IconColor === "green"
+          ? "#07e938"
+          : props.IconColor === "red"
+          ? "#eb0770"
+          : ({ theme }) => theme.colors.mainColor};
+    }
   }
 `;
 
@@ -116,23 +133,11 @@ export const UserVerifiedIconContainer = styled.div`
   display: flex;
 `;
 
-export const TweetCount = styled.p``;
+export const TweetCount = styled.p`
+  transition: color 0.5s;
+  ${(props) => props.active === "yes" && "color: #eb0770"}
+`;
 
 export const TweetAuthor = styled.p``;
 
-export const TweetLowerBarIconContainer = styled(TweetUpperBarIconContainer)`
-  &:hover {
-    background-color: ${(props) =>
-      props.IconColor === "green"
-        ? "#0abd411f"
-        : props.IconColor === "red"
-        ? "#eb0c4036"
-        : ({ theme }) => theme.colors.hoverLightBlue};
-    color: ${(props) =>
-      props.IconColor === "green"
-        ? "#07e938"
-        : props.IconColor === "red"
-        ? "#eb0770"
-        : ({ theme }) => theme.colors.mainColor};
-  }
-`;
+export const TweetLowerBarIconContainer = styled(TweetUpperBarIconContainer)``;
