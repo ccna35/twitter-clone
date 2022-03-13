@@ -46,8 +46,8 @@ const userSchema = new Schema(
       default: null,
     },
     birthDate: {
-      type: Date,
-      default: null,
+      type: Object,
+      required: true,
     },
     joinDate: {
       type: Date,

@@ -68,3 +68,18 @@ export const EditProfileBtn = styled(FollowUserBtn)`
     background-color: ${({ theme }) => theme.colors.hoverLightGrey};
   }
 `;
+
+export const AuthButton = styled.button`
+  border: none;
+  outline: none;
+  border-radius: 15rem;
+  font-weight: 600;
+  padding: 1rem;
+  background-color: #0f1419;
+  color: white;
+  font-size: 1rem;
+  transition: background-color 0.5s;
+  &:hover {
+    background-color: #333;
+  }
+`;

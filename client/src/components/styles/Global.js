@@ -9,11 +9,13 @@ const GlobalStyles = createGlobalStyle`
   
   body {
     font-family: 'Source Sans Pro', sans-serif;
-    background-color: ${
+    /* background-color: ${
       window.location.href.endsWith("/")
         ? "white"
         : ({ theme }) => theme.colors.BgColor
-    };
+    }; */
+
+    background-color: ${({ theme }) => theme.colors.BgColor};
 
     
   }

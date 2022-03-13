@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   NewTweetStyle,
   TweetForm,
@@ -20,18 +20,46 @@ import { FaRegSmile } from "react-icons/fa";
 import { CgPin } from "react-icons/cg";
 import { BiPoll } from "react-icons/bi";
 import { HiOutlinePhotograph } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import { createTweet } from "../features/tweets/tweetSlice";
 
 function NewTweet() {
+  const [formData, setFormData] = useState({
+    text: "",
+  });
+
+  const { user } = useSelector((state) => state.auth);
+
+  const onChange = (e) => {
+    setFormData((prev) => ({ ...prev, text: e.target.value }));
+    console.log(formData);
+  };
+
+  const dispatch = useDispatch();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (formData) {
+      formData.token = `Bearer ${JSON.parse(user).token}`;
+      console.log(formData);
+      dispatch(createTweet(formData));
+    }
+  };
+
   return (
     <NewTweetStyle>
       <Link to="/user">
         <UserPhotoContainer>
-          <UserPhoto src="./images/user photo.jpg" />
+          <UserPhoto src="./images/user-photo.jpg" />
         </UserPhotoContainer>
       </Link>
 
-      <TweetForm>
-        <TweetInput type="text" placeholder="What’s happening" />
+      <TweetForm onSubmit={onSubmit}>
+        <TweetInput
+          type="text"
+          placeholder="What’s happening"
+          onChange={(e) => onChange(e)}
+        />
         <WhoCanReplyContainer>
           <FontAwesomeIcon icon={faEarth}></FontAwesomeIcon>
           <WhoCanReplyText>Everyone can reply</WhoCanReplyText>

@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 // @access public
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, username, email, password, joinDate } = req.body;
+  const { name, username, email, password, birthDate } = req.body;
 
   // Check if user completed all fields
   if (!name || !username || !email || !password) {
@@ -34,6 +34,7 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     username,
     email,
+    birthDate,
     password: hashedPassword,
   });
 
@@ -44,6 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
       username: user.username,
       email: user.email,
       joinDate: user.joinDate,
+      birthDate: user.birthDate,
       token: generateToken(user._id),
     });
   } else {
@@ -62,6 +64,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await bcrypt.compare(password, user.password))) {
+    console.log("loginUser", "true");
     res.status(201).json({
       _id: user.id,
       name: user.name,

@@ -4,7 +4,7 @@ export const MobileBarStyle = styled.div`
   position: sticky;
   left: 0;
   bottom: 0;
-  @media (min-width: ${({ theme }) => theme.breakpoints.xs}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.xxs}) {
     display: none;
   }
 `;

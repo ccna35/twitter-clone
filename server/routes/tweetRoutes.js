@@ -8,8 +8,12 @@ const {
 const { protect } = require("../middleware/authMiddleware");
 const router = express.Router();
 
-router.route("/").get(protect, getTweets).post(protect, createTweet);
+router.route("/").post(protect, createTweet);
 
-router.route("/:id").put(protect, updateTweet).delete(protect, deleteTweet);
+router
+  .route("/:id")
+  .get(getTweets)
+  .put(protect, updateTweet)
+  .delete(protect, deleteTweet);
 
 module.exports = router;

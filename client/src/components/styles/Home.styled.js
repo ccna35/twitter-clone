@@ -42,3 +42,10 @@ export const HomeNavbarTextPhotoContainer = styled.div`
     }
   }
 `;
+
+export const TweetsContainer = styled.div`
+  display: grid;
+  place-items: center;
+  min-width: 100%;
+  min-height: 10rem;
+`;

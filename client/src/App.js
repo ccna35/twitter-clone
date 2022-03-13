@@ -1,25 +1,14 @@
 import { ThemeProvider } from "styled-components";
 import GlobalStyles from "./components/styles/Global";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from "./components/LoginPage";
-import Home from "./components/Home";
-import LeftPanel from "./components/LeftPanel";
-import RightPanel from "./components/RightPanel";
-import { MainStyle } from "./components/styles/MainStyle.styled";
-import User from "./components/User";
-import MobileBar from "./components/MobileBar";
+import LoginPage from "./pages/LoginPage";
 import { useState } from "react";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-import allReducers from "./reducers";
+import Home from "./pages/Home";
+import User from "./pages/User";
+import AppLayout from "./components/AppLayout";
 
 function App() {
   const [dark, setDark] = useState(true);
-
-  const store = createStore(
-    allReducers,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  );
 
   const theme = {
     colors: {
@@ -49,7 +38,8 @@ function App() {
       NavbarBgColor: "#00000000",
     },
     breakpoints: {
-      xs: "500px",
+      xxs: "500px",
+      xs: "600px",
       mobile: "768px",
       tablet: "968px",
       lg: "1250px",
@@ -58,21 +48,16 @@ function App() {
   };
   return (
     <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <GlobalStyles />
-        <MainStyle>
-          <Router>
-            {window.location.pathname !== "/" && <LeftPanel />}
-            <Routes>
-              <Route path="/" element={<LoginPage />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/user" element={<User />} />
-            </Routes>
-          </Router>
-          {window.location.pathname !== "/" && <RightPanel />}
-        </MainStyle>
-        {window.location.pathname !== "/" && <MobileBar />}
-      </Provider>
+      <GlobalStyles />
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route element={<AppLayout />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/user" element={<User />} />
+          </Route>
+        </Routes>
+      </Router>
     </ThemeProvider>
   );
 }

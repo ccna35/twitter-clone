@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const MenuItem = styled.div`
+  cursor: pointer;
   color: ${({ theme }) => theme.colors.textColor};
   width: fit-content;
   border-radius: 10rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
   align-items: center;
   ${(props) => props.tweetbtn && "justify-content: center;"}
   ${(props) => (props.tweetbtn ? "display: flex;" : "display: grid;")}
@@ -37,6 +38,8 @@ export const TweetBtn = styled(MenuItem)`
   width: 100%;
   color: white;
   background-color: ${({ theme }) => theme.colors.mainColor};
+  cursor: pointer;
+  transition: background-color 0.5s;
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverBlue};
   }

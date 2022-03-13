@@ -24,13 +24,12 @@ import { AiOutlineHeart, AiFillHeart, AiOutlineRetweet } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { FiShare } from "react-icons/fi";
-import { useSelector, useDispatch } from "react-redux";
-import { like } from "../actions";
 
-function Tweet() {
-  const counter = useSelector((state) => state.counter);
-  const dispatch = useDispatch();
+function Tweet({ tweet }) {
+  const date1 = new Date(tweet.createdAt);
+  const timeDiff = Date.now() - Date.parse(date1);
 
+  console.log(timeDiff / (1000 * 60));
   return (
     <TweetContainer>
       <UserPhotoContainer>
@@ -52,11 +51,7 @@ function Tweet() {
             <FontAwesomeIcon icon={faEllipsis} size="lg"></FontAwesomeIcon>
           </TweetUpperBarIconContainer>
         </TweetUpperBar>
-        <TweetText>
-          Motorola thinks VR headsets and AR glasses can be greatly simplified
-          by moving processing power, communications, and audio to a separate
-          device worn around the neck.
-        </TweetText>
+        <TweetText>{tweet.text}</TweetText>
         <TweetImage src="./images/FLo3hQmXwAEL-ut.jfif" />
         <TweetLowerBar>
           <TweetIconCountContainer>
@@ -70,19 +65,15 @@ function Tweet() {
             <TweetLowerBarIconContainer>
               <AiOutlineRetweet />
             </TweetLowerBarIconContainer>
-            <TweetCount>35</TweetCount>
+            <TweetCount>{tweet.retweets}</TweetCount>
           </TweetIconCountContainer>
 
-          <TweetIconCountContainer
-            IconColor="red"
-            onClick={() => dispatch(like())}
-          >
+          <TweetIconCountContainer IconColor="red">
             <TweetLowerBarIconContainer>
-              {counter ? <AiFillHeart color="#eb0770" /> : <AiOutlineHeart />}
+              {/* <AiFillHeart color="#eb0770" /> */}
+              <AiOutlineHeart />
             </TweetLowerBarIconContainer>
-            <TweetCount active={counter && "yes"}>
-              {counter ? "5" : "4"}
-            </TweetCount>
+            <TweetCount>{tweet.likes}</TweetCount>
           </TweetIconCountContainer>
 
           <TweetLowerBarIconContainer>

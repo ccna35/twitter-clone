@@ -11,7 +11,7 @@ export const Flex = styled.div`
 `;
 
 export const LeftSide = styled.div`
-  background-image: url("./images/lohp_en_1302x955.png");
+  background-image: url("./background.png");
   background-size: cover;
   background-position: center;
   height: 115vh;

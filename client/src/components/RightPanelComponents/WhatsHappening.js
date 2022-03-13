@@ -30,7 +30,7 @@ function WhatsHappening() {
           </TrendingDescription>
         </TrendingNewsBody>
         <TrendingImageContainer>
-          <TrendingImage src="./images/trending image.jfif" />
+          <TrendingImage src="./images/trending-image.jfif" />
         </TrendingImageContainer>
       </TrendingNewsContainer>
 

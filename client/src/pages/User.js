@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   UserNavbarIconContainer,
   UserNavBar,
@@ -23,7 +23,7 @@ import {
   TweetsRepliesBarContainer,
   TweetsRepliesBarItem,
   TweetsRepliesBarText,
-} from "./styles/User.styled";
+} from "../components/styles/User.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -31,9 +31,13 @@ import {
   faCalendarAlt,
   faBirthdayCake,
 } from "@fortawesome/free-solid-svg-icons";
-import { EditProfileBtn } from "./styles/Button.styled";
-import Tweet from "./Tweet";
+import { EditProfileBtn } from "../components/styles/Button.styled";
+import Tweet from "../components/Tweet";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTweets } from "../features/tweets/tweetSlice";
+import { TweetsContainer } from "../components/styles/Home.styled";
+import Spinner from "../components/Spinner";
 
 function User() {
   const navigate = useNavigate();
@@ -42,6 +46,19 @@ function User() {
   const handleClick = (e) => {
     console.log(e);
   };
+
+  const { user } = useSelector((state) => state.auth);
+  const { tweets, isLoading } = useSelector((state) => state.tweet);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const userData = {
+      id: JSON.parse(user)._id,
+    };
+    console.log(userData);
+    dispatch(getAllTweets(userData));
+  }, [user, dispatch, navigate]);
 
   return (
     <UserStyle>
@@ -62,7 +79,7 @@ function User() {
         </UserCoverContainer>
 
         <UserPhotoContainer>
-          <UserPhoto src="./images/user photo.jpg" />
+          <UserPhoto src="./images/user-photo.jpg" />
         </UserPhotoContainer>
       </UserPhotoCoverContainer>
 
@@ -120,11 +137,13 @@ function User() {
           <TweetsRepliesBarText>Likes</TweetsRepliesBarText>
         </TweetsRepliesBarItem>
       </TweetsRepliesBarContainer>
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
+      {isLoading ? (
+        <TweetsContainer>
+          <Spinner />
+        </TweetsContainer>
+      ) : (
+        tweets.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)
+      )}
     </UserStyle>
   );
 }

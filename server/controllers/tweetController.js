@@ -7,7 +7,9 @@ const User = require("../models/userModel");
 // @access private
 
 const getTweets = asyncHandler(async (req, res) => {
-  const tweets = await Tweet.find({ user: req.user.id });
+  const tweets = await Tweet.find({ user: req.params.id }).sort({
+    createdAt: -1,
+  });
 
   res.status(200).json(tweets);
 });

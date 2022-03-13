@@ -10,6 +10,7 @@ import { BsBell } from "react-icons/bs";
 import { HiOutlineMail } from "react-icons/hi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFeather } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function MobileBar() {
   return (
@@ -18,7 +19,9 @@ function MobileBar() {
         <FontAwesomeIcon icon={faFeather} size="lg"></FontAwesomeIcon>
       </MobileTweetBtn>
       <MobileBarContainer>
-        <BiHomeCircle size="1.75rem" />
+        <Link to="/user">
+          <BiHomeCircle size="1.75rem" />
+        </Link>
         <RiSearchLine size="1.75rem" />
         <BsBell size="1.75rem" />
         <HiOutlineMail size="1.75rem" />
