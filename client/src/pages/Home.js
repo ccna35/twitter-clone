@@ -29,16 +29,16 @@ function Home() {
   useEffect(() => {
     if (user) {
       navigate("/home");
+      const userData = {
+        id: JSON.parse(localStorage.getItem("user"))._id,
+      };
+      console.log("user data: ", userData);
+      dispatch(getAllTweets(userData));
     } else {
       navigate("/");
     }
 
     dispatch(reset());
-    const userData = {
-      id: JSON.parse(user)._id,
-    };
-    console.log(userData);
-    dispatch(getAllTweets(userData));
   }, [user, dispatch, navigate]);
 
   return (

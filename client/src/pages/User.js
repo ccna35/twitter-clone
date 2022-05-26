@@ -51,10 +51,9 @@ function User() {
   const { tweets, isLoading } = useSelector((state) => state.tweet);
 
   const dispatch = useDispatch();
-
   useEffect(() => {
     const userData = {
-      id: JSON.parse(user)._id,
+      id: JSON.parse(localStorage.getItem("user"))._id,
     };
     console.log(userData);
     dispatch(getAllTweets(userData));

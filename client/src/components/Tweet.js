@@ -52,7 +52,7 @@ function Tweet({ tweet }) {
           </TweetUpperBarIconContainer>
         </TweetUpperBar>
         <TweetText>{tweet.text}</TweetText>
-        <TweetImage src="./images/FLo3hQmXwAEL-ut.jfif" />
+        {/* <TweetImage src="./images/FLo3hQmXwAEL-ut.jfif" /> */}
         <TweetLowerBar>
           <TweetIconCountContainer>
             <TweetLowerBarIconContainer>

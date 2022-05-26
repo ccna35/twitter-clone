@@ -40,9 +40,12 @@ function NewTweet() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (formData) {
-      formData.token = `Bearer ${JSON.parse(user).token}`;
+      formData.token = `Bearer ${
+        JSON.parse(localStorage.getItem("user")).token
+      }`;
       console.log(formData);
       dispatch(createTweet(formData));
+      setFormData.text = "";
     }
   };
 
@@ -59,6 +62,7 @@ function NewTweet() {
           type="text"
           placeholder="What’s happening"
           onChange={(e) => onChange(e)}
+          value={formData.text}
         />
         <WhoCanReplyContainer>
           <FontAwesomeIcon icon={faEarth}></FontAwesomeIcon>

@@ -1,3 +1,4 @@
+import React from "react";
 import { SpinnerStyle } from "./styles/Spinner.styled";
 
 function Spinner() {
