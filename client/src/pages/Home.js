@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   HomeNavbar,
   HomeNavbarText,
@@ -18,6 +18,9 @@ import { useNavigate } from "react-router-dom";
 import { reset } from "../features/auth/authSlice";
 import { getAllTweets } from "../features/tweets/tweetSlice";
 import Spinner from "../components/Spinner";
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:8080/");
 
 function Home() {
   const navigate = useNavigate();
@@ -26,13 +29,21 @@ function Home() {
   const { user } = useSelector((state) => state.auth);
   const { tweets, isLoading } = useSelector((state) => state.tweet);
 
+  const [isNewTweet, setIsNewTweet] = useState(false);
+  const [newTweets, setNewTweets] = useState({});
+
+  socket.on("newTweet3", (data) => {
+    setIsNewTweet(true);
+    setNewTweets(data);
+    console.log(newTweets);
+  });
+
   useEffect(() => {
     if (user) {
       navigate("/home");
       const userData = {
         id: JSON.parse(localStorage.getItem("user"))._id,
       };
-      console.log("user data: ", userData);
       dispatch(getAllTweets(userData));
     } else {
       navigate("/");
@@ -64,6 +75,9 @@ function Home() {
       ) : (
         tweets.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)
       )}
+      {/* {isNewTweet &&
+        newTweets &&
+        newTweets.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)} */}
     </StyledHome>
   );
 }

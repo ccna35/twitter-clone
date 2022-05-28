@@ -22,6 +22,9 @@ import { BiPoll } from "react-icons/bi";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { createTweet } from "../features/tweets/tweetSlice";
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:8080/");
 
 function NewTweet() {
   const [formData, setFormData] = useState({
@@ -44,7 +47,10 @@ function NewTweet() {
         JSON.parse(localStorage.getItem("user")).token
       }`;
       console.log(formData);
-      dispatch(createTweet(formData));
+      dispatch(createTweet(formData)).then((data) =>
+        socket.emit("newTweet", data.payload)
+      );
+
       setFormData.text = "";
     }
   };

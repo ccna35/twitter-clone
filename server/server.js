@@ -8,6 +8,7 @@ const cors = require("cors");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDB = require("./config/db");
 const PORT = process.env.PORT || 8080;
+const { createTweet } = require("./controllers/tweetController");
 
 app.use(cors());
 app.use(express.json());
@@ -27,6 +28,11 @@ io.on("connection", (socket) => {
   socket.emit("text", "Hello there from server!");
   socket.on("disconnect", () => {
     console.log(`user ${socket.id} disconnected`);
+  });
+
+  socket.on("newTweet", (data) => {
+    console.log(data);
+    io.emit("newTweet3", data);
   });
 });
 

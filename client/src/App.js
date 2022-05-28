@@ -16,7 +16,7 @@ socket.on("text", (data) => {
 });
 
 function App() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
 
   const theme = {
     colors: {
@@ -62,7 +62,7 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route element={<AppLayout />}>
             <Route path="/home" element={<Home />} />
-            <Route path="/user" element={<User />} />
+            <Route path="/:username" element={<User />} />
           </Route>
         </Routes>
       </Router>

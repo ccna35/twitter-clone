@@ -58,7 +58,7 @@ function Tweet({ tweet }) {
             <TweetLowerBarIconContainer>
               <FaRegComment />
             </TweetLowerBarIconContainer>
-            <TweetCount>15</TweetCount>
+            <TweetCount>0</TweetCount>
           </TweetIconCountContainer>
 
           <TweetIconCountContainer IconColor="green">

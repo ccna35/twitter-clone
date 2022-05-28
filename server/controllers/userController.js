@@ -79,13 +79,25 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 // @desc Get user data
-// @route POST /api/users/home
+// @route GET /api/users/home
 // @access private
 
 const getMe = asyncHandler(async (req, res) => {
   const { _id, name, email } = await User.findById(req.user.id);
 
   res.status(200).json({ id: _id, name, email });
+});
+
+// @desc Gets user public data
+// @route GET /api/users/:username
+// @access public
+
+const getUserPublicData = asyncHandler(async (req, res) => {
+  console.log(req.params);
+
+  // const userData = await User.find({ username: req.params.username });
+
+  // res.status(200).json(userData);
 });
 
 // Generate JWT
@@ -100,4 +112,5 @@ module.exports = {
   registerUser,
   loginUser,
   getMe,
+  getUserPublicData,
 };
