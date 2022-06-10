@@ -9,12 +9,12 @@ const createTweet = async (tweetData) => {
       authorization: tweetData.token,
     },
   });
-  console.log("tweetService : ", res.data);
   return res.data;
 };
 
 const getAllTweets = async (userData) => {
-  const res = await axios.get(API_URL + userData.id);
+  const res = await axios.get(API_URL + userData.username);
+  console.log("tweetService : ", res.data);
   return res.data;
 };
 

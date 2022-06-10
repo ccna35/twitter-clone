@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "../features/user/userSlice";
 
-function useFetchUserData(friendID) {
+function useFetchUserData(username) {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
@@ -9,8 +10,10 @@ function useFetchUserData(friendID) {
   const [isOnline, setIsOnline] = useState(null);
 
   useEffect(() => {
-    dispatch(getAllTweets(userData));
+    dispatch(getUserData(username));
   });
 
   return isOnline;
 }
+
+export default useFetchUserData;

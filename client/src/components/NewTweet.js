@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   NewTweetStyle,
   TweetForm,
@@ -23,6 +23,7 @@ import { HiOutlinePhotograph } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { createTweet } from "../features/tweets/tweetSlice";
 import io from "socket.io-client";
+import { getUserData, reset } from "../features/user/userSlice";
 
 const socket = io.connect("http://localhost:8080/");
 
@@ -51,15 +52,30 @@ function NewTweet() {
         socket.emit("newTweet", data.payload)
       );
 
-      setFormData.text = "";
+      setFormData({ text: "" });
     }
   };
 
+  const { fullUserData, isUserLoading } = useSelector((state) => state.user);
+  useEffect(() => {
+    const userData = {
+      username: JSON.parse(localStorage.getItem("user")).username,
+    };
+    dispatch(getUserData(userData.username));
+    dispatch(reset());
+  }, [user, dispatch]);
+
   return (
     <NewTweetStyle>
-      <Link to="/user">
+      <Link to={"/" + JSON.parse(localStorage.getItem("user")).username}>
         <UserPhotoContainer>
-          <UserPhoto src="./images/user-photo.jpg" />
+          <UserPhoto
+            src={
+              fullUserData.length > 0 && fullUserData[0].profilePhoto
+                ? fullUserData[0].profilePhoto
+                : "./images/blank-profile-picture-gf8e58e24f_640.png"
+            }
+          />
         </UserPhotoContainer>
       </Link>
 

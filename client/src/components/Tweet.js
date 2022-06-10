@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { UserPhoto, UserPhotoContainer } from "./styles/NewTweet.styled";
 import {
   TimeSincePosted,
@@ -24,28 +24,65 @@ import { AiOutlineHeart, AiFillHeart, AiOutlineRetweet } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { FiShare } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "../features/user/userSlice";
+import { Link } from "react-router-dom";
 
-function Tweet({ tweet }) {
+function Tweet({ tweet, username }) {
   const date1 = new Date(tweet.createdAt);
   const timeDiff = Date.now() - Date.parse(date1);
+  const timePosted = Math.floor(timeDiff / (1000 * 60));
 
-  console.log(timeDiff / (1000 * 60));
+  console.log(timePosted);
+  const { fullUserData, isUserLoading } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const userData = {
+      username: username || JSON.parse(localStorage.getItem("user")).username,
+    };
+    dispatch(getUserData(userData.username));
+  }, [dispatch]);
   return (
     <TweetContainer>
       <UserPhotoContainer>
-        <UserPhoto src="./images/zdnet.jpg" />
+        <Link to={"/" + fullUserData.length > 0 && fullUserData[0].username}>
+          <UserPhoto
+            src={
+              fullUserData.length > 0 && fullUserData[0].profilePhoto
+                ? fullUserData[0].profilePhoto
+                : "./images/blank-profile-picture-gf8e58e24f_640.png"
+            }
+          />
+        </Link>
       </UserPhotoContainer>
       <TweetBody>
         <TweetUpperBar>
           <TweetInfoContainer>
             <UserName>
-              <TweetAuthor>ZDNet</TweetAuthor>
-              <UserVerifiedIconContainer>
-                <MdVerified />
-              </UserVerifiedIconContainer>
+              <TweetAuthor>
+                {fullUserData.length > 0 && (
+                  <Link to={"/" + fullUserData[0].username}>
+                    {fullUserData[0].name}
+                  </Link>
+                )}
+              </TweetAuthor>
+              {fullUserData.length > 0 && fullUserData[0].isVerified && (
+                <UserVerifiedIconContainer>
+                  <MdVerified />
+                </UserVerifiedIconContainer>
+              )}
             </UserName>
-            <UserHandle>@ZDNet</UserHandle>
-            <TimeSincePosted>4h</TimeSincePosted>
+            <UserHandle>
+              @{fullUserData.length > 0 && fullUserData[0].username}
+            </UserHandle>
+            <TimeSincePosted>
+              {timePosted < 60
+                ? timePosted + "m"
+                : timePosted >= 60 && timePosted <= 1440
+                ? Math.floor(timePosted / 60) + "h"
+                : Math.floor(timePosted / 3600) + "d"}
+            </TimeSincePosted>
           </TweetInfoContainer>
           <TweetUpperBarIconContainer>
             <FontAwesomeIcon icon={faEllipsis} size="lg"></FontAwesomeIcon>

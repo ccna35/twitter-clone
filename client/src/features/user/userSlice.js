@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userService from "./userService";
 
 const initialState = {
-  userData: {},
+  fullUserData: [],
   isError: false,
   isSuccess: false,
-  isLoading: false,
+  isUserLoading: false,
   message: "",
 };
 
@@ -32,26 +32,26 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.isLoading = false;
+      state.isUserLoading = false;
       state.isSuccess = false;
       state.isError = false;
       state.message = "";
     },
   },
   extraReducers: {
-    [getAllUsers.pending]: (state) => {
-      state.isLoading = true;
+    [getUserData.pending]: (state) => {
+      state.isUserLoading = true;
     },
-    [getAllUsers.fulfilled]: (state, action) => {
-      state.isLoading = false;
+    [getUserData.fulfilled]: (state, action) => {
+      state.isUserLoading = false;
       state.isSuccess = true;
-      state.userData = action.payload;
+      state.fullUserData = action.payload;
     },
-    [getAllUsers.rejected]: (state, action) => {
-      state.isLoading = false;
+    [getUserData.rejected]: (state, action) => {
+      state.isUserLoading = false;
       state.isError = true;
       state.message = action.payload;
-      state.userData = {};
+      state.fullUserData = [];
     },
   },
 });

@@ -33,13 +33,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { EditProfileBtn } from "../components/styles/Button.styled";
 import Tweet from "../components/Tweet";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTweets } from "../features/tweets/tweetSlice";
+import { getUserData } from "../features/user/userSlice";
 import { TweetsContainer } from "../components/styles/Home.styled";
 import Spinner from "../components/Spinner";
+import useFetchUserData from "../custom hooks/useFetchUserData";
+import LoadingScreen from "../components/LoadingScreen";
 
 function User() {
+  // const fullUserData = useFetchUserData(username);
+
   const navigate = useNavigate();
 
   let active = false;
@@ -49,15 +54,23 @@ function User() {
 
   const { user } = useSelector((state) => state.auth);
   const { tweets, isLoading } = useSelector((state) => state.tweet);
+  const { username } = useParams();
+  const { fullUserData, isUserLoading } = useSelector((state) => state.user);
+
+  console.log(username);
 
   const dispatch = useDispatch();
   useEffect(() => {
     const userData = {
-      id: JSON.parse(localStorage.getItem("user"))._id,
+      username,
     };
-    console.log(userData);
     dispatch(getAllTweets(userData));
+    dispatch(getUserData(username));
   }, [user, dispatch, navigate]);
+
+  if (fullUserData.length > 0) {
+    console.log(fullUserData[0]);
+  }
 
   return (
     <UserStyle>
@@ -67,53 +80,92 @@ function User() {
         </UserNavbarIconContainer>
 
         <UserNavbarInfo>
-          <UserNavbarFullName>Shawky Khalil</UserNavbarFullName>
-          <UserNavbarTweetCount>877 Tweets</UserNavbarTweetCount>
+          <UserNavbarFullName>
+            {fullUserData.length > 0 && fullUserData[0].name}
+          </UserNavbarFullName>
+          <UserNavbarTweetCount>{tweets.length} Tweets</UserNavbarTweetCount>
         </UserNavbarInfo>
       </UserNavBar>
 
       <UserPhotoCoverContainer>
         <UserCoverContainer>
-          <UserCover src="./images/cover.jfif" />
+          <UserCover
+            src={
+              fullUserData.length > 0 && fullUserData[0].profilePhoto
+                ? fullUserData[0].profilePhoto
+                : "./images/950x350-light-gray-solid-color-background.jpg"
+            }
+          />
         </UserCoverContainer>
 
         <UserPhotoContainer>
-          <UserPhoto src="./images/user-photo.jpg" />
+          <UserPhoto
+            src={
+              fullUserData.length > 0 && fullUserData[0].profilePhoto
+                ? fullUserData[0].profilePhoto
+                : "./images/blank-profile-picture-gf8e58e24f_640.png"
+            }
+          />
         </UserPhotoContainer>
       </UserPhotoCoverContainer>
 
       <UserProfileInfoContainer>
         <EditProfileBtn>Edit Profile</EditProfileBtn>
         <UserNavbarInfo>
-          <UserNavbarFullName>Shawky Khalil</UserNavbarFullName>
-          <UserNavbarTweetCount>@shawky_khalil</UserNavbarTweetCount>
+          <UserNavbarFullName>
+            {fullUserData.length > 0 && fullUserData[0].name}
+          </UserNavbarFullName>
+          <UserNavbarTweetCount>
+            @{fullUserData.length > 0 && fullUserData[0].username}
+          </UserNavbarTweetCount>
         </UserNavbarInfo>
-        <UserProfileDescription>
-          Web Developer and Digital Marketer
-        </UserProfileDescription>
+        {fullUserData.length > 0 && fullUserData[0].bio && (
+          <UserProfileDescription>{fullUserData[0].bio}</UserProfileDescription>
+        )}
 
         <UserProfileAboutContainer>
-          <AboutSingleContainer>
-            <FontAwesomeIcon icon={faMapMarkerAlt}></FontAwesomeIcon>
-            <AboutSingleText>Egypt</AboutSingleText>
-          </AboutSingleContainer>
+          {fullUserData.length > 0 && fullUserData[0].country && (
+            <AboutSingleContainer>
+              <>
+                <FontAwesomeIcon icon={faMapMarkerAlt}></FontAwesomeIcon>
+                <AboutSingleText>{fullUserData[0].country}</AboutSingleText>
+              </>
+            </AboutSingleContainer>
+          )}
           <AboutSingleContainer>
             <FontAwesomeIcon icon={faBirthdayCake}></FontAwesomeIcon>
-            <AboutSingleText>Born July 7, 1997</AboutSingleText>
+            <AboutSingleText>
+              Born{" "}
+              {fullUserData.length > 0 &&
+                fullUserData[0].birthDate.month +
+                  " " +
+                  fullUserData[0].birthDate.day +
+                  ", " +
+                  fullUserData[0].birthDate.year}
+            </AboutSingleText>
           </AboutSingleContainer>
           <AboutSingleContainer>
             <FontAwesomeIcon icon={faCalendarAlt}></FontAwesomeIcon>
-            <AboutSingleText>Joined December 2012</AboutSingleText>
+            <AboutSingleText>
+              Joined{" "}
+              {fullUserData.length > 0 &&
+                new Date(fullUserData[0].joinDate).toString().split(" ")[1] +
+                  " " +
+                  new Date(fullUserData[0].joinDate).toString().split(" ")[3]}
+            </AboutSingleText>
           </AboutSingleContainer>
         </UserProfileAboutContainer>
-
         <FollowingFollowersContainer>
           <FollowContainer>
-            <FollowCount>459</FollowCount>
+            <FollowCount>
+              {fullUserData.length > 0 && fullUserData[0].following}
+            </FollowCount>
             <FollowText>Following</FollowText>
           </FollowContainer>
           <FollowContainer>
-            <FollowCount>93</FollowCount>
+            <FollowCount>
+              {fullUserData.length > 0 && fullUserData[0].followers}
+            </FollowCount>
             <FollowText>Followers</FollowText>
           </FollowContainer>
         </FollowingFollowersContainer>
@@ -136,12 +188,15 @@ function User() {
           <TweetsRepliesBarText>Likes</TweetsRepliesBarText>
         </TweetsRepliesBarItem>
       </TweetsRepliesBarContainer>
+
       {isLoading ? (
         <TweetsContainer>
           <Spinner />
         </TweetsContainer>
       ) : (
-        tweets.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)
+        tweets.map((tweet) => (
+          <Tweet tweet={tweet} key={tweet._id} username={username} />
+        ))
       )}
     </UserStyle>
   );

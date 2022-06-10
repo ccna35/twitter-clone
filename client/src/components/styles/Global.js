@@ -22,6 +22,9 @@ const GlobalStyles = createGlobalStyle`
 
   a {
     text-decoration: none;
+    &:visited {
+      color: ${({ theme }) => theme.colors.textColor};
+    }
   }
 `;
 

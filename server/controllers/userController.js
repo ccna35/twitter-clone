@@ -95,9 +95,9 @@ const getMe = asyncHandler(async (req, res) => {
 const getUserPublicData = asyncHandler(async (req, res) => {
   console.log(req.params);
 
-  // const userData = await User.find({ username: req.params.username });
+  const userData = await User.find({ username: req.params.username });
 
-  // res.status(200).json(userData);
+  res.status(200).json(userData);
 });
 
 // Generate JWT

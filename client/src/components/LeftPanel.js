@@ -92,6 +92,7 @@ function LeftPanel() {
               <MenuItemText>Lists</MenuItemText>
             </MenuItem>
             <Link to="/user">
+              {/* <Link to={"/user" + JSON.parse(localStorage.getItem("user")).username}> */}
               <MenuItem>
                 <HiOutlineUser size="1.75rem" />
                 <MenuItemText>Profile</MenuItemText>

@@ -42,7 +42,7 @@ function Home() {
     if (user) {
       navigate("/home");
       const userData = {
-        id: JSON.parse(localStorage.getItem("user"))._id,
+        username: JSON.parse(localStorage.getItem("user")).username,
       };
       dispatch(getAllTweets(userData));
     } else {
@@ -52,11 +52,15 @@ function Home() {
     dispatch(reset());
   }, [user, dispatch, navigate]);
 
+  // console.log(JSON.parse(localStorage.getItem("user")).username);
+
   return (
     <StyledHome>
       <HomeNavbar>
         <HomeNavbarTextPhotoContainer>
-          <Link to="/user">
+          <Link
+            to={"/" + user && JSON.parse(localStorage.getItem("user")).username}
+          >
             <HomeUserPhotoContainer>
               <UserPhoto src="./images/user-photo.jpg" />
             </HomeUserPhotoContainer>
