@@ -41,6 +41,7 @@ import { TweetsContainer } from "../components/styles/Home.styled";
 import Spinner from "../components/Spinner";
 import useFetchUserData from "../custom hooks/useFetchUserData";
 import LoadingScreen from "../components/LoadingScreen";
+import { FollowUserBtn } from "../components/styles/Button.styled";
 
 function User() {
   // const fullUserData = useFetchUserData(username);
@@ -57,8 +58,6 @@ function User() {
   const { username } = useParams();
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
 
-  console.log(username);
-
   const dispatch = useDispatch();
   useEffect(() => {
     const userData = {
@@ -67,10 +66,6 @@ function User() {
     dispatch(getAllTweets(userData));
     dispatch(getUserData(username));
   }, [user, dispatch, navigate]);
-
-  if (fullUserData.length > 0) {
-    console.log(fullUserData[0]);
-  }
 
   return (
     <UserStyle>
@@ -110,7 +105,14 @@ function User() {
       </UserPhotoCoverContainer>
 
       <UserProfileInfoContainer>
-        <EditProfileBtn>Edit Profile</EditProfileBtn>
+        {user &&
+        localStorage.getItem("user") &&
+        JSON.parse(localStorage.getItem("user")).username === username ? (
+          <EditProfileBtn>Edit Profile</EditProfileBtn>
+        ) : (
+          <FollowUserBtn>Follow</FollowUserBtn>
+        )}
+
         <UserNavbarInfo>
           <UserNavbarFullName>
             {fullUserData.length > 0 && fullUserData[0].name}

@@ -7,13 +7,6 @@ import { useState } from "react";
 import Home from "./pages/Home";
 import User from "./pages/User";
 import AppLayout from "./components/AppLayout";
-import io from "socket.io-client";
-
-const socket = io.connect("http://localhost:8080/");
-
-socket.on("text", (data) => {
-  console.log(data);
-});
 
 function App() {
   const [dark, setDark] = useState(false);

@@ -97,9 +97,51 @@ const deleteTweet = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
+// @desc update a tweet when someone likes it
+// @route PUT /api/tweets/:id
+// @access private
+
+const likeTweet = asyncHandler(async (req, res) => {
+  const tweet = await Tweet.findById(
+    JSON.stringify(req.params.id).toString().slice(1, -1)
+  );
+
+  if (!tweet) {
+    res.status(400);
+    throw new Error("Tweet not found");
+  }
+
+  // const user = await User.findById(req.user.id);
+
+  // // Check if user exists
+  // if (!user) {
+  //   res.status(401);
+  //   throw new Error("User not found");
+  // }
+
+  if (req.body.didUserLikeThisTweet) {
+    const removeLike = await Tweet.findByIdAndUpdate(
+      JSON.stringify(req.params.id).toString().slice(1, -1),
+      { $pull: { likes: req.body.userID } },
+      { safe: true, upsert: true }
+    );
+
+    res.status(200).json(removeLike);
+  } else {
+    const addLike = await Tweet.findByIdAndUpdate(
+      JSON.stringify(req.params.id).toString().slice(1, -1),
+      { $push: { likes: req.body.userID } },
+      { safe: true, upsert: true }
+    );
+
+    res.status(200).json(addLike);
+  }
+});
+
 module.exports = {
   getTweets,
   createTweet,
   updateTweet,
   deleteTweet,
+  likeTweet,
 };

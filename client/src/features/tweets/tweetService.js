@@ -14,19 +14,27 @@ const createTweet = async (tweetData) => {
 
 const getAllTweets = async (userData) => {
   const res = await axios.get(API_URL + userData.username);
-  console.log("tweetService : ", res.data);
   return res.data;
 };
 
 const getSingleTweet = async (id) => {
   const res = await axios.get(API_URL + id);
-  console.log(res.data);
+  return res.data;
+};
+
+// This function handles tweet likes and dislikes.
+// The data sent with this API call include the tweet ID & the like action which consists of the user ID who liked the tweet.
+
+const likeTweet = async (data) => {
+  const res = await axios.put(API_URL + data.tweetID, {
+    userID: data.userID,
+    didUserLikeThisTweet: data.didUserLikeThisTweet,
+  });
   return res.data;
 };
 
 const deleteTweet = async (id) => {
   const res = await axios.get(API_URL + id);
-  console.log(res.data);
   return res.data;
 };
 
@@ -35,6 +43,7 @@ const tweetService = {
   getAllTweets,
   getSingleTweet,
   deleteTweet,
+  likeTweet,
 };
 
 export default tweetService;

@@ -48,6 +48,7 @@ export const FollowUserBtn = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.FollowBgHoverColor};
   }
+  align-self: flex-end;
 `;
 
 export const EditProfileBtn = styled(FollowUserBtn)`

@@ -8,7 +8,8 @@ const cors = require("cors");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDB = require("./config/db");
 const PORT = process.env.PORT || 8080;
-const { createTweet } = require("./controllers/tweetController");
+const { likeTweet } = require("./controllers/tweetController");
+const Tweet = require("./models/tweetModel");
 
 app.use(cors());
 app.use(express.json());
@@ -23,6 +24,13 @@ const io = new Server(server, {
   },
 });
 
+const changeStream = Tweet.watch();
+
+changeStream.on("change", (change) => {
+  console.log(change); // You could parse out the needed info and send only that data.
+  io.emit("changeData", change);
+});
+
 io.on("connection", (socket) => {
   console.log(`a user connected: ${socket.id}`);
   socket.emit("text", "Hello there from server!");
@@ -33,6 +41,11 @@ io.on("connection", (socket) => {
   socket.on("newTweet", (data) => {
     console.log(data);
     io.emit("newTweet3", data);
+  });
+
+  socket.on("likeTweet", (data) => {
+    console.log(data);
+    io.emit("likeAction", data);
   });
 });
 

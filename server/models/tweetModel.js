@@ -13,12 +13,11 @@ const tweetSchema = new Schema(
       required: true,
     },
     likes: {
-      type: Number,
-      default: 0,
+      type: Array,
+      default: [],
     },
     retweets: {
-      type: Number,
-      default: 0,
+      type: Array,
     },
   },
   { timestamps: true }

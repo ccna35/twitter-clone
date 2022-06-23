@@ -93,8 +93,6 @@ const getMe = asyncHandler(async (req, res) => {
 // @access public
 
 const getUserPublicData = asyncHandler(async (req, res) => {
-  console.log(req.params);
-
   const userData = await User.find({ username: req.params.username });
 
   res.status(200).json(userData);

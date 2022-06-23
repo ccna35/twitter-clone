@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { reset } from "../features/auth/authSlice";
 import { getAllTweets } from "../features/tweets/tweetSlice";
+import { getUserData } from "../features/user/userSlice";
 import Spinner from "../components/Spinner";
 import io from "socket.io-client";
 
@@ -28,14 +29,18 @@ function Home() {
 
   const { user } = useSelector((state) => state.auth);
   const { tweets, isLoading } = useSelector((state) => state.tweet);
+  const { fullUserData, isUserLoading } = useSelector((state) => state.user);
 
-  const [isNewTweet, setIsNewTweet] = useState(false);
-  const [newTweets, setNewTweets] = useState({});
+  const [tweetsArray, setTweetsArray] = useState(tweets);
 
-  socket.on("newTweet3", (data) => {
-    setIsNewTweet(true);
-    setNewTweets(data);
-    console.log(newTweets);
+  socket.on("changeData", (data) => {
+    if (
+      data.fullDocument !== undefined &&
+      data.fullDocument.user === JSON.parse(localStorage.getItem("user"))._id
+    ) {
+      console.log(data.fullDocument);
+      setTweetsArray([...tweetsArray, data.fullDocument]);
+    }
   });
 
   useEffect(() => {
@@ -45,24 +50,29 @@ function Home() {
         username: JSON.parse(localStorage.getItem("user")).username,
       };
       dispatch(getAllTweets(userData));
+      dispatch(getUserData(userData.username));
     } else {
       navigate("/");
     }
 
     dispatch(reset());
-  }, [user, dispatch, navigate]);
+  }, [user, dispatch, navigate, tweetsArray]);
 
-  // console.log(JSON.parse(localStorage.getItem("user")).username);
+  console.log(tweetsArray);
 
   return (
     <StyledHome>
       <HomeNavbar>
         <HomeNavbarTextPhotoContainer>
-          <Link
-            to={"/" + user && JSON.parse(localStorage.getItem("user")).username}
-          >
+          <Link to={"/" + JSON.parse(localStorage.getItem("user")).username}>
             <HomeUserPhotoContainer>
-              <UserPhoto src="./images/user-photo.jpg" />
+              <UserPhoto
+                src={
+                  fullUserData.length > 0 && fullUserData[0].profilePhoto
+                    ? fullUserData[0].profilePhoto
+                    : "./images/blank-profile-picture-gf8e58e24f_640.png"
+                }
+              />
             </HomeUserPhotoContainer>
           </Link>
           <HomeNavbarText>Home</HomeNavbarText>
@@ -79,9 +89,6 @@ function Home() {
       ) : (
         tweets.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)
       )}
-      {/* {isNewTweet &&
-        newTweets &&
-        newTweets.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)} */}
     </StyledHome>
   );
 }

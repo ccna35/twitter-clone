@@ -27,6 +27,7 @@ export const UserNavBar = styled.div`
 export const UserNavbarInfo = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
+  /* margin-top: 1rem; */
 `;
 
 export const UserNavbarFullName = styled.h2`
@@ -83,8 +84,8 @@ export const UserPhotoContainer = styled.div`
   width: 130px;
   height: 130px;
   @media (max-width: ${({ theme }) => theme.breakpoints.xs}) {
-    width: 110px;
-    height: 110px;
+    width: 90px;
+    height: 90px;
     bottom: -55px;
     left: 20px;
   }

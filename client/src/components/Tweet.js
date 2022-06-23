@@ -27,13 +27,23 @@ import { FiShare } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../features/user/userSlice";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { likeTweet } from "../features/tweets/tweetSlice";
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:8080/");
 
 function Tweet({ tweet, username }) {
+  const [likesArray, setLikesArray] = useState(tweet.likes);
+
+  // socket.on("likeAction", (data) => {
+  //   console.log(data.likes);
+  // });
+
   const date1 = new Date(tweet.createdAt);
   const timeDiff = Date.now() - Date.parse(date1);
   const timePosted = Math.floor(timeDiff / (1000 * 60));
 
-  console.log(timePosted);
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -42,11 +52,61 @@ function Tweet({ tweet, username }) {
       username: username || JSON.parse(localStorage.getItem("user")).username,
     };
     dispatch(getUserData(userData.username));
-  }, [dispatch]);
+  }, [dispatch, likesArray]);
+
+  // const [likeTweet, setLikeTweet] = useState(false);
+
+  const handleLike = (tweetID) => {
+    if (!likesArray.includes(JSON.parse(localStorage.getItem("user"))._id)) {
+      console.log("This user didn't like this tweet before");
+      setLikesArray([
+        ...likesArray,
+        JSON.parse(localStorage.getItem("user"))._id,
+      ]);
+
+      const data = {
+        tweetID,
+        userID: JSON.parse(localStorage.getItem("user"))._id,
+        didUserLikeThisTweet: false,
+      };
+      console.log(data);
+
+      dispatch(likeTweet(data)).then((res) => {
+        // socket.emit("likeTweet", res.payload);
+        console.log(likesArray);
+      });
+    } else {
+      console.log("This user liked this tweet before");
+      setLikesArray([
+        likesArray.filter(
+          (userID) => userID !== JSON.parse(localStorage.getItem("user"))._id
+        ),
+      ]);
+      const data = {
+        tweetID,
+        userID: JSON.parse(localStorage.getItem("user"))._id,
+        didUserLikeThisTweet: true,
+      };
+      console.log(data);
+      dispatch(likeTweet(data)).then((res) => {
+        // socket.emit("likeTweet", res.payload);
+        // setLikesArray(res.payload);
+        console.log(likesArray);
+      });
+    }
+  };
+
+  // console.log(tweet._id);
+
   return (
     <TweetContainer>
       <UserPhotoContainer>
-        <Link to={"/" + fullUserData.length > 0 && fullUserData[0].username}>
+        <Link
+          to={
+            "/" + fullUserData.length > 0 &&
+            fullUserData[0].profilePhoto.username
+          }
+        >
           <UserPhoto
             src={
               fullUserData.length > 0 && fullUserData[0].profilePhoto
@@ -106,11 +166,17 @@ function Tweet({ tweet, username }) {
           </TweetIconCountContainer>
 
           <TweetIconCountContainer IconColor="red">
-            <TweetLowerBarIconContainer>
-              {/* <AiFillHeart color="#eb0770" /> */}
-              <AiOutlineHeart />
+            <TweetLowerBarIconContainer onClick={() => handleLike(tweet._id)}>
+              {likesArray &&
+              likesArray.includes(
+                JSON.parse(localStorage.getItem("user"))._id
+              ) ? (
+                <AiFillHeart color="#eb0770" />
+              ) : (
+                <AiOutlineHeart />
+              )}
             </TweetLowerBarIconContainer>
-            <TweetCount>{tweet.likes}</TweetCount>
+            <TweetCount>{likesArray.length}</TweetCount>
           </TweetIconCountContainer>
 
           <TweetLowerBarIconContainer>

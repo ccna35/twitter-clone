@@ -36,7 +36,6 @@ function NewTweet() {
 
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, text: e.target.value }));
-    console.log(formData);
   };
 
   const dispatch = useDispatch();
@@ -47,7 +46,6 @@ function NewTweet() {
       formData.token = `Bearer ${
         JSON.parse(localStorage.getItem("user")).token
       }`;
-      console.log(formData);
       dispatch(createTweet(formData)).then((data) =>
         socket.emit("newTweet", data.payload)
       );

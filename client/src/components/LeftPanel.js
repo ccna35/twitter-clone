@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MenuItem, MenuItemText, TweetBtn } from "./styles/LeftMenu.styled";
 import {
   LeftPanelAllContainer,
@@ -33,6 +33,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset, resetUser } from "../features/auth/authSlice";
+import { getUserData } from "../features/user/userSlice";
 
 function LeftPanel() {
   const [userPopUpState, setUserPopUpState] = useState(false);
@@ -44,7 +45,8 @@ function LeftPanel() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoading } = useSelector((state) => state.auth);
+  const { user, isLoading } = useSelector((state) => state.auth);
+  const { fullUserData, isUserLoading } = useSelector((state) => state.user);
 
   const onLogout = () => {
     dispatch(logout());
@@ -52,6 +54,15 @@ function LeftPanel() {
     dispatch(reset());
     navigate("/");
   };
+
+  // useEffect(() => {
+  //   const userData = {
+  //     // username: user && JSON.parse(localStorage.getItem("user")).username,
+  //     username: user && "heidy_lamar33",
+  //   };
+  //   console.log(userData);
+  //   dispatch(getUserData(userData.username));
+  // }, [user, dispatch]);
 
   return (
     <LeftPanelStyle>
@@ -62,91 +73,130 @@ function LeftPanel() {
           </LogoContainer>
 
           <LogoMenuContainer>
-            <Link to="/home">
-              <MenuItem>
-                <BiHomeCircle size="1.75rem" />
-                <MenuItemText>Home</MenuItemText>
-              </MenuItem>
-            </Link>
+            {user && (
+              <Link to="/home">
+                <MenuItem>
+                  <BiHomeCircle size="1.75rem" />
+                  <MenuItemText>Home</MenuItemText>
+                </MenuItem>
+              </Link>
+            )}
             <MenuItem>
               <FiHash size="1.75rem" />
 
               <MenuItemText>Explore</MenuItemText>
             </MenuItem>
-            <MenuItem>
-              <BsBell size="1.75rem" />
-              <MenuItemText>Notifications</MenuItemText>
-            </MenuItem>
-            <MenuItem>
-              <HiOutlineMail size="1.75rem" />
-              <MenuItemText>Messages</MenuItemText>
-            </MenuItem>
-            <MenuItem hide>
-              <BiBookmark size="1.75rem" />
 
-              <MenuItemText>Bookmarks</MenuItemText>
-            </MenuItem>
-            <MenuItem hide>
-              <CgList size="1.75rem" />
+            {user && (
+              <>
+                <MenuItem>
+                  <BsBell size="1.75rem" />
+                  <MenuItemText>Notifications</MenuItemText>
+                </MenuItem>
+                <MenuItem>
+                  <HiOutlineMail size="1.75rem" />
+                  <MenuItemText>Messages</MenuItemText>
+                </MenuItem>
+                <MenuItem hide>
+                  <BiBookmark size="1.75rem" />
 
-              <MenuItemText>Lists</MenuItemText>
-            </MenuItem>
-            <Link to="/user">
-              {/* <Link to={"/user" + JSON.parse(localStorage.getItem("user")).username}> */}
-              <MenuItem>
-                <HiOutlineUser size="1.75rem" />
-                <MenuItemText>Profile</MenuItemText>
-              </MenuItem>
-            </Link>
-            <MenuItem>
-              <CgMoreO size="1.75rem" />
+                  <MenuItemText>Bookmarks</MenuItemText>
+                </MenuItem>
+                <MenuItem hide>
+                  <CgList size="1.75rem" />
 
-              <MenuItemText>More</MenuItemText>
-            </MenuItem>
+                  <MenuItemText>Lists</MenuItemText>
+                </MenuItem>
+              </>
+            )}
+
+            {user && (
+              <>
+                <Link
+                  to={"/" + JSON.parse(localStorage.getItem("user")).username}
+                >
+                  <MenuItem>
+                    <HiOutlineUser size="1.75rem" />
+                    <MenuItemText>Profile</MenuItemText>
+                  </MenuItem>
+                </Link>
+
+                <MenuItem>
+                  <CgMoreO size="1.75rem" />
+
+                  <MenuItemText>More</MenuItemText>
+                </MenuItem>
+              </>
+            )}
           </LogoMenuContainer>
-
-          <TweetBtn tweetbtn>
-            <FontAwesomeIcon icon={faFeather} size="lg"></FontAwesomeIcon>
-            <MenuItemText>Tweet</MenuItemText>
-          </TweetBtn>
-        </LeftPanelAllContainer>
-        <LeftPanelUserContainer onClick={userPopUp}>
-          <UserPhotoContainer size="small">
-            <UserPhoto src="./images/user-photo.jpg" />
-          </UserPhotoContainer>
-          <LeftPanelUserInfo>
-            <LeftPanelUserName>Shawky Khalil</LeftPanelUserName>
-            <LeftPanelUserHandle>@shawky_khalil</LeftPanelUserHandle>
-          </LeftPanelUserInfo>
-          <LeftPanelUserIconContainer>
-            <FontAwesomeIcon icon={faEllipsis}></FontAwesomeIcon>
-          </LeftPanelUserIconContainer>
-          {userPopUpState && (
-            <LeftPanelUserPopUp>
-              <UserPopUpInfo>
-                <UserPhotoContainer size="small">
-                  <UserPhoto src="./images/user-photo.jpg" />
-                </UserPhotoContainer>
-                <UserPopUpNameUsername>
-                  <LeftPanelUserName>Shawky Khalil</LeftPanelUserName>
-                  <LeftPanelUserHandle>@shawky_khalil</LeftPanelUserHandle>
-                </UserPopUpNameUsername>
-                <UserPopUpIconContainer>
-                  <AiOutlineCheck />
-                </UserPopUpIconContainer>
-              </UserPopUpInfo>
-              <UserPopUpBottom>
-                <UserPopUpBottomText>
-                  Add an existing account
-                </UserPopUpBottomText>
-                <UserPopUpBottomText onClick={onLogout}>
-                  {isLoading ? "Logging out..." : "Log out"}
-                  <UserPopUpHandle>@shawky_khalil</UserPopUpHandle>
-                </UserPopUpBottomText>
-              </UserPopUpBottom>
-            </LeftPanelUserPopUp>
+          {user && (
+            <TweetBtn tweetbtn>
+              <FontAwesomeIcon icon={faFeather} size="lg"></FontAwesomeIcon>
+              <MenuItemText>Tweet</MenuItemText>
+            </TweetBtn>
           )}
-        </LeftPanelUserContainer>
+        </LeftPanelAllContainer>
+        {user && (
+          <LeftPanelUserContainer onClick={userPopUp}>
+            <UserPhotoContainer size="small">
+              <UserPhoto
+                src={
+                  fullUserData.length > 0 && fullUserData[0].profilePhoto
+                    ? fullUserData[0].profilePhoto
+                    : "./images/blank-profile-picture-gf8e58e24f_640.png"
+                }
+              />
+            </UserPhotoContainer>
+            <LeftPanelUserInfo>
+              <LeftPanelUserName>
+                {JSON.parse(localStorage.getItem("user")).name}
+              </LeftPanelUserName>
+              <LeftPanelUserHandle>
+                @{JSON.parse(localStorage.getItem("user")).username}
+              </LeftPanelUserHandle>
+            </LeftPanelUserInfo>
+            <LeftPanelUserIconContainer>
+              <FontAwesomeIcon icon={faEllipsis}></FontAwesomeIcon>
+            </LeftPanelUserIconContainer>
+            {userPopUpState && (
+              <LeftPanelUserPopUp>
+                <UserPopUpInfo>
+                  <UserPhotoContainer size="small">
+                    <UserPhoto
+                      src={
+                        fullUserData.length > 0 && fullUserData[0].profilePhoto
+                          ? fullUserData[0].profilePhoto
+                          : "./images/blank-profile-picture-gf8e58e24f_640.png"
+                      }
+                    />
+                  </UserPhotoContainer>
+                  <UserPopUpNameUsername>
+                    <LeftPanelUserName>
+                      {JSON.parse(localStorage.getItem("user")).name}
+                    </LeftPanelUserName>
+                    <LeftPanelUserHandle>
+                      @{JSON.parse(localStorage.getItem("user")).username}
+                    </LeftPanelUserHandle>
+                  </UserPopUpNameUsername>
+                  <UserPopUpIconContainer>
+                    <AiOutlineCheck />
+                  </UserPopUpIconContainer>
+                </UserPopUpInfo>
+                <UserPopUpBottom>
+                  <UserPopUpBottomText>
+                    Add an existing account
+                  </UserPopUpBottomText>
+                  <UserPopUpBottomText onClick={onLogout}>
+                    {isLoading ? "Logging out..." : "Log out"}
+                    <UserPopUpHandle>
+                      @{JSON.parse(localStorage.getItem("user")).username}
+                    </UserPopUpHandle>
+                  </UserPopUpBottomText>
+                </UserPopUpBottom>
+              </LeftPanelUserPopUp>
+            )}
+          </LeftPanelUserContainer>
+        )}
       </LeftPanelContainer>
     </LeftPanelStyle>
   );

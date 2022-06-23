@@ -80,6 +80,7 @@ export const TweetUpperBarIconContainer = styled.div`
   border-radius: 50%;
   color: ${({ theme }) => theme.colors.secColor};
   transition: background-color 0.5s, color 0.5s;
+  cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverLightBlue};
     color: ${({ theme }) => theme.colors.mainColor};
@@ -101,6 +102,7 @@ export const TweetIconCountContainer = styled.div`
   align-items: center;
   gap: 0.25rem;
   transition: color 0.5s;
+  cursor: pointer;
   &:hover {
     div {
       background-color: ${(props) =>
