@@ -27,6 +27,24 @@ export const createTweet = createAsyncThunk(
   }
 );
 
+export const deleteTweet = createAsyncThunk(
+  "tweet/deletetweet",
+  async (tweetID, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      return await tweetService.deleteTweet(tweetID);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return rejectWithValue(message);
+    }
+  }
+);
+
 export const getAllTweets = createAsyncThunk(
   "tweet/getalltweets",
   async (user, thunkAPI) => {
@@ -106,6 +124,36 @@ export const tweetSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
       state.tweets = [];
+    },
+    [createTweet.pending]: (state) => {
+      state.isLoading = false;
+    },
+    [createTweet.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.tweets = [action.payload, ...state.tweets];
+    },
+    [createTweet.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.tweets = [...state.tweets];
+    },
+    [deleteTweet.pending]: (state) => {
+      state.isLoading = false;
+    },
+    [deleteTweet.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.tweets = state.tweets.filter(
+        (tweet) => tweet._id !== action.payload.id
+      );
+    },
+    [deleteTweet.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.tweets = [...state.tweets];
     },
   },
 });

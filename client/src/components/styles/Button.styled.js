@@ -30,6 +30,7 @@ export const MainTweetBtn = styled.button`
   border-radius: 15rem;
   background-color: ${({ theme }) => theme.colors.mainColor};
   transition: background-color 0.5s;
+  cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverBlue};
   }

@@ -27,15 +27,15 @@ const io = new Server(server, {
 const changeStream = Tweet.watch();
 
 changeStream.on("change", (change) => {
-  console.log(change); // You could parse out the needed info and send only that data.
+  // console.log(change); // You could parse out the needed info and send only that data.
   io.emit("changeData", change);
 });
 
 io.on("connection", (socket) => {
-  console.log(`a user connected: ${socket.id}`);
+  // console.log(`a user connected: ${socket.id}`);
   socket.emit("text", "Hello there from server!");
   socket.on("disconnect", () => {
-    console.log(`user ${socket.id} disconnected`);
+    // console.log(`user ${socket.id} disconnected`);
   });
 
   socket.on("newTweet", (data) => {

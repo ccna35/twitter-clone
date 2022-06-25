@@ -28,17 +28,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../features/user/userSlice";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { likeTweet } from "../features/tweets/tweetSlice";
+import { likeTweet, deleteTweet } from "../features/tweets/tweetSlice";
 import io from "socket.io-client";
 
 const socket = io.connect("http://localhost:8080/");
 
 function Tweet({ tweet, username }) {
-  const [likesArray, setLikesArray] = useState(tweet.likes);
-
-  // socket.on("likeAction", (data) => {
-  //   console.log(data.likes);
-  // });
+  const [likesArray, setLikesArray] = useState([...tweet.likes]);
 
   const date1 = new Date(tweet.createdAt);
   const timeDiff = Date.now() - Date.parse(date1);
@@ -47,12 +43,15 @@ function Tweet({ tweet, username }) {
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    const userData = {
-      username: username || JSON.parse(localStorage.getItem("user")).username,
-    };
-    dispatch(getUserData(userData.username));
-  }, [dispatch, likesArray]);
+  // useEffect(() => {
+  //   const userData = {
+  //     username: username || JSON.parse(localStorage.getItem("user")).username,
+  //   };
+  //   dispatch(getUserData(userData.username));
+  //   console.log("useEffect Tweet.js");
+  // }, [dispatch, likesArray]);
+
+  // console.log("Render Tweet.js");
 
   // const [likeTweet, setLikeTweet] = useState(false);
 
@@ -72,8 +71,7 @@ function Tweet({ tweet, username }) {
       console.log(data);
 
       dispatch(likeTweet(data)).then((res) => {
-        // socket.emit("likeTweet", res.payload);
-        console.log(likesArray);
+        // console.log(likesArray.length);
       });
     } else {
       console.log("This user liked this tweet before");
@@ -89,11 +87,13 @@ function Tweet({ tweet, username }) {
       };
       console.log(data);
       dispatch(likeTweet(data)).then((res) => {
-        // socket.emit("likeTweet", res.payload);
-        // setLikesArray(res.payload);
-        console.log(likesArray);
+        // console.log(likesArray.length);
       });
     }
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteTweet(id)).then((data) => console.log(data));
   };
 
   // console.log(tweet._id);
@@ -144,7 +144,7 @@ function Tweet({ tweet, username }) {
                 : Math.floor(timePosted / 3600) + "d"}
             </TimeSincePosted>
           </TweetInfoContainer>
-          <TweetUpperBarIconContainer>
+          <TweetUpperBarIconContainer onClick={() => handleDelete(tweet._id)}>
             <FontAwesomeIcon icon={faEllipsis} size="lg"></FontAwesomeIcon>
           </TweetUpperBarIconContainer>
         </TweetUpperBar>

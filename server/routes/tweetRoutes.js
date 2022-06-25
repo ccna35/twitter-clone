@@ -16,6 +16,6 @@ router
   .get(getTweets)
   // .put(protect, updateTweet)
   .put(likeTweet)
-  .delete(protect, deleteTweet);
+  .delete(deleteTweet);
 
 module.exports = router;

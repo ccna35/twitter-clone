@@ -19,9 +19,6 @@ import { reset } from "../features/auth/authSlice";
 import { getAllTweets } from "../features/tweets/tweetSlice";
 import { getUserData } from "../features/user/userSlice";
 import Spinner from "../components/Spinner";
-import io from "socket.io-client";
-
-const socket = io.connect("http://localhost:8080/");
 
 function Home() {
   const navigate = useNavigate();
@@ -30,18 +27,6 @@ function Home() {
   const { user } = useSelector((state) => state.auth);
   const { tweets, isLoading } = useSelector((state) => state.tweet);
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
-
-  const [tweetsArray, setTweetsArray] = useState(tweets);
-
-  socket.on("changeData", (data) => {
-    if (
-      data.fullDocument !== undefined &&
-      data.fullDocument.user === JSON.parse(localStorage.getItem("user"))._id
-    ) {
-      console.log(data.fullDocument);
-      setTweetsArray([...tweetsArray, data.fullDocument]);
-    }
-  });
 
   useEffect(() => {
     if (user) {
@@ -56,9 +41,8 @@ function Home() {
     }
 
     dispatch(reset());
-  }, [user, dispatch, navigate, tweetsArray]);
-
-  console.log(tweetsArray);
+    console.log("useEffect");
+  }, [user, dispatch, navigate]);
 
   return (
     <StyledHome>

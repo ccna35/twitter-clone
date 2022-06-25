@@ -33,8 +33,9 @@ const likeTweet = async (data) => {
   return res.data;
 };
 
+// This function handles tweet deletion.
 const deleteTweet = async (id) => {
-  const res = await axios.get(API_URL + id);
+  const res = await axios.delete(API_URL + id);
   return res.data;
 };
 

@@ -71,6 +71,8 @@ const updateTweet = asyncHandler(async (req, res) => {
 // @access private
 
 const deleteTweet = asyncHandler(async (req, res) => {
+  console.log(req.user);
+
   const tweet = await Tweet.findById(req.params.id);
 
   if (!tweet) {
@@ -78,21 +80,21 @@ const deleteTweet = asyncHandler(async (req, res) => {
     throw new Error("Tweet not found");
   }
 
-  const user = await User.findById(req.user.id);
+  // const user = await User.findById(req.user.id);
 
-  // Check if user exists
-  if (!user) {
-    res.status(401);
-    throw new Error("User not found");
-  }
+  // // Check if user exists
+  // if (!user) {
+  //   res.status(401);
+  //   throw new Error("User not found");
+  // }
 
-  // Make sure the logged in user matches the tweet user
-  if (tweet.user.toString() !== user.id) {
-    res.status(401);
-    throw new Error("User not authorized");
-  }
+  // // Make sure the logged in user matches the tweet user
+  // if (tweet.user.toString() !== user.id) {
+  //   res.status(401);
+  //   throw new Error("User not authorized");
+  // }
 
-  await Tweet.remove();
+  await Tweet.findByIdAndDelete({ _id: req.params.id });
 
   res.status(200).json({ id: req.params.id });
 });
