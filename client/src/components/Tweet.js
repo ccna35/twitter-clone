@@ -29,11 +29,12 @@ import { getUserData } from "../features/user/userSlice";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { likeTweet, deleteTweet } from "../features/tweets/tweetSlice";
-import io from "socket.io-client";
-
-const socket = io.connect("http://localhost:8080/");
 
 function Tweet({ tweet, username }) {
+  // const { likes } = useSelector((state) => state.tweet);
+
+  // console.log(likes);
+
   const [likesArray, setLikesArray] = useState([...tweet.likes]);
 
   const date1 = new Date(tweet.createdAt);
@@ -56,47 +57,46 @@ function Tweet({ tweet, username }) {
   // const [likeTweet, setLikeTweet] = useState(false);
 
   const handleLike = (tweetID) => {
-    if (!likesArray.includes(JSON.parse(localStorage.getItem("user"))._id)) {
-      console.log("This user didn't like this tweet before");
-      setLikesArray([
-        ...likesArray,
-        JSON.parse(localStorage.getItem("user"))._id,
-      ]);
+    if (localStorage.getItem("user")) {
+      if (!likesArray.includes(JSON.parse(localStorage.getItem("user"))._id)) {
+        console.log("This user didn't like this tweet before");
+        setLikesArray([
+          ...likesArray,
+          JSON.parse(localStorage.getItem("user"))._id,
+        ]);
 
-      const data = {
-        tweetID,
-        userID: JSON.parse(localStorage.getItem("user"))._id,
-        didUserLikeThisTweet: false,
-      };
-      console.log(data);
+        const data = {
+          tweetID,
+          userID: JSON.parse(localStorage.getItem("user"))._id,
+          didUserLikeThisTweet: false,
+        };
+        console.log(data);
+        console.log(likesArray.length);
 
-      dispatch(likeTweet(data)).then((res) => {
-        // console.log(likesArray.length);
-      });
-    } else {
-      console.log("This user liked this tweet before");
-      setLikesArray([
-        likesArray.filter(
-          (userID) => userID !== JSON.parse(localStorage.getItem("user"))._id
-        ),
-      ]);
-      const data = {
-        tweetID,
-        userID: JSON.parse(localStorage.getItem("user"))._id,
-        didUserLikeThisTweet: true,
-      };
-      console.log(data);
-      dispatch(likeTweet(data)).then((res) => {
-        // console.log(likesArray.length);
-      });
+        dispatch(likeTweet(data));
+      } else {
+        console.log("This user liked this tweet before");
+        setLikesArray([
+          likesArray.filter(
+            (userID) => userID !== JSON.parse(localStorage.getItem("user"))._id
+          ),
+        ]);
+        const data = {
+          tweetID,
+          userID: JSON.parse(localStorage.getItem("user"))._id,
+          didUserLikeThisTweet: true,
+        };
+        console.log(data);
+        console.log(likesArray.length);
+
+        dispatch(likeTweet(data));
+      }
     }
   };
 
   const handleDelete = (id) => {
     dispatch(deleteTweet(id)).then((data) => console.log(data));
   };
-
-  // console.log(tweet._id);
 
   return (
     <TweetContainer>
@@ -168,6 +168,7 @@ function Tweet({ tweet, username }) {
           <TweetIconCountContainer IconColor="red">
             <TweetLowerBarIconContainer onClick={() => handleLike(tweet._id)}>
               {likesArray &&
+              localStorage.getItem("user") &&
               likesArray.includes(
                 JSON.parse(localStorage.getItem("user"))._id
               ) ? (

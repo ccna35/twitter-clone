@@ -28,6 +28,8 @@ function Home() {
   const { tweets, isLoading } = useSelector((state) => state.tweet);
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
 
+  // console.log(tweets);
+
   useEffect(() => {
     if (user) {
       navigate("/home");

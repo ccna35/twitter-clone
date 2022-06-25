@@ -8,8 +8,14 @@ const getUserData = async (userName) => {
   return res.data;
 };
 
+const getAllUsers = async () => {
+  const res = await axios.get(API_URL);
+  return res.data;
+};
+
 const userService = {
   getUserData,
+  getAllUsers,
 };
 
 export default userService;

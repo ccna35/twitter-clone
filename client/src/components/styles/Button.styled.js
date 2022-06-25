@@ -46,10 +46,12 @@ export const FollowUserBtn = styled.button`
   background-color: ${({ theme }) => theme.colors.FollowBgColor};
   color: ${({ theme }) => theme.colors.FollowTextColor};
   transition: background-color 0.5s;
+  cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.colors.FollowBgHoverColor};
   }
-  align-self: flex-end;
+  /* align-self: flex-end; */
+  align-self: ${(props) => (props.align === "center" ? "center" : "flex-end")};
 `;
 
 export const EditProfileBtn = styled(FollowUserBtn)`

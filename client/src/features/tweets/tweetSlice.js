@@ -3,6 +3,7 @@ import tweetService from "./tweetService";
 
 const initialState = {
   tweets: [],
+  likes: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -154,6 +155,21 @@ export const tweetSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
       state.tweets = [...state.tweets];
+    },
+
+    [likeTweet.pending]: (state) => {
+      state.isLoading = false;
+    },
+    [likeTweet.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.likes = action.payload.likes.length;
+      console.log(action.payload.likes);
+    },
+    [likeTweet.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
     },
   },
 });

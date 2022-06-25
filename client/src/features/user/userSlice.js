@@ -3,9 +3,11 @@ import userService from "./userService";
 
 const initialState = {
   fullUserData: [],
+  users: [],
   isError: false,
   isSuccess: false,
   isUserLoading: false,
+  areUsersLoading: false,
   message: "",
 };
 
@@ -15,6 +17,24 @@ export const getUserData = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       return await userService.getUserData(userName);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const getAllUsers = createAsyncThunk(
+  "tweet/getallusers",
+  async (_, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      return await userService.getAllUsers();
     } catch (error) {
       const message =
         (error.response &&
@@ -52,6 +72,20 @@ export const userSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
       state.fullUserData = [];
+    },
+    [getAllUsers.pending]: (state) => {
+      state.areUsersLoading = true;
+    },
+    [getAllUsers.fulfilled]: (state, action) => {
+      state.areUsersLoading = false;
+      state.isSuccess = true;
+      state.users = action.payload;
+    },
+    [getAllUsers.rejected]: (state, action) => {
+      state.areUsersLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.users = [];
     },
   },
 });

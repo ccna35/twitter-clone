@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FollowUserContainer,
   FollowUserHandle,
@@ -10,44 +10,45 @@ import {
 import { TrendingShowMore } from "../styles/RightPanelStyles/WhatsHappening.styled";
 import { UserPhoto, UserPhotoContainer } from "../styles/NewTweet.styled";
 import { FollowUserBtn } from "../styles/Button.styled";
+import { getAllUsers } from "../../features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function WhoToFollow() {
+  const dispatch = useDispatch();
+  const { users, areUsersLoading } = useSelector((state) => state.user);
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
   return (
     <WhoToFollowContainer>
       <WhoToFollowHeader>Who to follow</WhoToFollowHeader>
 
-      <FollowUserContainer>
-        <UserPhotoContainer>
-          <UserPhoto src="./images/probane.jpg" />
-        </UserPhotoContainer>
-        <FollowUserInfo>
-          <FollowUserName>Propane</FollowUserName>
-          <FollowUserHandle>@Propane_Digital</FollowUserHandle>
-        </FollowUserInfo>
-        <FollowUserBtn>Follow</FollowUserBtn>
-      </FollowUserContainer>
+      {areUsersLoading
+        ? "Loading users..."
+        : users.slice(0, 3).map((user) => {
+            return (
+              <Link to={`/${user.username}`} key={user._id}>
+                <FollowUserContainer>
+                  <UserPhotoContainer>
+                    <UserPhoto
+                      src={
+                        user.profilePhoto
+                          ? user.profilePhoto
+                          : "./images/blank-profile-picture-gf8e58e24f_640.png"
+                      }
+                    />
+                  </UserPhotoContainer>
+                  <FollowUserInfo>
+                    <FollowUserName>{user.name}</FollowUserName>
+                    <FollowUserHandle>{user.username}</FollowUserHandle>
+                  </FollowUserInfo>
+                  <FollowUserBtn align="center">Follow</FollowUserBtn>
+                </FollowUserContainer>
+              </Link>
+            );
+          })}
 
-      <FollowUserContainer>
-        <UserPhotoContainer>
-          <UserPhoto src="./images/SprintbaseB.jpg" />
-        </UserPhotoContainer>
-        <FollowUserInfo>
-          <FollowUserName>SprintbaseBot</FollowUserName>
-          <FollowUserHandle>@SprintbaseB</FollowUserHandle>
-        </FollowUserInfo>
-        <FollowUserBtn>Follow</FollowUserBtn>
-      </FollowUserContainer>
-
-      <FollowUserContainer>
-        <UserPhotoContainer>
-          <UserPhoto src="./images/aavvallas.jpg" />
-        </UserPhotoContainer>
-        <FollowUserInfo>
-          <FollowUserName>Antoine Vallas</FollowUserName>
-          <FollowUserHandle>@aavvallas</FollowUserHandle>
-        </FollowUserInfo>
-        <FollowUserBtn>Follow</FollowUserBtn>
-      </FollowUserContainer>
       <TrendingShowMore>Show more</TrendingShowMore>
     </WhoToFollowContainer>
   );

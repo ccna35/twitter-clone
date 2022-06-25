@@ -97,6 +97,14 @@ const getUserPublicData = asyncHandler(async (req, res) => {
   res.status(200).json(userData);
 });
 
+const getAllUsers = asyncHandler(async (req, res) => {
+  const usersList = await User.find().sort({
+    createdAt: -1,
+  });
+
+  res.status(200).json(usersList);
+});
+
 // Generate JWT
 
 const generateToken = (id) => {
@@ -110,4 +118,5 @@ module.exports = {
   loginUser,
   getMe,
   getUserPublicData,
+  getAllUsers,
 };

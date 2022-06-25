@@ -65,11 +65,7 @@ function User() {
     };
     dispatch(getAllTweets(userData));
     dispatch(getUserData(username));
-    // console.log("useEffect");
   }, [user, dispatch, navigate]);
-
-  // console.log("Render");
-  console.log(tweets);
 
   return (
     <UserStyle>
