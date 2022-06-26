@@ -13,6 +13,8 @@ import { FollowUserBtn } from "../styles/Button.styled";
 import { getAllUsers } from "../../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { TweetsContainer } from "../../components/styles/Home.styled";
+import Spinner from "../../components/Spinner";
 
 function WhoToFollow() {
   const dispatch = useDispatch();
@@ -20,36 +22,49 @@ function WhoToFollow() {
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);
+
+  const rightPanelUsersList = localStorage.getItem("user")
+    ? users
+        .filter(
+          (user) => user._id !== JSON.parse(localStorage.getItem("user"))._id
+        )
+        .slice(0, 3)
+    : users.slice(0, 3);
+
   return (
     <WhoToFollowContainer>
       <WhoToFollowHeader>Who to follow</WhoToFollowHeader>
 
-      {areUsersLoading
-        ? "Loading users..."
-        : users.slice(0, 3).map((user) => {
-            return (
-              <Link to={`/${user.username}`} key={user._id}>
-                <FollowUserContainer>
-                  <UserPhotoContainer>
-                    <UserPhoto
-                      src={
-                        user.profilePhoto
-                          ? user.profilePhoto
-                          : "./images/blank-profile-picture-gf8e58e24f_640.png"
-                      }
-                    />
-                  </UserPhotoContainer>
-                  <FollowUserInfo>
-                    <FollowUserName>{user.name}</FollowUserName>
-                    <FollowUserHandle>{user.username}</FollowUserHandle>
-                  </FollowUserInfo>
-                  <FollowUserBtn align="center">Follow</FollowUserBtn>
-                </FollowUserContainer>
-              </Link>
-            );
-          })}
+      {areUsersLoading ? (
+        <TweetsContainer>
+          <Spinner />
+        </TweetsContainer>
+      ) : (
+        rightPanelUsersList.map((user) => {
+          return (
+            <Link to={`/${user.username}`} key={user._id}>
+              <FollowUserContainer>
+                <UserPhotoContainer>
+                  <UserPhoto
+                    src={
+                      user.profilePhoto
+                        ? user.profilePhoto
+                        : "./images/blank-profile-picture-gf8e58e24f_640.png"
+                    }
+                  />
+                </UserPhotoContainer>
+                <FollowUserInfo>
+                  <FollowUserName>{user.name}</FollowUserName>
+                  <FollowUserHandle>{user.username}</FollowUserHandle>
+                </FollowUserInfo>
+                <FollowUserBtn align="center">Follow</FollowUserBtn>
+              </FollowUserContainer>
+            </Link>
+          );
+        })
+      )}
 
-      <TrendingShowMore>Show more</TrendingShowMore>
+      {!areUsersLoading && <TrendingShowMore>Show more</TrendingShowMore>}
     </WhoToFollowContainer>
   );
 }

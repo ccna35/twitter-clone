@@ -31,10 +31,6 @@ import { useState } from "react";
 import { likeTweet, deleteTweet } from "../features/tweets/tweetSlice";
 
 function Tweet({ tweet, username }) {
-  // const { likes } = useSelector((state) => state.tweet);
-
-  // console.log(likes);
-
   const [likesArray, setLikesArray] = useState([...tweet.likes]);
 
   const date1 = new Date(tweet.createdAt);
@@ -42,19 +38,9 @@ function Tweet({ tweet, username }) {
   const timePosted = Math.floor(timeDiff / (1000 * 60));
 
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
+  const { likes } = useSelector((state) => state.tweet);
 
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   const userData = {
-  //     username: username || JSON.parse(localStorage.getItem("user")).username,
-  //   };
-  //   dispatch(getUserData(userData.username));
-  //   console.log("useEffect Tweet.js");
-  // }, [dispatch, likesArray]);
-
-  // console.log("Render Tweet.js");
-
-  // const [likeTweet, setLikeTweet] = useState(false);
 
   const handleLike = (tweetID) => {
     if (localStorage.getItem("user")) {
@@ -64,30 +50,27 @@ function Tweet({ tweet, username }) {
           ...likesArray,
           JSON.parse(localStorage.getItem("user"))._id,
         ]);
-
+        console.log("likesArray : ", likesArray);
         const data = {
           tweetID,
           userID: JSON.parse(localStorage.getItem("user"))._id,
           didUserLikeThisTweet: false,
         };
-        console.log(data);
-        console.log(likesArray.length);
 
         dispatch(likeTweet(data));
       } else {
         console.log("This user liked this tweet before");
-        setLikesArray([
-          likesArray.filter(
+        setLikesArray((prev) =>
+          prev.filter(
             (userID) => userID !== JSON.parse(localStorage.getItem("user"))._id
-          ),
-        ]);
+          )
+        );
+        console.log("likesArray : ", likesArray);
         const data = {
           tweetID,
           userID: JSON.parse(localStorage.getItem("user"))._id,
           didUserLikeThisTweet: true,
         };
-        console.log(data);
-        console.log(likesArray.length);
 
         dispatch(likeTweet(data));
       }
@@ -95,7 +78,12 @@ function Tweet({ tweet, username }) {
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteTweet(id)).then((data) => console.log(data));
+    if (
+      localStorage.getItem("user") &&
+      localStorage.getItem("user")._id === tweet.user
+    ) {
+      dispatch(deleteTweet(id)).then((data) => console.log(data));
+    }
   };
 
   return (

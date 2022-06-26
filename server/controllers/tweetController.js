@@ -125,7 +125,7 @@ const likeTweet = asyncHandler(async (req, res) => {
     const removeLike = await Tweet.findByIdAndUpdate(
       JSON.stringify(req.params.id).toString().slice(1, -1),
       { $pull: { likes: req.body.userID } },
-      { safe: true, upsert: true }
+      { new: true }
     );
 
     res.status(200).json(removeLike);
@@ -133,7 +133,7 @@ const likeTweet = asyncHandler(async (req, res) => {
     const addLike = await Tweet.findByIdAndUpdate(
       JSON.stringify(req.params.id).toString().slice(1, -1),
       { $push: { likes: req.body.userID } },
-      { safe: true, upsert: true }
+      { new: true }
     );
 
     res.status(200).json(addLike);

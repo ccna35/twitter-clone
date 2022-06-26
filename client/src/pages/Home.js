@@ -43,7 +43,6 @@ function Home() {
     }
 
     dispatch(reset());
-    console.log("useEffect");
   }, [user, dispatch, navigate]);
 
   return (

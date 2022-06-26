@@ -34,12 +34,17 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset, resetUser } from "../features/auth/authSlice";
 import { getUserData } from "../features/user/userSlice";
+import { useRef } from "react";
 
 function LeftPanel() {
   const [userPopUpState, setUserPopUpState] = useState(false);
 
+  const popupRef = useRef();
+
   const userPopUp = () => {
-    setUserPopUpState((prev) => !prev);
+    if (!popupRef.current.classList.contains("leftPanelPopUp")) {
+      setUserPopUpState((prev) => !prev);
+    }
   };
 
   const dispatch = useDispatch();
@@ -54,15 +59,6 @@ function LeftPanel() {
     dispatch(reset());
     navigate("/");
   };
-
-  // useEffect(() => {
-  //   const userData = {
-  //     // username: user && JSON.parse(localStorage.getItem("user")).username,
-  //     username: user && "heidy_lamar33",
-  //   };
-  //   console.log(userData);
-  //   dispatch(getUserData(userData.username));
-  // }, [user, dispatch]);
 
   return (
     <LeftPanelStyle>

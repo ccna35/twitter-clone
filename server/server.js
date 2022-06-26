@@ -37,16 +37,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     // console.log(`user ${socket.id} disconnected`);
   });
-
-  socket.on("newTweet", (data) => {
-    console.log(data);
-    io.emit("newTweet3", data);
-  });
-
-  socket.on("likeTweet", (data) => {
-    console.log(data);
-    io.emit("likeAction", data);
-  });
 });
 
 // // connect to mongoDB

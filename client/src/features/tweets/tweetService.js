@@ -30,7 +30,6 @@ const likeTweet = async (data) => {
     userID: data.userID,
     didUserLikeThisTweet: data.didUserLikeThisTweet,
   });
-  console.log(res.data);
   return res.data;
 };
 
