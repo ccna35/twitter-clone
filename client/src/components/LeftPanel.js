@@ -39,12 +39,10 @@ import { useRef } from "react";
 function LeftPanel() {
   const [userPopUpState, setUserPopUpState] = useState(false);
 
-  const popupRef = useRef();
+  // const popupRef = useRef();
 
   const userPopUp = () => {
-    if (!popupRef.current.classList.contains("leftPanelPopUp")) {
-      setUserPopUpState((prev) => !prev);
-    }
+    setUserPopUpState((prev) => !prev);
   };
 
   const dispatch = useDispatch();

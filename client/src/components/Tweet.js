@@ -28,29 +28,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../features/user/userSlice";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { likeTweet, deleteTweet } from "../features/tweets/tweetSlice";
+import { likeTweet, deleteTweet, retweet } from "../features/tweets/tweetSlice";
 
-function Tweet({ tweet, username }) {
+function Tweet({ tweet }) {
   const [likesArray, setLikesArray] = useState([...tweet.likes]);
+  const [retweetsArray, setRetweetsArray] = useState([...tweet.retweets]);
 
   const date1 = new Date(tweet.createdAt);
   const timeDiff = Date.now() - Date.parse(date1);
   const timePosted = Math.floor(timeDiff / (1000 * 60));
 
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
-  const { likes } = useSelector((state) => state.tweet);
 
   const dispatch = useDispatch();
 
   const handleLike = (tweetID) => {
     if (localStorage.getItem("user")) {
       if (!likesArray.includes(JSON.parse(localStorage.getItem("user"))._id)) {
-        console.log("This user didn't like this tweet before");
         setLikesArray([
           ...likesArray,
           JSON.parse(localStorage.getItem("user"))._id,
         ]);
-        console.log("likesArray : ", likesArray);
         const data = {
           tweetID,
           userID: JSON.parse(localStorage.getItem("user"))._id,
@@ -59,13 +57,11 @@ function Tweet({ tweet, username }) {
 
         dispatch(likeTweet(data));
       } else {
-        console.log("This user liked this tweet before");
         setLikesArray((prev) =>
           prev.filter(
             (userID) => userID !== JSON.parse(localStorage.getItem("user"))._id
           )
         );
-        console.log("likesArray : ", likesArray);
         const data = {
           tweetID,
           userID: JSON.parse(localStorage.getItem("user"))._id,
@@ -77,10 +73,43 @@ function Tweet({ tweet, username }) {
     }
   };
 
+  const handleRetweet = (tweetID) => {
+    if (localStorage.getItem("user")) {
+      if (
+        !retweetsArray.includes(JSON.parse(localStorage.getItem("user"))._id)
+      ) {
+        setRetweetsArray([
+          ...retweetsArray,
+          JSON.parse(localStorage.getItem("user"))._id,
+        ]);
+        const data = {
+          tweetID,
+          userID: JSON.parse(localStorage.getItem("user"))._id,
+          didUserRetweetThisTweet: false,
+        };
+
+        dispatch(retweet(data));
+      } else {
+        setRetweetsArray((prev) =>
+          prev.filter(
+            (userID) => userID !== JSON.parse(localStorage.getItem("user"))._id
+          )
+        );
+        const data = {
+          tweetID,
+          userID: JSON.parse(localStorage.getItem("user"))._id,
+          didUserRetweetThisTweet: true,
+        };
+
+        dispatch(retweet(data));
+      }
+    }
+  };
+
   const handleDelete = (id) => {
     if (
       localStorage.getItem("user") &&
-      localStorage.getItem("user")._id === tweet.user
+      JSON.parse(localStorage.getItem("user"))._id === tweet.user
     ) {
       dispatch(deleteTweet(id)).then((data) => console.log(data));
     }
@@ -146,11 +175,29 @@ function Tweet({ tweet, username }) {
             <TweetCount>0</TweetCount>
           </TweetIconCountContainer>
 
-          <TweetIconCountContainer IconColor="green">
-            <TweetLowerBarIconContainer>
+          <TweetIconCountContainer
+            IconColor="green"
+            active={
+              retweetsArray &&
+              localStorage.getItem("user") &&
+              retweetsArray.includes(
+                JSON.parse(localStorage.getItem("user"))._id
+              )
+            }
+          >
+            <TweetLowerBarIconContainer
+              onClick={() => handleRetweet(tweet._id)}
+              active={
+                retweetsArray &&
+                localStorage.getItem("user") &&
+                retweetsArray.includes(
+                  JSON.parse(localStorage.getItem("user"))._id
+                )
+              }
+            >
               <AiOutlineRetweet />
             </TweetLowerBarIconContainer>
-            <TweetCount>{tweet.retweets}</TweetCount>
+            <TweetCount>{retweetsArray.length}</TweetCount>
           </TweetIconCountContainer>
 
           <TweetIconCountContainer IconColor="red">
@@ -165,7 +212,17 @@ function Tweet({ tweet, username }) {
                 <AiOutlineHeart />
               )}
             </TweetLowerBarIconContainer>
-            <TweetCount>{likesArray.length}</TweetCount>
+            <TweetCount
+              active={
+                likesArray &&
+                localStorage.getItem("user") &&
+                likesArray.includes(
+                  JSON.parse(localStorage.getItem("user"))._id
+                )
+              }
+            >
+              {likesArray.length}
+            </TweetCount>
           </TweetIconCountContainer>
 
           <TweetLowerBarIconContainer>

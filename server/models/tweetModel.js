@@ -18,6 +18,7 @@ const tweetSchema = new Schema(
     },
     retweets: {
       type: Array,
+      default: [],
     },
   },
   { timestamps: true }

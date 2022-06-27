@@ -99,6 +99,24 @@ export const likeTweet = createAsyncThunk(
   }
 );
 
+export const retweet = createAsyncThunk(
+  "tweet/retweet",
+  async (data, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      return await tweetService.retweet(data);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return rejectWithValue(message);
+    }
+  }
+);
+
 export const tweetSlice = createSlice({
   name: "tweet",
   initialState,

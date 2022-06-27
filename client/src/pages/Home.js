@@ -28,7 +28,13 @@ function Home() {
   const { tweets, isLoading } = useSelector((state) => state.tweet);
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
 
-  // console.log(tweets);
+  const [allTweets, setAllTweets] = useState([]);
+
+  isUserLoading
+    ? console.log("Loading...")
+    : setAllTweets([...fullUserData[0].retweetedTweets]);
+
+  console.log(allTweets);
 
   useEffect(() => {
     if (user) {
@@ -67,7 +73,7 @@ function Home() {
       <NewTweet />
       <ShowNewTweets />
 
-      {isLoading ? (
+      {isLoading && isUserLoading ? (
         <TweetsContainer>
           <Spinner />
         </TweetsContainer>

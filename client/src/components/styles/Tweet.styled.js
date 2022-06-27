@@ -103,6 +103,7 @@ export const TweetIconCountContainer = styled.div`
   gap: 0.25rem;
   transition: color 0.5s;
   cursor: pointer;
+  color: ${(props) => props.active && "#07e938"};
   &:hover {
     div {
       background-color: ${(props) =>
@@ -137,9 +138,11 @@ export const UserVerifiedIconContainer = styled.div`
 
 export const TweetCount = styled.p`
   transition: color 0.5s;
-  ${(props) => props.active === "yes" && "color: #eb0770"}
+  color: ${(props) => props.active && props.active === true && "#eb0770"};
 `;
 
 export const TweetAuthor = styled.p``;
 
-export const TweetLowerBarIconContainer = styled(TweetUpperBarIconContainer)``;
+export const TweetLowerBarIconContainer = styled(TweetUpperBarIconContainer)`
+  color: ${(props) => props.active && "#07e938"};
+`;
