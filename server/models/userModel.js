@@ -69,6 +69,10 @@ const userSchema = new Schema(
       type: Array,
       default: [],
     },
+    likedTweets: {
+      type: Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );

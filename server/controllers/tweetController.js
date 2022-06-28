@@ -134,21 +134,39 @@ const likeTweet = asyncHandler(async (req, res) => {
   // }
 
   if (req.body.didUserLikeThisTweet) {
-    const removeLike = await Tweet.findByIdAndUpdate(
+    const removeLikeFromTweetDatabase = await Tweet.findByIdAndUpdate(
       JSON.stringify(req.params.id).toString().slice(1, -1),
       { $pull: { likes: req.body.userID } },
       { new: true }
     );
 
-    res.status(200).json(removeLike);
+    // Second we remove the tweet from the likedTweets array stored in that user's database.
+    const removeTweetFromUserDatabase = await User.findByIdAndUpdate(
+      req.body.userID,
+      { $pull: { likedTweets: tweet._id } },
+      { new: true }
+    );
+
+    console.log(removeLikeFromTweetDatabase);
+
+    res.status(200).json(removeLikeFromTweetDatabase);
   } else {
-    const addLike = await Tweet.findByIdAndUpdate(
+    const addLikeFromTweetDatabase = await Tweet.findByIdAndUpdate(
       JSON.stringify(req.params.id).toString().slice(1, -1),
       { $push: { likes: req.body.userID } },
       { new: true }
     );
 
-    res.status(200).json(addLike);
+    // Second we remove the tweet from the likedTweets array stored in that user's database.
+    const addTweetToUserDatabase = await User.findByIdAndUpdate(
+      req.body.userID,
+      { $push: { likedTweets: tweet._id } },
+      { new: true }
+    );
+
+    console.log(addTweetToUserDatabase);
+
+    res.status(200).json(addLikeFromTweetDatabase);
   }
 });
 
@@ -185,7 +203,7 @@ const retweet = asyncHandler(async (req, res) => {
     // Second we remove the tweet from the retweetedTweets array stored in that user's database.
     const removeRetweetFromUserDatabase = await User.findByIdAndUpdate(
       req.body.userID,
-      { $pull: { retweetedTweets: tweet } },
+      { $pull: { retweetedTweets: tweet._id } },
       { new: true }
     );
 
@@ -201,7 +219,7 @@ const retweet = asyncHandler(async (req, res) => {
     // Second we add the tweet to the retweetedTweets array stored in that user's database.
     const addRetweetToUserDatabase = await User.findByIdAndUpdate(
       req.body.userID,
-      { $push: { retweetedTweets: tweet } },
+      { $push: { retweetedTweets: tweet._id } },
       { new: true }
     );
 
