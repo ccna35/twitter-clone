@@ -50,6 +50,7 @@ export const UserNavbarIconContainer = styled.div`
   border-radius: 50%;
   color: ${({ theme }) => theme.colors.textColor};
   transition: background-color 0.5s;
+  cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverLightGrey};
   }

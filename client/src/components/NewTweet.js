@@ -32,6 +32,8 @@ function NewTweet() {
     text: "",
   });
 
+  const [whoCanReply, setWhoCanReply] = useState(false);
+
   const { user } = useSelector((state) => state.auth);
 
   const onChange = (e) => {
@@ -83,11 +85,15 @@ function NewTweet() {
           placeholder="What’s happening"
           onChange={(e) => onChange(e)}
           value={formData.text}
+          onFocus={() => setWhoCanReply(true)}
         />
-        <WhoCanReplyContainer>
-          <FontAwesomeIcon icon={faEarth}></FontAwesomeIcon>
-          <WhoCanReplyText>Everyone can reply</WhoCanReplyText>
-        </WhoCanReplyContainer>
+        {whoCanReply && (
+          <WhoCanReplyContainer>
+            <FontAwesomeIcon icon={faEarth}></FontAwesomeIcon>
+            <WhoCanReplyText>Everyone can reply</WhoCanReplyText>
+          </WhoCanReplyContainer>
+        )}
+
         <TweetOptionsContainer>
           <TweetIconsContainer>
             <TweetIconContainer>

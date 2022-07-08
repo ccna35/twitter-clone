@@ -30,12 +30,6 @@ function Home() {
 
   const [allTweets, setAllTweets] = useState([]);
 
-  // isUserLoading
-  //   ? console.log("Loading...")
-  //   : setAllTweets([...fullUserData[0].retweetedTweets]);
-
-  // console.log(allTweets);
-
   fullUserData.length > 0 && console.log(fullUserData[0].retweetedTweets);
 
   useEffect(() => {
@@ -73,7 +67,7 @@ function Home() {
         <BsStars />
       </HomeNavbar>
       <NewTweet />
-      <ShowNewTweets />
+      {/* <ShowNewTweets /> */}
 
       {isLoading ? (
         <TweetsContainer>

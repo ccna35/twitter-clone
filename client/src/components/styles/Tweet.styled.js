@@ -13,6 +13,7 @@ export const TweetContainer = styled.div`
 
   animation-duration: 1s;
   animation-name: fadein;
+  animation-timing-function: ease-in-out;
 
   @keyframes fadein {
     from {

@@ -5,7 +5,7 @@ export const NewTweetStyle = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.borderColor};
+  /* border-bottom: 1px solid ${({ theme }) => theme.colors.borderColor}; */
   @media (max-width: ${({ theme }) => theme.breakpoints.xs}) {
     display: none;
   }
