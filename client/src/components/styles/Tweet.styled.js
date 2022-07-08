@@ -10,6 +10,21 @@ export const TweetContainer = styled.div`
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverTweetBg};
   }
+
+  animation-duration: 1s;
+  animation-name: fadein;
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+      margin-top: -10%;
+    }
+
+    to {
+      opacity: 100%;
+      margin-top: 0;
+    }
+  }
 `;
 
 export const TweetBody = styled.div`
