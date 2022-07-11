@@ -31,6 +31,7 @@ import { useState } from "react";
 import { likeTweet, deleteTweet, retweet } from "../features/tweets/tweetSlice";
 
 function Tweet({ tweet }) {
+  console.log(tweet);
   const [likesArray, setLikesArray] = useState([...tweet.likes]);
   const [retweetsArray, setRetweetsArray] = useState([...tweet.retweets]);
 
@@ -118,12 +119,7 @@ function Tweet({ tweet }) {
   return (
     <TweetContainer>
       <UserPhotoContainer>
-        <Link
-          to={
-            "/" + fullUserData.length > 0 &&
-            fullUserData[0].profilePhoto.username
-          }
-        >
+        <Link to={"/" + fullUserData.length > 0 && fullUserData[0].username}>
           <UserPhoto
             src={
               fullUserData.length > 0 && fullUserData[0].profilePhoto
@@ -166,7 +162,7 @@ function Tweet({ tweet }) {
           </TweetUpperBarIconContainer>
         </TweetUpperBar>
         <TweetText>{tweet.text}</TweetText>
-        {/* <TweetImage src="./images/FLo3hQmXwAEL-ut.jfif" /> */}
+        <TweetImage src={tweet.image} />
         <TweetLowerBar>
           <TweetIconCountContainer>
             <TweetLowerBarIconContainer>

@@ -89,7 +89,19 @@ export const TweetIconContainer = styled.div`
   border-radius: 50%;
   color: ${({ theme }) => theme.colors.mainColor};
   transition: background-color 0.5s;
+  position: relative;
+  svg {
+    position: absolute;
+  }
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverLightBlue};
+  }
+`;
+
+export const UploadButton = styled.input`
+  color: transparent;
+  position: absolute;
+  &::-webkit-file-upload-button {
+    visibility: hidden;
   }
 `;

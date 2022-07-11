@@ -12,6 +12,10 @@ const tweetSchema = new Schema(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+      default: null,
+    },
     likes: {
       type: Array,
       default: [],
