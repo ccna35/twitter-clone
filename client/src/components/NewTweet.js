@@ -10,6 +10,7 @@ import {
   UserPhotoContainer,
   WhoCanReplyContainer,
   WhoCanReplyText,
+  UploadButton,
 } from "./styles/NewTweet.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEarth } from "@fortawesome/free-solid-svg-icons";
@@ -24,12 +25,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { createTweet } from "../features/tweets/tweetSlice";
 import io from "socket.io-client";
 import { getUserData, reset } from "../features/user/userSlice";
+import Axios from "axios";
 
 const socket = io.connect("http://localhost:8080/");
 
 function NewTweet() {
   const [formData, setFormData] = useState({
     text: "",
+    image: null,
   });
 
   const [whoCanReply, setWhoCanReply] = useState(false);
@@ -42,17 +45,54 @@ function NewTweet() {
 
   const dispatch = useDispatch();
 
-  const onSubmit = (e) => {
+  const [imageUpload, setImageUpload] = useState({});
+
+  const handleUploadButton = (file) => {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "lqpivui7");
+    data.append("cloud_name", "dmua4axn3");
+
+    console.log(data);
+    setImageUpload(data);
+  };
+
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (formData) {
       formData.token = `Bearer ${
         JSON.parse(localStorage.getItem("user")).token
       }`;
-      dispatch(createTweet(formData)).then((data) =>
-        socket.emit("newTweet", data.payload)
-      );
+      try {
+        let res = await Axios.post(
+          "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
+          imageUpload
+        );
 
-      setFormData({ text: "" });
+        setFormData((prev) => ({
+          ...prev,
+          image: "https://api.cloudinary.com/",
+        }));
+
+        console.log(res.data.url);
+        // console.log(formData);
+        setTimeout(() => {
+          console.log(formData);
+          dispatch(createTweet(formData));
+        }, 5000);
+      } catch (error) {
+        console.log(error);
+      }
+      // Axios.post(
+      //   "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
+      //   imageUpload
+      // ).then((res) =>
+      //   setFormData((prev) => ({ ...prev, image: res.data.url }));
+      // dispatch(createTweet(formData));
+
+      // );
+
+      setFormData({ text: "", image: null });
     }
   };
 
@@ -96,8 +136,13 @@ function NewTweet() {
 
         <TweetOptionsContainer>
           <TweetIconsContainer>
-            <TweetIconContainer>
+            <TweetIconContainer
+              onChange={(e) => {
+                handleUploadButton(e.target.files[0]);
+              }}
+            >
               <HiOutlinePhotograph size="1.25rem" />
+              <UploadButton type="file" />
             </TweetIconContainer>
             <TweetIconContainer>
               <AiOutlineFileGif size="1.25rem" />
