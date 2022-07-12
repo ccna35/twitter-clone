@@ -39,6 +39,7 @@ const createTweet = asyncHandler(async (req, res) => {
 
   const tweet = await Tweet.create({
     text: req.body.text,
+    image: req.body.image,
     user: req.user.id,
   });
 

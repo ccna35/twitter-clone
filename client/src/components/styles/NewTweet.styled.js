@@ -101,6 +101,7 @@ export const TweetIconContainer = styled.div`
 export const UploadButton = styled.input`
   color: transparent;
   position: absolute;
+  outline: none;
   &::-webkit-file-upload-button {
     visibility: hidden;
   }

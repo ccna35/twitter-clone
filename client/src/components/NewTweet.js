@@ -32,7 +32,6 @@ const socket = io.connect("http://localhost:8080/");
 function NewTweet() {
   const [formData, setFormData] = useState({
     text: "",
-    image: null,
   });
 
   const [whoCanReply, setWhoCanReply] = useState(false);
@@ -53,8 +52,14 @@ function NewTweet() {
     data.append("upload_preset", "lqpivui7");
     data.append("cloud_name", "dmua4axn3");
 
-    console.log(data);
-    setImageUpload(data);
+    // const imgData = {};
+    // imgData["file"] = file;
+    // imgData["upload_preset"] = "lqpivui7";
+    // imgData["cloud_name"] = "dmua4axn3";
+
+    console.log(file);
+    console.log(Object.keys(data));
+    setImageUpload((prev) => ({ ...prev, ...data }));
   };
 
   const onSubmit = async (e) => {
@@ -63,36 +68,34 @@ function NewTweet() {
       formData.token = `Bearer ${
         JSON.parse(localStorage.getItem("user")).token
       }`;
-      try {
-        let res = await Axios.post(
-          "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
-          imageUpload
-        );
 
-        setFormData((prev) => ({
-          ...prev,
-          image: "https://api.cloudinary.com/",
-        }));
+      console.log(Object.keys(imageUpload));
+      // console.log(imageUpload);
+      if (Object.keys(imageUpload).length !== 0) {
+        try {
+          let res = await Axios.post(
+            "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
+            imageUpload
+          );
 
-        console.log(res.data.url);
-        // console.log(formData);
-        setTimeout(() => {
-          console.log(formData);
+          // setFormData((prev) => ({
+          //   ...prev,
+          //   image: res.data.url,
+          // }));
+
+          console.log(res);
+
+          formData.image = res.data.url;
           dispatch(createTweet(formData));
-        }, 5000);
-      } catch (error) {
-        console.log(error);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        dispatch(createTweet(formData));
       }
-      // Axios.post(
-      //   "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
-      //   imageUpload
-      // ).then((res) =>
-      //   setFormData((prev) => ({ ...prev, image: res.data.url }));
-      // dispatch(createTweet(formData));
-
-      // );
 
       setFormData({ text: "", image: null });
+      setImageUpload({});
     }
   };
 

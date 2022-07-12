@@ -44,8 +44,6 @@ import LoadingScreen from "../components/LoadingScreen";
 import { FollowUserBtn } from "../components/styles/Button.styled";
 
 function User() {
-  // const fullUserData = useFetchUserData(username);
-
   const navigate = useNavigate();
 
   let active = false;

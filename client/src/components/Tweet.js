@@ -11,6 +11,10 @@ import {
   TweetInfoContainer,
   TweetLowerBar,
   TweetLowerBarIconContainer,
+  TweetPopUp,
+  TweetPopUpIconContainer,
+  TweetPopUpOption,
+  TweetPopUpText,
   TweetText,
   TweetUpperBar,
   TweetUpperBarIconContainer,
@@ -19,11 +23,17 @@ import {
   UserVerifiedIconContainer,
 } from "./styles/Tweet.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import { AiOutlineHeart, AiFillHeart, AiOutlineRetweet } from "react-icons/ai";
+import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  AiOutlineHeart,
+  AiFillHeart,
+  AiOutlineRetweet,
+  AiFillPushpin,
+} from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { FiShare } from "react-icons/fi";
+import { IoTrashOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../features/user/userSlice";
 import { Link } from "react-router-dom";
@@ -34,6 +44,8 @@ function Tweet({ tweet }) {
   console.log(tweet);
   const [likesArray, setLikesArray] = useState([...tweet.likes]);
   const [retweetsArray, setRetweetsArray] = useState([...tweet.retweets]);
+  // Handle Tweet Popup state
+  const [popup, setPopup] = useState(false);
 
   const date1 = new Date(tweet.createdAt);
   const timeDiff = Date.now() - Date.parse(date1);
@@ -113,6 +125,7 @@ function Tweet({ tweet }) {
       JSON.parse(localStorage.getItem("user"))._id === tweet.user
     ) {
       dispatch(deleteTweet(id)).then((data) => console.log(data));
+      setPopup((prev) => !prev);
     }
   };
 
@@ -157,12 +170,30 @@ function Tweet({ tweet }) {
                 : Math.floor(timePosted / 3600) + "d"}
             </TimeSincePosted>
           </TweetInfoContainer>
-          <TweetUpperBarIconContainer onClick={() => handleDelete(tweet._id)}>
+          <TweetUpperBarIconContainer onClick={() => setPopup((prev) => !prev)}>
             <FontAwesomeIcon icon={faEllipsis} size="lg"></FontAwesomeIcon>
+            {popup && (
+              <TweetPopUp>
+                <TweetPopUpOption onClick={() => handleDelete(tweet._id)} red>
+                  <TweetPopUpIconContainer>
+                    {/* <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> */}
+
+                    <IoTrashOutline />
+                  </TweetPopUpIconContainer>
+                  <TweetPopUpText>Delete</TweetPopUpText>
+                </TweetPopUpOption>
+                <TweetPopUpOption>
+                  <TweetPopUpIconContainer>
+                    <AiFillPushpin />
+                  </TweetPopUpIconContainer>
+                  <TweetPopUpText>Pin to your profile</TweetPopUpText>
+                </TweetPopUpOption>
+              </TweetPopUp>
+            )}
           </TweetUpperBarIconContainer>
         </TweetUpperBar>
         <TweetText>{tweet.text}</TweetText>
-        <TweetImage src={tweet.image} />
+        {tweet.image && <TweetImage src={tweet.image} />}
         <TweetLowerBar>
           <TweetIconCountContainer>
             <TweetLowerBarIconContainer>

@@ -89,6 +89,7 @@ export const TweetImage = styled.img`
 `;
 
 export const TweetUpperBarIconContainer = styled.div`
+  position: relative;
   width: 30px;
   height: 30px;
   display: grid;
@@ -161,4 +162,44 @@ export const TweetAuthor = styled.p``;
 
 export const TweetLowerBarIconContainer = styled(TweetUpperBarIconContainer)`
   color: ${(props) => props.active && "#07e938"};
+`;
+
+export const TweetPopUp = styled.div`
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 8px 0px #c7c7c7;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 19rem;
+  /* height: 12rem; */
+  overflow: hidden;
+  background-color: ${({ theme }) => theme.colors.BgColor};
+  svg {
+    @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
+      display: block;
+    }
+  }
+`;
+
+export const TweetPopUpOption = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: background-color 0.5s;
+  color: ${(props) => props.red && "#f4212e"};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.hoverLightGrey};
+  }
+`;
+
+export const TweetPopUpIconContainer = styled.div`
+  padding: 1rem;
+  /* margin-right: 1rem; */
+`;
+
+export const TweetPopUpText = styled.p`
+  /* padding: 1rem; */
 `;
