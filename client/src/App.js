@@ -7,35 +7,46 @@ import { useState } from "react";
 import Home from "./pages/Home";
 import User from "./pages/User";
 import AppLayout from "./components/AppLayout";
+import { useSelector } from "react-redux";
 
 function App() {
-  const [dark, setDark] = useState(false);
+  const { theme } = useSelector((state) => state.user);
 
-  const theme = {
+  const mainTheme = {
     colors: {
       mainColor: "#1d9bf0",
-      BgColor: dark ? "#000" : "white",
-      RightPanelBgColor: dark ? "#15181c" : "#f7f9f9",
+      BgColor:
+        theme === "dark" ? "#000" : theme === "dim" ? "#15202b" : "white",
+      RightPanelBgColor:
+        theme === "dark" ? "#15181c" : theme === "dim" ? "#1e2732" : "#f7f9f9",
       secColor: "#536471",
       hoverBlue: "#138bdb",
       hoverLightBlue: "#1fc0df24",
-      hoverLightGrey: dark ? "#1c1f23" : "#eff3f4",
-      hoverTweetBg: dark ? "#080808" : "#eff3f4",
+      hoverLightGrey:
+        theme === "dark" ? "#1c1f23" : theme === "dim" ? "#273340" : "#eff3f4",
+      hoverTweetBg: theme === "dark" ? "#080808" : "#eff3f4",
       bgColor: "#f7f9f9",
-      FollowTextColor: dark ? "black" : "white",
-      FollowBgColor: dark ? "white" : "#0f1419",
-      FollowBgHoverColor: dark ? "lightgrey" : "#4a4a49",
-      EditProfileBgColor: dark ? "black" : "white",
-      EditProfileTextColor: dark ? "white" : "black",
-      borderColor: dark ? "#2f3336" : "#eff3f4",
+      FollowTextColor: theme === "dark" ? "black" : "white",
+      FollowBgColor: theme === "dark" ? "white" : "#0f1419",
+      FollowBgHoverColor: theme === "dark" ? "lightgrey" : "#4a4a49",
+      EditProfileBgColor: theme === "dark" ? "black" : "white",
+      EditProfileTextColor: theme === "dark" ? "white" : "black",
+      borderColor:
+        theme === "dark" ? "#2f3336" : theme === "dim" ? "#273340" : "#eff3f4",
       borderGreyColor: "#d2dbe0",
-      LeftMenuBgHoverColor: dark ? "#131414" : "rgba(236, 240, 241, 1)",
-      textColor: dark ? "#d9d9d9" : "#0f1419",
-      InputBgColor: dark ? "#000" : "white",
-      InputCursorColor: dark ? "#d9d9d9" : "#0f1419",
-      userPhotoBorder: dark ? "black" : "white",
-      MobileBarIcons: dark ? "#d9d9d9" : "#0f1419",
-      VerifiedBadge: dark ? "#d9d9d9" : "#1d9bf0",
+      LeftMenuBgHoverColor:
+        theme === "dark"
+          ? "#131414"
+          : theme === "dim"
+          ? "#273340"
+          : "rgba(236, 240, 241, 1)",
+      textColor: theme === "dark" || theme === "dim" ? "#d9d9d9" : "#0f1419",
+      InputBgColor:
+        theme === "dark" ? "#000" : theme === "dim" ? "#15202b" : "white",
+      InputCursorColor: theme === "dark" ? "#d9d9d9" : "#0f1419",
+      userPhotoBorder: theme === "dark" ? "black" : "white",
+      MobileBarIcons: theme === "dark" ? "#d9d9d9" : "#0f1419",
+      VerifiedBadge: theme === "dark" ? "#d9d9d9" : "#1d9bf0",
       NavbarBgColor: "#00000000",
     },
     breakpoints: {
@@ -48,7 +59,7 @@ function App() {
     },
   };
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={mainTheme}>
       <GlobalStyles />
       <Router>
         <Routes>

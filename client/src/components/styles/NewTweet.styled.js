@@ -79,6 +79,7 @@ export const TweetIconsContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   gap: 0.5rem;
+  /* z-index: -1; */
 `;
 
 export const TweetIconContainer = styled.div`

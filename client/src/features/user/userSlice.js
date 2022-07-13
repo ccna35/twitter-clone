@@ -1,4 +1,9 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  createAction,
+  createReducer,
+} from "@reduxjs/toolkit";
 import userService from "./userService";
 
 const initialState = {
@@ -9,6 +14,7 @@ const initialState = {
   isUserLoading: false,
   areUsersLoading: false,
   message: "",
+  theme: "light",
 };
 
 export const getUserData = createAsyncThunk(
@@ -47,6 +53,15 @@ export const getAllUsers = createAsyncThunk(
   }
 );
 
+// const changeTheme = createAction("theme/changeTheme");
+
+// export const counterReducer = createReducer(0, (builder) => {
+//   builder.addCase(
+//     changeTheme,
+//     (state, action) => (state.theme = action.payload)
+//   );
+// });
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -56,6 +71,9 @@ export const userSlice = createSlice({
       state.isSuccess = false;
       state.isError = false;
       state.message = "";
+    },
+    changeTheme: (state, action) => {
+      state.theme = action.payload;
     },
   },
   extraReducers: {
@@ -90,6 +108,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { reset } = userSlice.actions;
+export const { reset, changeTheme } = userSlice.actions;
 
 export default userSlice.reducer;

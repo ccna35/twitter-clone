@@ -36,6 +36,7 @@ export const TweetBody = styled.div`
 `;
 
 export const TweetUpperBar = styled.div`
+  /* z-index: -1; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -105,6 +106,7 @@ export const TweetUpperBarIconContainer = styled.div`
 `;
 
 export const TweetLowerBar = styled.div`
+  /* z-index: -1; */
   display: flex;
   gap: 15%;
   color: ${({ theme }) => theme.colors.secColor};

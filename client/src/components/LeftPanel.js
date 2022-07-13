@@ -35,11 +35,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, reset, resetUser } from "../features/auth/authSlice";
 import { getUserData } from "../features/user/userSlice";
 import { useRef } from "react";
+import ThemesModal from "./Modals/ThemesModal";
+import useOnClickOutside from "../custom hooks/useOnClickOutside";
+import { useCallback } from "react";
 
 function LeftPanel() {
   const [userPopUpState, setUserPopUpState] = useState(false);
+  const [themesModal, setThemesModal] = useState(false);
 
-  // const popupRef = useRef();
+  const popupRef = useRef(); // Themes modal ref.
+  const leftPanelRef = useRef(); // Left Panel ref.
+
+  // This custom hook closes the modal or popup if the user clicked outside of them.
+  useOnClickOutside(popupRef, () => setThemesModal(false)); // This hook is related to themes modal.
+  useOnClickOutside(leftPanelRef, () => setUserPopUpState(false)); // This hook is related to left panel popUp.
 
   const userPopUp = () => {
     setUserPopUpState((prev) => !prev);
@@ -114,10 +123,14 @@ function LeftPanel() {
                     <MenuItemText>Profile</MenuItemText>
                   </MenuItem>
                 </Link>
-
-                <MenuItem>
+                {themesModal && (
+                  <ThemesModal
+                    popupRef={popupRef}
+                    setThemesModal={setThemesModal}
+                  />
+                )}
+                <MenuItem onClick={() => setThemesModal((prev) => !prev)}>
                   <CgMoreO size="1.75rem" />
-
                   <MenuItemText>More</MenuItemText>
                 </MenuItem>
               </>
@@ -131,7 +144,10 @@ function LeftPanel() {
           )}
         </LeftPanelAllContainer>
         {user && (
-          <LeftPanelUserContainer onClick={userPopUp}>
+          <LeftPanelUserContainer
+            onClick={() => setUserPopUpState((prev) => !prev)}
+            ref={leftPanelRef}
+          >
             <UserPhotoContainer size="small">
               <UserPhoto
                 src={

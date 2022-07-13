@@ -26,7 +26,7 @@ function Home() {
 
   const { user } = useSelector((state) => state.auth);
   const { tweets, isLoading } = useSelector((state) => state.tweet);
-  const { fullUserData, isUserLoading } = useSelector((state) => state.user);
+  const { fullUserData } = useSelector((state) => state.user);
 
   const [allTweets, setAllTweets] = useState([]);
 

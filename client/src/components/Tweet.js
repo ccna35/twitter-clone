@@ -41,10 +41,9 @@ import { useState } from "react";
 import { likeTweet, deleteTweet, retweet } from "../features/tweets/tweetSlice";
 
 function Tweet({ tweet }) {
-  console.log(tweet);
   const [likesArray, setLikesArray] = useState([...tweet.likes]);
   const [retweetsArray, setRetweetsArray] = useState([...tweet.retweets]);
-  // Handle Tweet Popup state
+  // Handles Tweet Popup state
   const [popup, setPopup] = useState(false);
 
   const date1 = new Date(tweet.createdAt);

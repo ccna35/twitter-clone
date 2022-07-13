@@ -27,11 +27,13 @@ import io from "socket.io-client";
 import { getUserData, reset } from "../features/user/userSlice";
 import Axios from "axios";
 
-const socket = io.connect("http://localhost:8080/");
+// const socket = io.connect("http://localhost:8080/");
 
 function NewTweet() {
   const [formData, setFormData] = useState({
     text: "",
+    image: null,
+    token: null,
   });
 
   const [whoCanReply, setWhoCanReply] = useState(false);
@@ -59,7 +61,7 @@ function NewTweet() {
 
     console.log(file);
     console.log(Object.keys(data));
-    setImageUpload((prev) => ({ ...prev, ...data }));
+    setImageUpload(data);
   };
 
   const onSubmit = async (e) => {
@@ -68,9 +70,8 @@ function NewTweet() {
       formData.token = `Bearer ${
         JSON.parse(localStorage.getItem("user")).token
       }`;
-
+      console.log(formData);
       console.log(Object.keys(imageUpload));
-      // console.log(imageUpload);
       if (Object.keys(imageUpload).length !== 0) {
         try {
           let res = await Axios.post(
@@ -85,7 +86,12 @@ function NewTweet() {
 
           console.log(res);
 
-          formData.image = res.data.url;
+          // formData.image = res.data.url;
+
+          setFormData((prev) => ({
+            ...prev,
+            image: res.data.url,
+          }));
           dispatch(createTweet(formData));
         } catch (error) {
           console.log(error);
@@ -163,7 +169,14 @@ function NewTweet() {
               <CgPin />
             </TweetIconContainer>
           </TweetIconsContainer>
-          <MainTweetBtn>Tweet</MainTweetBtn>
+
+          <MainTweetBtn
+            disabled={
+              formData.text.length === 0 && imageUpload.file === undefined
+            }
+          >
+            Tweet
+          </MainTweetBtn>
         </TweetOptionsContainer>
       </TweetForm>
     </NewTweetStyle>
