@@ -18,12 +18,10 @@ export const TweetContainer = styled.div`
   @keyframes fadein {
     from {
       opacity: 0;
-      margin-top: -10%;
     }
 
     to {
       opacity: 100%;
-      margin-top: 0;
     }
   }
 `;

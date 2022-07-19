@@ -204,7 +204,7 @@ const retweet = asyncHandler(async (req, res) => {
     // Second we remove the tweet from the retweetedTweets array stored in that user's database.
     const removeRetweetFromUserDatabase = await User.findByIdAndUpdate(
       req.body.userID,
-      { $pull: { retweetedTweets: tweet._id } },
+      { $pull: { retweetedTweets: { tweetId: tweet._id } } },
       { new: true }
     );
 
@@ -220,7 +220,7 @@ const retweet = asyncHandler(async (req, res) => {
     // Second we add the tweet to the retweetedTweets array stored in that user's database.
     const addRetweetToUserDatabase = await User.findByIdAndUpdate(
       req.body.userID,
-      { $push: { retweetedTweets: tweet._id } },
+      { $push: { retweetedTweets: { tweetId: tweet._id } } },
       { new: true }
     );
 

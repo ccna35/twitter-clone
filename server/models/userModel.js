@@ -66,8 +66,12 @@ const userSchema = new Schema(
       default: 0,
     },
     retweetedTweets: {
-      type: Array,
-      default: [],
+      type: [
+        {
+          dateAdded: { type: Date, default: Date.now },
+          tweetId: { type: String },
+        },
+      ],
     },
     likedTweets: {
       type: Array,
