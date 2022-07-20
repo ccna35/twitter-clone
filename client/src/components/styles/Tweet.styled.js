@@ -8,7 +8,7 @@ export const TweetContainer = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.borderColor};
   transition: background-color 0.5s;
   &:hover {
-    background-color: ${({ theme }) => theme.colors.hoverTweetBg};
+    background-color: ${({ theme }) => theme.colors.hoverLightGrey};
   }
 
   animation-duration: 1s;

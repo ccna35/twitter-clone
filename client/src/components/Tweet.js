@@ -39,6 +39,8 @@ import { getUserData } from "../features/user/userSlice";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { likeTweet, deleteTweet, retweet } from "../features/tweets/tweetSlice";
+import { useRef } from "react";
+import useOnClickOutside from "../custom hooks/useOnClickOutside";
 
 function Tweet({ tweet }) {
   console.log(tweet);
@@ -46,6 +48,11 @@ function Tweet({ tweet }) {
   const [retweetsArray, setRetweetsArray] = useState([...tweet.retweets]);
   // Handles Tweet Popup state
   const [popup, setPopup] = useState(false);
+
+  const tweetRef = useRef(); // Left Panel ref.
+
+  // This custom hook closes the modal or popup if the user clicked outside of them.
+  useOnClickOutside(tweetRef, () => setPopup(false)); // This hook is related to themes modal.
 
   const date1 = new Date(tweet.createdAt);
   const timeDiff = Date.now() - Date.parse(date1);
@@ -170,7 +177,10 @@ function Tweet({ tweet }) {
                 : Math.floor(timePosted / 3600) + "d"}
             </TimeSincePosted>
           </TweetInfoContainer>
-          <TweetUpperBarIconContainer onClick={() => setPopup((prev) => !prev)}>
+          <TweetUpperBarIconContainer
+            onClick={() => setPopup((prev) => !prev)}
+            ref={tweetRef}
+          >
             <FontAwesomeIcon icon={faEllipsis} size="lg"></FontAwesomeIcon>
             {popup && (
               <TweetPopUp>

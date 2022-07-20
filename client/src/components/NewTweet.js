@@ -48,20 +48,38 @@ function NewTweet() {
 
   const [imageUpload, setImageUpload] = useState({});
 
-  const handleUploadButton = (file) => {
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "lqpivui7");
-    data.append("cloud_name", "dmua4axn3");
+  const imgData = new FormData();
+
+  const handleUploadButton = async (file) => {
+    imgData.append("file", file);
+    imgData.append("upload_preset", "lqpivui7kjk78");
+    imgData.append("cloud_name", "dmua4axn3");
 
     // const imgData = {};
     // imgData["file"] = file;
     // imgData["upload_preset"] = "lqpivui7";
     // imgData["cloud_name"] = "dmua4axn3";
 
-    console.log(file);
-    console.log(Object.keys(data));
-    setImageUpload(data);
+    for (const pair of imgData.entries()) {
+      console.log(pair[0] + " " + pair[1]);
+    }
+
+    // const data = await fetch(
+    //   "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
+    //   {
+    //     method: "POST",
+    //     body: imgData,
+    //   }
+    // );
+
+    // const res = await data.json();
+
+    // console.log(res.url);
+
+    // console.log(data);
+    // console.log(Object.keys(imgData));
+    // setImageUpload((prev) => ({ ...prev, ...imgData }));
+    // console.log(imageUpload.entries());
   };
 
   const onSubmit = async (e) => {
@@ -71,31 +89,32 @@ function NewTweet() {
         JSON.parse(localStorage.getItem("user")).token
       }`;
       console.log(formData);
-      console.log(Object.keys(imageUpload));
-      if (Object.keys(imageUpload).length !== 0) {
-        try {
-          let res = await Axios.post(
-            "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
-            imageUpload
-          );
+      // console.log(imgData.keys().length !== 0);
+      if (imgData.keys().length !== 0) {
+        const data = await fetch(
+          "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
+          {
+            method: "POST",
+            body: imgData,
+          }
+        );
 
-          // setFormData((prev) => ({
-          //   ...prev,
-          //   image: res.data.url,
-          // }));
+        const res = await data.json();
 
-          console.log(res);
+        console.log(res.url);
 
-          // formData.image = res.data.url;
+        // setFormData((prev) => ({
+        //   ...prev,
+        //   image: res.url,
+        // }));
 
-          setFormData((prev) => ({
-            ...prev,
-            image: res.data.url,
-          }));
-          dispatch(createTweet(formData));
-        } catch (error) {
-          console.log(error);
-        }
+        formData.image = res.url;
+
+        // setFormData((prev) => ({
+        //   ...prev,
+        //   image: res.data.url,
+        // }));
+        dispatch(createTweet(formData));
       } else {
         dispatch(createTweet(formData));
       }
