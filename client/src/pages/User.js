@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   UserNavbarIconContainer,
   UserNavBar,
@@ -42,14 +42,12 @@ import Spinner from "../components/Spinner";
 import useFetchUserData from "../custom hooks/useFetchUserData";
 import LoadingScreen from "../components/LoadingScreen";
 import { FollowUserBtn } from "../components/styles/Button.styled";
+import EditProfile from "../components/Modals/EditProfile";
 
 function User() {
   const navigate = useNavigate();
 
-  let active = false;
-  const handleClick = (e) => {
-    console.log(e);
-  };
+  const [editProfileModal, setEditProfileModal] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
   const { tweets, isLoading } = useSelector((state) => state.tweet);
@@ -67,6 +65,7 @@ function User() {
 
   return (
     <UserStyle>
+      {editProfileModal && <EditProfile />}
       <UserNavBar>
         <UserNavbarIconContainer onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
@@ -106,7 +105,9 @@ function User() {
         {user &&
         localStorage.getItem("user") &&
         JSON.parse(localStorage.getItem("user")).username === username ? (
-          <EditProfileBtn>Edit Profile</EditProfileBtn>
+          <EditProfileBtn onClick={() => setEditProfileModal((prev) => !prev)}>
+            Edit Profile
+          </EditProfileBtn>
         ) : (
           <FollowUserBtn>Follow</FollowUserBtn>
         )}
