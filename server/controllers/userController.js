@@ -97,6 +97,16 @@ const getUserPublicData = asyncHandler(async (req, res) => {
   res.status(200).json(userData);
 });
 
+const updateUserData = asyncHandler(async (req, res) => {
+  console.log(req.body);
+
+  // const updatedUserInfo = await User.findByIdAndUpdate(req.params.id, req.body, {
+  //   new: true,
+  // });
+
+  // res.status(200).json(updatedUserInfo);
+});
+
 const getAllUsers = asyncHandler(async (req, res) => {
   const usersList = await User.find().sort({
     createdAt: -1,
@@ -119,4 +129,5 @@ module.exports = {
   getMe,
   getUserPublicData,
   getAllUsers,
+  updateUserData,
 };

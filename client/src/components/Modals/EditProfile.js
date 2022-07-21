@@ -26,7 +26,23 @@ function EditProfile({ setEditProfileModal }) {
     dispatch(changeTheme(e.target.value));
   };
 
+  const handleSaveButton = (e) => {
+    console.log(fullName);
+    console.log(bio);
+    console.log(location);
+    console.log(website);
+  };
+
+  // const handleNewUserData
+
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
+
+  const [fullName, setFullName] = useState(fullUserData[0].name);
+  const [bio, setBio] = useState(fullUserData[0].bio);
+  const [location, setLocation] = useState(fullUserData[0].country);
+  const [website, setWebsite] = useState(fullUserData[0].website);
+
+  console.log(fullUserData);
 
   return (
     <EditProfileBackground>
@@ -38,7 +54,7 @@ function EditProfile({ setEditProfileModal }) {
             <IoMdClose size="1.5rem" />
           </CloseIconContainer>
           <Heading>Edit profile</Heading>
-          <FollowUserBtn>Save</FollowUserBtn>
+          <FollowUserBtn onClick={handleSaveButton}>Save</FollowUserBtn>
         </ModalBar>
         <UserPhotoCoverContainer>
           <UserCoverContainer>
@@ -62,10 +78,35 @@ function EditProfile({ setEditProfileModal }) {
           </UserPhotoContainer>
         </UserPhotoCoverContainer>
         <ModalForm>
-          <ModalInput type="text" required placeholder="Name" name="fullName" />
-          <ModalInput type="text" placeholder="Bio" name="bio" />
-          <ModalInput type="text" placeholder="Location" name="location" />
-          <ModalInput type="text" placeholder="Website" name="website" />
+          <ModalInput
+            type="text"
+            required
+            placeholder="Name"
+            name="fullName"
+            defaultValue={fullUserData.length > 0 && fullUserData[0].name}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+          <ModalInput
+            type="text"
+            placeholder="Bio"
+            name="bio"
+            defaultValue={fullUserData.length > 0 && fullUserData[0].bio}
+            onChange={(e) => setBio(e.target.value)}
+          />
+          <ModalInput
+            type="text"
+            placeholder="Location"
+            name="location"
+            defaultValue={fullUserData.length > 0 && fullUserData[0].country}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+          <ModalInput
+            type="url"
+            placeholder="Website"
+            name="website"
+            defaultValue={fullUserData.length > 0 && fullUserData[0].website}
+            onChange={(e) => setWebsite(e.target.value)}
+          />
         </ModalForm>
       </EditProfileContainer>
     </EditProfileBackground>

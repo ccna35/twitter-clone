@@ -19,7 +19,7 @@ function App() {
         theme === "dark" ? "#000" : theme === "dim" ? "#15202b" : "white",
       RightPanelBgColor:
         theme === "dark" ? "#15181c" : theme === "dim" ? "#1e2732" : "#f7f9f9",
-      secColor: "#536471",
+      secColor: theme === "light" ? "#536471" : "#8b98a5",
       hoverBlue: "#138bdb",
       hoverLightBlue: "#1fc0df24",
       hoverLightGrey:
@@ -40,7 +40,7 @@ function App() {
           : theme === "dim"
           ? "#273340"
           : "rgba(236, 240, 241, 1)",
-      textColor: theme === "dark" || theme === "dim" ? "#d9d9d9" : "#0f1419",
+      textColor: theme === "dark" || theme === "dim" ? "#f7f9f9" : "#0f1419",
       InputBgColor:
         theme === "dark" ? "#000" : theme === "dim" ? "#15202b" : "white",
       InputCursorColor: theme === "dark" ? "#d9d9d9" : "#0f1419",

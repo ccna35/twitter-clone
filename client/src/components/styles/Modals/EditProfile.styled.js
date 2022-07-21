@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 export const EditProfileBackground = styled.div`
-  width: 100vw;
-  height: 100vh;
+  /* width: 100vw;
+  height: 100vh; */
   background-color: lightgray;
   display: grid;
   place-items: center;
 `;
 
 export const EditProfileContainer = styled.div`
-  z-index: 99;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -137,4 +137,5 @@ export const ModalInput = styled.input`
 
 export const Heading = styled.h2`
   flex-grow: 1;
+  color: ${({ theme }) => theme.colors.textColor};
 `;

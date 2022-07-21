@@ -8,6 +8,11 @@ const getUserData = async (userName) => {
   return res.data;
 };
 
+const updateUserData = async (userData) => {
+  const res = await axios.put(`${API_URL + userData.userId}`, userData.newData);
+  return res.data;
+};
+
 const getAllUsers = async () => {
   const res = await axios.get(API_URL);
   return res.data;
@@ -16,6 +21,7 @@ const getAllUsers = async () => {
 const userService = {
   getUserData,
   getAllUsers,
+  updateUserData,
 };
 
 export default userService;

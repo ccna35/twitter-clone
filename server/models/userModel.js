@@ -45,6 +45,10 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    website: {
+      type: String,
+      default: null,
+    },
     profileIntro: {
       type: String,
       default: null,

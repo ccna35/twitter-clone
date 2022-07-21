@@ -35,6 +35,24 @@ export const getUserData = createAsyncThunk(
   }
 );
 
+export const updateUserData = createAsyncThunk(
+  "tweet/updateUserData",
+  async (userData, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      return await userService.getUserData(userData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return rejectWithValue(message);
+    }
+  }
+);
+
 export const getAllUsers = createAsyncThunk(
   "tweet/getallusers",
   async (_, thunkAPI) => {
@@ -52,15 +70,6 @@ export const getAllUsers = createAsyncThunk(
     }
   }
 );
-
-// const changeTheme = createAction("theme/changeTheme");
-
-// export const counterReducer = createReducer(0, (builder) => {
-//   builder.addCase(
-//     changeTheme,
-//     (state, action) => (state.theme = action.payload)
-//   );
-// });
 
 export const userSlice = createSlice({
   name: "user",
