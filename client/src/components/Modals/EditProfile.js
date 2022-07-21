@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeTheme } from "../../features/user/userSlice";
+import { FollowUserBtn } from "../styles/Button.styled";
 import {
+  CloseIconContainer,
   EditProfileBackground,
   EditProfileContainer,
+  Heading,
+  ModalBar,
+  ModalForm,
+  ModalInput,
   UserCover,
   UserCoverContainer,
   UserPhoto,
   UserPhotoContainer,
   UserPhotoCoverContainer,
 } from "../styles/Modals/EditProfile.styled";
+import { IoMdClose } from "react-icons/io";
 
-function EditProfile() {
+function EditProfile({ setEditProfileModal }) {
   const dispatch = useDispatch();
 
   const handleThemeOptions = (e) => {
@@ -24,6 +31,15 @@ function EditProfile() {
   return (
     <EditProfileBackground>
       <EditProfileContainer>
+        <ModalBar>
+          <CloseIconContainer
+            onClick={() => setEditProfileModal((prev) => !prev)}
+          >
+            <IoMdClose size="1.5rem" />
+          </CloseIconContainer>
+          <Heading>Edit profile</Heading>
+          <FollowUserBtn>Save</FollowUserBtn>
+        </ModalBar>
         <UserPhotoCoverContainer>
           <UserCoverContainer>
             <UserCover
@@ -45,6 +61,12 @@ function EditProfile() {
             />
           </UserPhotoContainer>
         </UserPhotoCoverContainer>
+        <ModalForm>
+          <ModalInput type="text" required placeholder="Name" name="fullName" />
+          <ModalInput type="text" placeholder="Bio" name="bio" />
+          <ModalInput type="text" placeholder="Location" name="location" />
+          <ModalInput type="text" placeholder="Website" name="website" />
+        </ModalForm>
       </EditProfileContainer>
     </EditProfileBackground>
   );

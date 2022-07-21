@@ -65,7 +65,9 @@ function User() {
 
   return (
     <UserStyle>
-      {editProfileModal && <EditProfile />}
+      {editProfileModal && (
+        <EditProfile setEditProfileModal={setEditProfileModal} />
+      )}
       <UserNavBar>
         <UserNavbarIconContainer onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>

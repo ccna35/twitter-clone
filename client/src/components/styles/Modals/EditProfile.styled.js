@@ -20,8 +20,8 @@ export const EditProfileContainer = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 35rem;
-  height: 25rem;
+  /* width: 35rem;
+  height: 25rem; */
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.BgColor};
 
@@ -43,6 +43,7 @@ export const EditProfileContainer = styled.div`
 export const UserPhotoCoverContainer = styled.div`
   width: 100%;
   position: relative;
+  margin-bottom: 5rem;
 `;
 
 // Cover Photo
@@ -85,4 +86,55 @@ export const UserPhoto = styled.img`
   @media (max-width: ${({ theme }) => theme.breakpoints.xs}) {
     border-width: 2px;
   }
+`;
+
+export const ModalBar = styled.div`
+  width: 100%;
+  /* border: 4px solid ${({ theme }) => theme.colors.userPhotoBorder}; */
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  button {
+    align-self: center;
+  }
+`;
+
+export const CloseIconContainer = styled.div`
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: background-color 0.5s;
+  &:hover {
+    background-color: #c8c7cc;
+  }
+`;
+
+export const ModalForm = styled.form`
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 1rem;
+  margin-bottom: 5rem;
+`;
+
+export const ModalInput = styled.input`
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid lightgray;
+  outline: none;
+  transition: border-color 0.5s;
+  &:focus {
+    border-color: grey;
+  }
+`;
+
+export const Heading = styled.h2`
+  flex-grow: 1;
 `;
