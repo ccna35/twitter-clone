@@ -43,6 +43,7 @@ import useFetchUserData from "../custom hooks/useFetchUserData";
 import LoadingScreen from "../components/LoadingScreen";
 import { FollowUserBtn } from "../components/styles/Button.styled";
 import EditProfile from "../components/Modals/EditProfile";
+import { FiLink } from "react-icons/fi";
 
 function User() {
   const navigate = useNavigate();
@@ -132,6 +133,18 @@ function User() {
               <>
                 <FontAwesomeIcon icon={faMapMarkerAlt}></FontAwesomeIcon>
                 <AboutSingleText>{fullUserData[0].country}</AboutSingleText>
+              </>
+            </AboutSingleContainer>
+          )}
+          {fullUserData.length > 0 && fullUserData[0].website && (
+            <AboutSingleContainer>
+              <>
+                <FiLink />
+                <Link to={fullUserData[0].website}>
+                  <AboutSingleText link>
+                    {fullUserData[0].website}
+                  </AboutSingleText>
+                </Link>
               </>
             </AboutSingleContainer>
           )}

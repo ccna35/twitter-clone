@@ -40,7 +40,7 @@ export const updateUserData = createAsyncThunk(
   async (userData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      return await userService.getUserData(userData);
+      return await userService.updateUserData(userData);
     } catch (error) {
       const message =
         (error.response &&
@@ -99,6 +99,21 @@ export const userSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
       state.fullUserData = [];
+    },
+    [updateUserData.pending]: (state) => {
+      state.isUserLoading = true;
+    },
+    [updateUserData.fulfilled]: (state, action) => {
+      state.isUserLoading = false;
+      state.isSuccess = true;
+      // state.fullUserData = action.payload;
+      console.log(state.fullUserData);
+      console.log(action.payload);
+    },
+    [updateUserData.rejected]: (state, action) => {
+      state.isUserLoading = false;
+      state.isError = true;
+      state.message = action.payload;
     },
     [getAllUsers.pending]: (state) => {
       state.areUsersLoading = true;

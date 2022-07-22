@@ -98,13 +98,17 @@ const getUserPublicData = asyncHandler(async (req, res) => {
 });
 
 const updateUserData = asyncHandler(async (req, res) => {
-  console.log(req.body);
+  const updatedUserInfo = await User.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+    }
+  );
 
-  // const updatedUserInfo = await User.findByIdAndUpdate(req.params.id, req.body, {
-  //   new: true,
-  // });
+  console.log(updatedUserInfo);
 
-  // res.status(200).json(updatedUserInfo);
+  res.status(200).json(updatedUserInfo);
 });
 
 const getAllUsers = asyncHandler(async (req, res) => {

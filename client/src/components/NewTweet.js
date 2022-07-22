@@ -25,7 +25,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { createTweet } from "../features/tweets/tweetSlice";
 import io from "socket.io-client";
 import { getUserData, reset } from "../features/user/userSlice";
-import Axios from "axios";
 
 // const socket = io.connect("http://localhost:8080/");
 
@@ -54,32 +53,6 @@ function NewTweet() {
     imgData.append("file", file);
     imgData.append("upload_preset", "lqpivui7kjk78");
     imgData.append("cloud_name", "dmua4axn3");
-
-    // const imgData = {};
-    // imgData["file"] = file;
-    // imgData["upload_preset"] = "lqpivui7";
-    // imgData["cloud_name"] = "dmua4axn3";
-
-    for (const pair of imgData.entries()) {
-      console.log(pair[0] + " " + pair[1]);
-    }
-
-    // const data = await fetch(
-    //   "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
-    //   {
-    //     method: "POST",
-    //     body: imgData,
-    //   }
-    // );
-
-    // const res = await data.json();
-
-    // console.log(res.url);
-
-    // console.log(data);
-    // console.log(Object.keys(imgData));
-    // setImageUpload((prev) => ({ ...prev, ...imgData }));
-    // console.log(imageUpload.entries());
   };
 
   const onSubmit = async (e) => {
@@ -89,7 +62,6 @@ function NewTweet() {
         JSON.parse(localStorage.getItem("user")).token
       }`;
       console.log(formData);
-      // console.log(imgData.keys().length !== 0);
       if (imgData.keys().length !== 0) {
         const data = await fetch(
           "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",

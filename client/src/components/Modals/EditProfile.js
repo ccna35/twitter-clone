@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeTheme } from "../../features/user/userSlice";
+import { changeTheme, updateUserData } from "../../features/user/userSlice";
 import { FollowUserBtn } from "../styles/Button.styled";
 import {
   CloseIconContainer,
@@ -26,21 +26,38 @@ function EditProfile({ setEditProfileModal }) {
     dispatch(changeTheme(e.target.value));
   };
 
-  const handleSaveButton = (e) => {
-    console.log(fullName);
-    console.log(bio);
-    console.log(location);
-    console.log(website);
-  };
-
   // const handleNewUserData
 
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
 
-  const [fullName, setFullName] = useState(fullUserData[0].name);
-  const [bio, setBio] = useState(fullUserData[0].bio);
-  const [location, setLocation] = useState(fullUserData[0].country);
-  const [website, setWebsite] = useState(fullUserData[0].website);
+  const [fullName, setFullName] = useState("");
+  const [bio, setBio] = useState("");
+  const [location, setLocation] = useState("");
+  const [website, setWebsite] = useState("");
+
+  // const [userData, setUserData] = useState({});
+
+  const userData = {};
+
+  const handleSaveButton = (e) => {
+    userData.name = fullName;
+    userData.bio = bio;
+    userData.country = location;
+    userData.website = website;
+    userData.userId = JSON.parse(localStorage.getItem("user"))._id;
+
+    userData.newData = {
+      name: fullName,
+      bio,
+      country: location,
+      website,
+    };
+
+    // setUserData({ name: fullName, bio, country: location, website });
+    console.log(userData);
+    dispatch(updateUserData(userData));
+    setEditProfileModal((prev) => !prev);
+  };
 
   console.log(fullUserData);
 

@@ -10,6 +10,7 @@ const getUserData = async (userName) => {
 
 const updateUserData = async (userData) => {
   const res = await axios.put(`${API_URL + userData.userId}`, userData.newData);
+  console.log(res.data);
   return res.data;
 };
 

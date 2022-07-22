@@ -128,7 +128,12 @@ export const AboutSingleContainer = styled.div`
   gap: 0.5rem;
 `;
 
-export const AboutSingleText = styled.p``;
+export const AboutSingleText = styled.p`
+  color: ${(props) =>
+    props.link
+      ? ({ theme }) => theme.colors.mainColor
+      : ({ theme }) => theme.colors.secColor};
+`;
 
 // Following & Followers Info
 export const FollowingFollowersContainer = styled.div`
