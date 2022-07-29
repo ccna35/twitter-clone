@@ -7,7 +7,7 @@ import {
 import userService from "./userService";
 
 const initialState = {
-  fullUserData: [],
+  fullUserData: {},
   users: [],
   isError: false,
   isSuccess: false,
@@ -92,7 +92,7 @@ export const userSlice = createSlice({
     [getUserData.fulfilled]: (state, action) => {
       state.isUserLoading = false;
       state.isSuccess = true;
-      state.fullUserData = action.payload;
+      state.fullUserData = action.payload[0];
     },
     [getUserData.rejected]: (state, action) => {
       state.isUserLoading = false;
@@ -106,8 +106,8 @@ export const userSlice = createSlice({
     [updateUserData.fulfilled]: (state, action) => {
       state.isUserLoading = false;
       state.isSuccess = true;
-      // state.fullUserData = action.payload;
-      console.log(state.fullUserData);
+      state.fullUserData = action.payload;
+      // console.log(state.fullUserData);
       console.log(action.payload);
     },
     [updateUserData.rejected]: (state, action) => {

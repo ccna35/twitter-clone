@@ -151,8 +151,9 @@ function LeftPanel() {
             <UserPhotoContainer size="small">
               <UserPhoto
                 src={
-                  fullUserData.length > 0 && fullUserData[0].profilePhoto
-                    ? fullUserData[0].profilePhoto
+                  localStorage.getItem("user") &&
+                  JSON.parse(localStorage.getItem("user")).profilePhoto !== null
+                    ? JSON.parse(localStorage.getItem("user")).profilePhoto
                     : "./images/blank-profile-picture-gf8e58e24f_640.png"
                 }
               />
@@ -174,8 +175,9 @@ function LeftPanel() {
                   <UserPhotoContainer size="small">
                     <UserPhoto
                       src={
-                        fullUserData.length > 0 && fullUserData[0].profilePhoto
-                          ? fullUserData[0].profilePhoto
+                        Object.keys(fullUserData).length > 0 &&
+                        fullUserData.profilePhoto
+                          ? fullUserData.profilePhoto
                           : "./images/blank-profile-picture-gf8e58e24f_640.png"
                       }
                     />

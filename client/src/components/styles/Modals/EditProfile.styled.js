@@ -9,6 +9,7 @@ export const EditProfileBackground = styled.div`
 `;
 
 export const EditProfileContainer = styled.div`
+  min-width: 35rem;
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -20,12 +21,10 @@ export const EditProfileContainer = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  /* width: 35rem;
-  height: 25rem; */
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.BgColor};
 
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   animation-name: fadein;
   animation-timing-function: ease-in-out;
 
@@ -37,6 +36,11 @@ export const EditProfileContainer = styled.div`
     to {
       opacity: 100%;
     }
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    min-width: 100vw;
+    min-height: 100vh;
   }
 `;
 // Cover and User Photo
@@ -90,7 +94,6 @@ export const UserPhoto = styled.img`
 
 export const ModalBar = styled.div`
   width: 100%;
-  /* border: 4px solid ${({ theme }) => theme.colors.userPhotoBorder}; */
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
@@ -113,6 +116,15 @@ export const CloseIconContainer = styled.div`
   &:hover {
     background-color: #c8c7cc;
   }
+`;
+
+export const PhotoIconContainer = styled(CloseIconContainer)`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #80808099;
+  cursor: pointer;
 `;
 
 export const ModalForm = styled.form`

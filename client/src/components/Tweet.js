@@ -43,7 +43,6 @@ import { useRef } from "react";
 import useOnClickOutside from "../custom hooks/useOnClickOutside";
 
 function Tweet({ tweet }) {
-  console.log(tweet);
   const [likesArray, setLikesArray] = useState([...tweet.likes]);
   const [retweetsArray, setRetweetsArray] = useState([...tweet.retweets]);
   // Handles Tweet Popup state
@@ -139,11 +138,15 @@ function Tweet({ tweet }) {
   return (
     <TweetContainer>
       <UserPhotoContainer>
-        <Link to={"/" + fullUserData.length > 0 && fullUserData[0].username}>
+        <Link
+          to={
+            "/" + Object.keys(fullUserData).length > 0 && fullUserData.username
+          }
+        >
           <UserPhoto
             src={
-              fullUserData.length > 0 && fullUserData[0].profilePhoto
-                ? fullUserData[0].profilePhoto
+              Object.keys(fullUserData).length > 0 && fullUserData.profilePhoto
+                ? fullUserData.profilePhoto
                 : "./images/blank-profile-picture-gf8e58e24f_640.png"
             }
           />
@@ -154,20 +157,20 @@ function Tweet({ tweet }) {
           <TweetInfoContainer>
             <UserName>
               <TweetAuthor>
-                {fullUserData.length > 0 && (
-                  <Link to={"/" + fullUserData[0].username}>
-                    {fullUserData[0].name}
+                {Object.keys(fullUserData).length > 0 && (
+                  <Link to={"/" + fullUserData.username}>
+                    {fullUserData.name}
                   </Link>
                 )}
               </TweetAuthor>
-              {fullUserData.length > 0 && fullUserData[0].isVerified && (
+              {Object.keys(fullUserData).length > 0 && fullUserData.isVerified && (
                 <UserVerifiedIconContainer>
                   <MdVerified />
                 </UserVerifiedIconContainer>
               )}
             </UserName>
             <UserHandle>
-              @{fullUserData.length > 0 && fullUserData[0].username}
+              @{Object.keys(fullUserData).length > 0 && fullUserData.username}
             </UserHandle>
             <TimeSincePosted>
               {timePosted < 60

@@ -29,7 +29,8 @@ function App() {
       FollowTextColor: theme === "dark" ? "black" : "white",
       FollowBgColor: theme === "dark" ? "white" : "#0f1419",
       FollowBgHoverColor: theme === "dark" ? "lightgrey" : "#4a4a49",
-      EditProfileBgColor: theme === "dark" ? "black" : "white",
+      EditProfileBgColor:
+        theme === "dark" ? "black" : theme === "dim" ? "#15202b" : "white",
       EditProfileTextColor: theme === "dark" ? "white" : "black",
       borderColor:
         theme === "dark" ? "#2f3336" : theme === "dim" ? "#273340" : "#eff3f4",
@@ -44,7 +45,9 @@ function App() {
       InputBgColor:
         theme === "dark" ? "#000" : theme === "dim" ? "#15202b" : "white",
       InputCursorColor: theme === "dark" ? "#d9d9d9" : "#0f1419",
-      userPhotoBorder: theme === "dark" ? "black" : "white",
+      userPhotoBorder:
+        theme === "dark" ? "black" : theme === "dim" ? "#15202b" : "white",
+      BtnTextColor: theme === "light" ? "black" : "#eff3f4",
       MobileBarIcons: theme === "dark" ? "#d9d9d9" : "#0f1419",
       VerifiedBadge: theme === "dark" ? "#d9d9d9" : "#1d9bf0",
       NavbarBgColor: "#00000000",

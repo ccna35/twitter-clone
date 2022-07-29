@@ -67,6 +67,7 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(201).json({
       _id: user.id,
       name: user.name,
+      profilePhoto: user.profilePhoto,
       username: user.username,
       email: user.email,
       token: generateToken(user._id),

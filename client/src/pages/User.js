@@ -76,7 +76,7 @@ function User() {
 
         <UserNavbarInfo>
           <UserNavbarFullName>
-            {fullUserData.length > 0 && fullUserData[0].name}
+            {Object.keys(fullUserData).length > 0 && fullUserData.name}
           </UserNavbarFullName>
           <UserNavbarTweetCount>{tweets.length} Tweets</UserNavbarTweetCount>
         </UserNavbarInfo>
@@ -86,8 +86,8 @@ function User() {
         <UserCoverContainer>
           <UserCover
             src={
-              fullUserData.length > 0 && fullUserData[0].profilePhoto
-                ? fullUserData[0].profilePhoto
+              Object.keys(fullUserData).length > 0 && fullUserData.coverPhoto
+                ? fullUserData.coverPhoto
                 : "./images/950x350-light-gray-solid-color-background.jpg"
             }
           />
@@ -96,8 +96,8 @@ function User() {
         <UserPhotoContainer>
           <UserPhoto
             src={
-              fullUserData.length > 0 && fullUserData[0].profilePhoto
-                ? fullUserData[0].profilePhoto
+              Object.keys(fullUserData).length > 0 && fullUserData.profilePhoto
+                ? fullUserData.profilePhoto
                 : "./images/blank-profile-picture-gf8e58e24f_640.png"
             }
           />
@@ -117,34 +117,32 @@ function User() {
 
         <UserNavbarInfo>
           <UserNavbarFullName>
-            {fullUserData.length > 0 && fullUserData[0].name}
+            {Object.keys(fullUserData).length > 0 && fullUserData.name}
           </UserNavbarFullName>
           <UserNavbarTweetCount>
-            @{fullUserData.length > 0 && fullUserData[0].username}
+            @{Object.keys(fullUserData).length > 0 && fullUserData.username}
           </UserNavbarTweetCount>
         </UserNavbarInfo>
-        {fullUserData.length > 0 && fullUserData[0].bio && (
-          <UserProfileDescription>{fullUserData[0].bio}</UserProfileDescription>
+        {Object.keys(fullUserData).length > 0 && fullUserData.bio && (
+          <UserProfileDescription>{fullUserData.bio}</UserProfileDescription>
         )}
 
         <UserProfileAboutContainer>
-          {fullUserData.length > 0 && fullUserData[0].country && (
+          {Object.keys(fullUserData).length > 0 && fullUserData.country && (
             <AboutSingleContainer>
               <>
                 <FontAwesomeIcon icon={faMapMarkerAlt}></FontAwesomeIcon>
-                <AboutSingleText>{fullUserData[0].country}</AboutSingleText>
+                <AboutSingleText>{fullUserData.country}</AboutSingleText>
               </>
             </AboutSingleContainer>
           )}
-          {fullUserData.length > 0 && fullUserData[0].website && (
+          {Object.keys(fullUserData).length > 0 && fullUserData.website && (
             <AboutSingleContainer>
               <>
                 <FiLink />
-                <Link to={fullUserData[0].website}>
-                  <AboutSingleText link>
-                    {fullUserData[0].website}
-                  </AboutSingleText>
-                </Link>
+                <a href={fullUserData.website} target="_blank">
+                  <AboutSingleText link>{fullUserData.website}</AboutSingleText>
+                </a>
               </>
             </AboutSingleContainer>
           )}
@@ -152,35 +150,35 @@ function User() {
             <FontAwesomeIcon icon={faBirthdayCake}></FontAwesomeIcon>
             <AboutSingleText>
               Born{" "}
-              {fullUserData.length > 0 &&
-                fullUserData[0].birthDate.month +
+              {Object.keys(fullUserData).length > 0 &&
+                fullUserData.birthDate.month +
                   " " +
-                  fullUserData[0].birthDate.day +
+                  fullUserData.birthDate.day +
                   ", " +
-                  fullUserData[0].birthDate.year}
+                  fullUserData.birthDate.year}
             </AboutSingleText>
           </AboutSingleContainer>
           <AboutSingleContainer>
             <FontAwesomeIcon icon={faCalendarAlt}></FontAwesomeIcon>
             <AboutSingleText>
               Joined{" "}
-              {fullUserData.length > 0 &&
-                new Date(fullUserData[0].joinDate).toString().split(" ")[1] +
+              {Object.keys(fullUserData).length > 0 &&
+                new Date(fullUserData.joinDate).toString().split(" ")[1] +
                   " " +
-                  new Date(fullUserData[0].joinDate).toString().split(" ")[3]}
+                  new Date(fullUserData.joinDate).toString().split(" ")[3]}
             </AboutSingleText>
           </AboutSingleContainer>
         </UserProfileAboutContainer>
         <FollowingFollowersContainer>
           <FollowContainer>
             <FollowCount>
-              {fullUserData.length > 0 && fullUserData[0].following}
+              {Object.keys(fullUserData).length > 0 && fullUserData.following}
             </FollowCount>
             <FollowText>Following</FollowText>
           </FollowContainer>
           <FollowContainer>
             <FollowCount>
-              {fullUserData.length > 0 && fullUserData[0].followers}
+              {Object.keys(fullUserData).length > 0 && fullUserData.followers}
             </FollowCount>
             <FollowText>Followers</FollowText>
           </FollowContainer>

@@ -75,17 +75,8 @@ function NewTweet() {
 
         console.log(res.url);
 
-        // setFormData((prev) => ({
-        //   ...prev,
-        //   image: res.url,
-        // }));
-
         formData.image = res.url;
 
-        // setFormData((prev) => ({
-        //   ...prev,
-        //   image: res.data.url,
-        // }));
         dispatch(createTweet(formData));
       } else {
         dispatch(createTweet(formData));
@@ -111,8 +102,9 @@ function NewTweet() {
         <UserPhotoContainer>
           <UserPhoto
             src={
-              fullUserData.length > 0 && fullUserData[0].profilePhoto
-                ? fullUserData[0].profilePhoto
+              localStorage.getItem("user") &&
+              JSON.parse(localStorage.getItem("user")).profilePhoto !== null
+                ? JSON.parse(localStorage.getItem("user")).profilePhoto
                 : "./images/blank-profile-picture-gf8e58e24f_640.png"
             }
           />

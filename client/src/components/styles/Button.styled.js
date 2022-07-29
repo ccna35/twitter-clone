@@ -61,12 +61,12 @@ export const EditProfileBtn = styled(FollowUserBtn)`
   border: none;
   outline: none;
   border-radius: 15rem;
-  color: black;
+  color: ${({ theme }) => theme.colors.BtnTextColor};
   align-self: flex-end;
   font-weight: 600;
   border: 1px solid ${({ theme }) => theme.colors.secColor};
   background-color: ${({ theme }) => theme.colors.EditProfileBgColor};
-  color: ${({ theme }) => theme.colors.EditProfileTextColor};
+  /* color: ${({ theme }) => theme.colors.EditProfileTextColor}; */
   transition: background-color 0.5s;
   &:hover {
     background-color: ${({ theme }) => theme.colors.hoverLightGrey};
