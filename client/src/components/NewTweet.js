@@ -53,6 +53,7 @@ function NewTweet() {
     imgData.append("file", file);
     imgData.append("upload_preset", "lqpivui7kjk78");
     imgData.append("cloud_name", "dmua4axn3");
+    console.log(file);
   };
 
   const onSubmit = async (e) => {
@@ -64,7 +65,7 @@ function NewTweet() {
       console.log(formData);
       if (imgData.keys().length !== 0) {
         const data = await fetch(
-          "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
+          "https://api.cloudinary.com/v1_1/dmua4axn3/auto/upload",
           {
             method: "POST",
             body: imgData,

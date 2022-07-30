@@ -6,6 +6,7 @@ export const SearchElement = styled.div`
   position: sticky;
   top: 0;
   background-color: ${({ theme }) => theme.colors.BgColor};
+  position: relative;
 `;
 
 export const SearchContainer = styled.form`
@@ -27,4 +28,16 @@ export const SearchInput = styled.input`
   background: transparent;
   caret-color: ${({ theme }) => theme.colors.InputCursorColor};
   color: ${({ theme }) => theme.colors.textColor};
+  &:focus {
+    border: 1px solid ${({ theme }) => theme.colors.mainColor};
+  }
+`;
+
+export const SearchResults = styled.div`
+  min-height: 10rem;
+  min-width: 15rem;
+  background-color: lightgray;
+  border-radius: 2rem;
+  padding: 1rem;
+  position: absolute;
 `;

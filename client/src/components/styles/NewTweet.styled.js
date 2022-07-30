@@ -103,6 +103,9 @@ export const UploadButton = styled.input`
   color: transparent;
   position: absolute;
   outline: none;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
   &::-webkit-file-upload-button {
     visibility: hidden;
   }

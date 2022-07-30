@@ -14,7 +14,6 @@ function ThemesModal({ popupRef, setThemesModal }) {
   const dispatch = useDispatch();
 
   const handleThemeOptions = (e) => {
-    console.log(e.target.value);
     dispatch(changeTheme(e.target.value));
   };
 
