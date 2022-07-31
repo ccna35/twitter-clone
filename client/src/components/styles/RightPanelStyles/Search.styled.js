@@ -28,16 +28,21 @@ export const SearchInput = styled.input`
   background: transparent;
   caret-color: ${({ theme }) => theme.colors.InputCursorColor};
   color: ${({ theme }) => theme.colors.textColor};
-  &:focus {
-    border: 1px solid ${({ theme }) => theme.colors.mainColor};
-  }
 `;
 
 export const SearchResults = styled.div`
-  min-height: 10rem;
+  min-height: 7rem;
   min-width: 15rem;
-  background-color: lightgray;
-  border-radius: 2rem;
-  padding: 1rem;
+  max-width: 18rem;
+  background-color: ${({ theme }) => theme.colors.BgColor};
+  border-radius: 0.25rem;
+  padding: 1rem 0;
   position: absolute;
+  box-shadow: 0px 0px 8px 0px #6d6d72;
+  overflow: hidden;
+  p {
+    padding: 0 0.5rem;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.secColor};
+  }
 `;

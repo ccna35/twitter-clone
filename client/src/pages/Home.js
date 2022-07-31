@@ -55,8 +55,9 @@ function Home() {
             <HomeUserPhotoContainer>
               <UserPhoto
                 src={
-                  fullUserData.length > 0 && fullUserData[0].profilePhoto
-                    ? fullUserData[0].profilePhoto
+                  Object.keys(fullUserData).length > 0 &&
+                  fullUserData.profilePhoto
+                    ? fullUserData.profilePhoto
                     : "./images/blank-profile-picture-gf8e58e24f_640.png"
                 }
               />

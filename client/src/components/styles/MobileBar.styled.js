@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const MobileBarStyle = styled.div`
-  position: sticky;
+  width: 100%;
+  position: fixed;
   left: 0;
   bottom: 0;
   @media (min-width: ${({ theme }) => theme.breakpoints.xxs}) {

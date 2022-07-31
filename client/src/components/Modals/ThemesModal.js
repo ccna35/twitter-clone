@@ -15,6 +15,7 @@ function ThemesModal({ popupRef, setThemesModal }) {
 
   const handleThemeOptions = (e) => {
     dispatch(changeTheme(e.target.value));
+    localStorage.setItem("theme", e.target.value);
   };
 
   return (

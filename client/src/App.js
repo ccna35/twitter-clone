@@ -44,7 +44,7 @@ function App() {
       textColor: theme === "dark" || theme === "dim" ? "#f7f9f9" : "#0f1419",
       InputBgColor:
         theme === "dark" ? "#000" : theme === "dim" ? "#15202b" : "white",
-      InputCursorColor: theme === "dark" ? "#d9d9d9" : "#0f1419",
+      InputCursorColor: theme === "light" ? "#0f1419" : "#d9d9d9",
       userPhotoBorder:
         theme === "dark" ? "black" : theme === "dim" ? "#15202b" : "white",
       BtnTextColor: theme === "light" ? "black" : "#eff3f4",
