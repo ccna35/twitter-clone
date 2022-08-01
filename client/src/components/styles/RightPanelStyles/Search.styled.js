@@ -31,15 +31,21 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchResults = styled.div`
+  max-height: 30rem;
   min-height: 7rem;
-  min-width: 15rem;
-  max-width: 18rem;
+  width: 100%;
+  /* min-width: 15rem;
+  max-width: 19rem; */
   background-color: ${({ theme }) => theme.colors.BgColor};
   border-radius: 0.25rem;
   padding: 1rem 0;
   position: absolute;
-  box-shadow: 0px 0px 8px 0px #6d6d72;
+  box-shadow: 0px 0px 19px 1px #c6cbcd;
   overflow: hidden;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
   p {
     padding: 0 0.5rem;
     text-align: center;

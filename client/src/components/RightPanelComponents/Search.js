@@ -51,7 +51,7 @@ function Search() {
         <SearchInput
           type="text"
           placeholder="Search Twitter"
-          onFocus={() => setSearchPopup((prev) => !prev)}
+          onFocus={() => setSearchPopup(true)}
           onChange={(e) => handleSearchInput(e)}
         />
       </SearchContainer>
@@ -66,7 +66,7 @@ function Search() {
                   user.name.toLowerCase().includes(searchContent) ||
                   user.username.toLowerCase().includes(searchContent)
               )
-              .slice(0, 3)
+              // .slice(0, 3)
               .map((user) => {
                 return (
                   <Link to={`/${user.username}`} key={user._id}>
@@ -82,7 +82,7 @@ function Search() {
                       </UserPhotoContainer>
                       <FollowUserInfo>
                         <FollowUserName>{user.name}</FollowUserName>
-                        <FollowUserHandle>{user.username}</FollowUserHandle>
+                        <FollowUserHandle>@{user.username}</FollowUserHandle>
                         <FollowUserHandle>{user.bio}</FollowUserHandle>
                       </FollowUserInfo>
                     </FollowUserContainer>
