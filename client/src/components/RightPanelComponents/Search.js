@@ -66,11 +66,10 @@ function Search() {
                   user.name.toLowerCase().includes(searchContent) ||
                   user.username.toLowerCase().includes(searchContent)
               )
-              // .slice(0, 3)
               .map((user) => {
                 return (
                   <Link to={`/${user.username}`} key={user._id}>
-                    <FollowUserContainer>
+                    <FollowUserContainer search>
                       <UserPhotoContainer>
                         <UserPhoto
                           src={
@@ -80,7 +79,7 @@ function Search() {
                           }
                         />
                       </UserPhotoContainer>
-                      <FollowUserInfo>
+                      <FollowUserInfo search>
                         <FollowUserName>{user.name}</FollowUserName>
                         <FollowUserHandle>@{user.username}</FollowUserHandle>
                         <FollowUserHandle>{user.bio}</FollowUserHandle>

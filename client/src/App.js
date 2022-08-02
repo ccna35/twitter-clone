@@ -50,6 +50,7 @@ function App() {
       BtnTextColor: theme === "light" ? "black" : "#eff3f4",
       MobileBarIcons: theme === "dark" ? "#d9d9d9" : "#0f1419",
       VerifiedBadge: theme === "dark" ? "#d9d9d9" : "#1d9bf0",
+      BoxShadowColor: theme === "light" ? "#c6cbcd" : "#273340",
       NavbarBgColor: "#00000000",
     },
     breakpoints: {

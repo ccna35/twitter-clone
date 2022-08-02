@@ -62,12 +62,12 @@ const userSchema = new Schema(
       default: Date.now(),
     },
     following: {
-      type: Number,
-      default: 0,
+      type: Array,
+      default: [],
     },
     followers: {
-      type: Number,
-      default: 0,
+      type: Array,
+      default: [],
     },
     retweetedTweets: {
       type: [

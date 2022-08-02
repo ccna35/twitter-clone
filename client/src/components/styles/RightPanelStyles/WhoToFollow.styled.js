@@ -14,7 +14,8 @@ export const WhoToFollowHeader = styled.h2`
 export const FollowUserContainer = styled.div`
   padding: 1rem;
   display: grid;
-  grid-template-columns: 3rem 1fr 5rem;
+  grid-template-columns: ${(props) =>
+    props.search ? "3rem 1fr" : "3rem 1fr 5rem"};
   gap: 1rem;
   justify-content: space-between;
   align-items: center;
@@ -28,6 +29,8 @@ export const FollowUserInfo = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+
+  ${(props) => props.search && "align-items: flex-start;"};
 `;
 
 export const FollowUserName = styled.p`

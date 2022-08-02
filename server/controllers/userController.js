@@ -98,6 +98,10 @@ const getUserPublicData = asyncHandler(async (req, res) => {
   res.status(200).json(userData);
 });
 
+// @desc updates user public data
+// @route PUT /api/users/:id
+// @access private
+
 const updateUserData = asyncHandler(async (req, res) => {
   const updatedUserInfo = await User.findByIdAndUpdate(
     req.params.id,
@@ -111,6 +115,10 @@ const updateUserData = asyncHandler(async (req, res) => {
 
   res.status(200).json(updatedUserInfo);
 });
+
+// @desc Gets all users
+// @route GET /api/users/
+// @access public
 
 const getAllUsers = asyncHandler(async (req, res) => {
   const usersList = await User.find().sort({
