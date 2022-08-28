@@ -71,6 +71,24 @@ export const getAllUsers = createAsyncThunk(
   }
 );
 
+export const followProcess = createAsyncThunk(
+  "tweet/followProcess",
+  async (data, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      return await userService.followProcess(data);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return rejectWithValue(message);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,

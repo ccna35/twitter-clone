@@ -36,7 +36,7 @@ import Tweet from "../components/Tweet";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTweets } from "../features/tweets/tweetSlice";
-import { getUserData } from "../features/user/userSlice";
+import { getUserData, followProcess } from "../features/user/userSlice";
 import { TweetsContainer } from "../components/styles/Home.styled";
 import Spinner from "../components/Spinner";
 import useFetchUserData from "../custom hooks/useFetchUserData";
@@ -52,8 +52,9 @@ function User() {
 
   const { user } = useSelector((state) => state.auth);
   const { tweets, isLoading } = useSelector((state) => state.tweet);
-  const { username } = useParams();
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
+
+  const { username } = useParams();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -63,6 +64,69 @@ function User() {
     dispatch(getAllTweets(userData));
     dispatch(getUserData(username));
   }, [user, dispatch, navigate]);
+
+  // const [followingArray, setFollowingArray] = useState([]);
+
+  // Object.keys(fullUserData).length > 0 && console.log(fullUserData.following);
+
+  // const userFollowing = [...JSON.parse(localStorage.getItem("user")).following];
+
+  // localStorage.setItem("following", userFollowing);
+
+  const [followingArray, setFollowingArray] = useState([]);
+
+  // if (Object.keys(fullUserData).length > 0) {
+  //   // setFollowingArray([...fullUserData.following]);
+  //   console.log(fullUserData.following);
+  // }
+
+  const handleFollow = () => {
+    console.log("hey");
+    console.log(username);
+    if (!followingArray.includes(username)) {
+      setFollowingArray((prev) => [...prev, username]);
+      console.log("user followed");
+
+      console.log(followingArray);
+    } else {
+      setFollowingArray((prev) => prev.filter((user) => user !== username));
+      console.log("user unfollowed");
+      console.log(followingArray);
+    }
+  };
+
+  // const handleFollow = (username) => {
+  //   if (localStorage.getItem("user")) {
+  //     if (
+  //       !followingArray.includes(JSON.parse(localStorage.getItem("user"))._id)
+  //     ) {
+  //       setFollowingArray([
+  //         ...followingArray,
+  //         JSON.parse(localStorage.getItem("user"))._id,
+  //       ]);
+  //       const data = {
+  //         username,
+  //         userID: JSON.parse(localStorage.getItem("user"))._id,
+  //         didIfollowThisUser: false,
+  //       };
+
+  //       dispatch(followProcess(data));
+  //     } else {
+  //       setFollowingArray((prev) =>
+  //         prev.filter(
+  //           (userID) => userID !== JSON.parse(localStorage.getItem("user"))._id
+  //         )
+  //       );
+  //       const data = {
+  //         username,
+  //         userID: JSON.parse(localStorage.getItem("user"))._id,
+  //         didIfollowThisUser: true,
+  //       };
+
+  //       dispatch(followProcess(data));
+  //     }
+  //   }
+  // };
 
   return (
     <UserStyle>
@@ -112,7 +176,9 @@ function User() {
             Edit Profile
           </EditProfileBtn>
         ) : (
-          <FollowUserBtn>Follow</FollowUserBtn>
+          <FollowUserBtn onClick={handleFollow}>
+            {followingArray.includes(username) ? "Following" : "Follow"}
+          </FollowUserBtn>
         )}
 
         <UserNavbarInfo>

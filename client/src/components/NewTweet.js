@@ -65,7 +65,7 @@ function NewTweet() {
       console.log(formData);
       if (imgData.keys().length !== 0) {
         const data = await fetch(
-          "https://api.cloudinary.com/v1_1/dmua4axn3/auto/upload",
+          "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
           {
             method: "POST",
             body: imgData,

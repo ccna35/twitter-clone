@@ -70,6 +70,7 @@ const loginUser = asyncHandler(async (req, res) => {
       profilePhoto: user.profilePhoto,
       username: user.username,
       email: user.email,
+      following: user.following,
       token: generateToken(user._id),
     });
   } else {
@@ -128,6 +129,61 @@ const getAllUsers = asyncHandler(async (req, res) => {
   res.status(200).json(usersList);
 });
 
+const followProcess = asyncHandler(async (req, res) => {
+  // const tweet = await Tweet.findById(
+  //   JSON.stringify(req.params.id).toString().slice(1, -1)
+  // );
+
+  // if (!tweet) {
+  //   res.status(400);
+  //   throw new Error("Tweet not found");
+  // }
+
+  const user = await User.findById(req.user.id);
+
+  // Check if user exists
+  if (!user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  if (req.body.didUserLikeThisTweet) {
+    const removeLikeFromTweetDatabase = await Tweet.findByIdAndUpdate(
+      JSON.stringify(req.params.id).toString().slice(1, -1),
+      { $pull: { likes: req.body.userID } },
+      { new: true }
+    );
+
+    // Second we remove the tweet from the likedTweets array stored in that user's database.
+    const removeTweetFromUserDatabase = await User.findByIdAndUpdate(
+      req.body.userID,
+      { $pull: { likedTweets: tweet._id } },
+      { new: true }
+    );
+
+    console.log(removeLikeFromTweetDatabase);
+
+    res.status(200).json(removeLikeFromTweetDatabase);
+  } else {
+    const addLikeFromTweetDatabase = await Tweet.findByIdAndUpdate(
+      JSON.stringify(req.params.id).toString().slice(1, -1),
+      { $push: { likes: req.body.userID } },
+      { new: true }
+    );
+
+    // Second we remove the tweet from the likedTweets array stored in that user's database.
+    const addTweetToUserDatabase = await User.findByIdAndUpdate(
+      req.body.userID,
+      { $push: { likedTweets: tweet._id } },
+      { new: true }
+    );
+
+    console.log(addTweetToUserDatabase);
+
+    res.status(200).json(addLikeFromTweetDatabase);
+  }
+});
+
 // Generate JWT
 
 const generateToken = (id) => {
@@ -143,4 +199,5 @@ module.exports = {
   getUserPublicData,
   getAllUsers,
   updateUserData,
+  followProcess,
 };
