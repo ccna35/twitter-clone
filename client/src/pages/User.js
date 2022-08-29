@@ -49,6 +49,7 @@ function User() {
   const navigate = useNavigate();
 
   const [editProfileModal, setEditProfileModal] = useState(false);
+  const [followingArray, setFollowingArray] = useState([]);
 
   const { user } = useSelector((state) => state.auth);
   const { tweets, isLoading } = useSelector((state) => state.tweet);
@@ -62,10 +63,10 @@ function User() {
       username,
     };
     dispatch(getAllTweets(userData));
-    dispatch(getUserData(username));
+    dispatch(getUserData(username)).then((data) =>
+      setFollowingArray([...data.payload[0].following])
+    );
   }, [user, dispatch, navigate]);
-
-  // const [followingArray, setFollowingArray] = useState([]);
 
   // Object.keys(fullUserData).length > 0 && console.log(fullUserData.following);
 
@@ -73,60 +74,67 @@ function User() {
 
   // localStorage.setItem("following", userFollowing);
 
-  const [followingArray, setFollowingArray] = useState([]);
+  // const [followingArray, setFollowingArray] = useState([
+  //   ...fullUserData.following,
+  // ]);
 
   // if (Object.keys(fullUserData).length > 0) {
   //   // setFollowingArray([...fullUserData.following]);
   //   console.log(fullUserData.following);
   // }
 
-  const handleFollow = () => {
-    console.log("hey");
-    console.log(username);
-    if (!followingArray.includes(username)) {
-      setFollowingArray((prev) => [...prev, username]);
-      console.log("user followed");
+  // console.log(typeof fullUserData.following);
 
-      console.log(followingArray);
-    } else {
-      setFollowingArray((prev) => prev.filter((user) => user !== username));
-      console.log("user unfollowed");
-      console.log(followingArray);
-    }
-  };
+  // const handleFollow = () => {
+  //   console.log("hey");
+  //   console.log(username);
+  //   if (!followingArray.includes(username)) {
+  //     setFollowingArray((prev) => [...prev, username]);
+  //     console.log("user followed");
 
-  // const handleFollow = (username) => {
-  //   if (localStorage.getItem("user")) {
-  //     if (
-  //       !followingArray.includes(JSON.parse(localStorage.getItem("user"))._id)
-  //     ) {
-  //       setFollowingArray([
-  //         ...followingArray,
-  //         JSON.parse(localStorage.getItem("user"))._id,
-  //       ]);
-  //       const data = {
-  //         username,
-  //         userID: JSON.parse(localStorage.getItem("user"))._id,
-  //         didIfollowThisUser: false,
-  //       };
-
-  //       dispatch(followProcess(data));
-  //     } else {
-  //       setFollowingArray((prev) =>
-  //         prev.filter(
-  //           (userID) => userID !== JSON.parse(localStorage.getItem("user"))._id
-  //         )
-  //       );
-  //       const data = {
-  //         username,
-  //         userID: JSON.parse(localStorage.getItem("user"))._id,
-  //         didIfollowThisUser: true,
-  //       };
-
-  //       dispatch(followProcess(data));
-  //     }
+  //     console.log(followingArray);
+  //   } else {
+  //     setFollowingArray((prev) => prev.filter((user) => user !== username));
+  //     console.log("user unfollowed");
+  //     console.log(followingArray);
   //   }
   // };
+
+  const handleFollow = (username) => {
+    if (localStorage.getItem("user")) {
+      if (
+        !followingArray.includes(
+          JSON.parse(localStorage.getItem("user")).username
+        )
+      ) {
+        setFollowingArray([
+          ...followingArray,
+          JSON.parse(localStorage.getItem("user")).username,
+        ]);
+        const data = {
+          username,
+          userID: JSON.parse(localStorage.getItem("user"))._id,
+          didIfollowThisUser: false,
+        };
+
+        dispatch(followProcess(data));
+      } else {
+        setFollowingArray((prev) =>
+          prev.filter(
+            (userID) =>
+              userID !== JSON.parse(localStorage.getItem("user")).username
+          )
+        );
+        const data = {
+          username,
+          userID: JSON.parse(localStorage.getItem("user"))._id,
+          didIfollowThisUser: true,
+        };
+
+        dispatch(followProcess(data));
+      }
+    }
+  };
 
   return (
     <UserStyle>
