@@ -50,6 +50,7 @@ function User() {
 
   const [editProfileModal, setEditProfileModal] = useState(false);
   const [followingArray, setFollowingArray] = useState([]);
+  const [followersArray, setFollowersArray] = useState([]);
 
   const { user } = useSelector((state) => state.auth);
   const { tweets, isLoading } = useSelector((state) => state.tweet);
@@ -63,27 +64,11 @@ function User() {
       username,
     };
     dispatch(getAllTweets(userData));
-    dispatch(getUserData(username)).then((data) =>
-      setFollowingArray([...data.payload[0].following])
-    );
+    dispatch(getUserData(username)).then(function (data) {
+      setFollowingArray([...data.payload[0].following]);
+      setFollowersArray([...data.payload[0].followers]);
+    });
   }, [user, dispatch, navigate]);
-
-  // Object.keys(fullUserData).length > 0 && console.log(fullUserData.following);
-
-  // const userFollowing = [...JSON.parse(localStorage.getItem("user")).following];
-
-  // localStorage.setItem("following", userFollowing);
-
-  // const [followingArray, setFollowingArray] = useState([
-  //   ...fullUserData.following,
-  // ]);
-
-  // if (Object.keys(fullUserData).length > 0) {
-  //   // setFollowingArray([...fullUserData.following]);
-  //   console.log(fullUserData.following);
-  // }
-
-  // console.log(typeof fullUserData.following);
 
   // const handleFollow = () => {
   //   console.log("hey");
@@ -100,17 +85,17 @@ function User() {
   //   }
   // };
 
-  const handleFollow = (username) => {
+  const handleFollow = () => {
     if (localStorage.getItem("user")) {
-      if (
-        !followingArray.includes(
-          JSON.parse(localStorage.getItem("user")).username
-        )
-      ) {
-        setFollowingArray([
-          ...followingArray,
-          JSON.parse(localStorage.getItem("user")).username,
-        ]);
+      if (!followersArray.includes(username)) {
+        // setFollowingArray([
+        //   ...followingArray,
+        //   JSON.parse(localStorage.getItem("user")).username,
+        // ]);
+
+        setFollowersArray((prev) => [...prev, username]);
+        console.log("user followed");
+        console.log(followersArray);
         const data = {
           username,
           userID: JSON.parse(localStorage.getItem("user"))._id,
@@ -119,12 +104,11 @@ function User() {
 
         dispatch(followProcess(data));
       } else {
-        setFollowingArray((prev) =>
-          prev.filter(
-            (userID) =>
-              userID !== JSON.parse(localStorage.getItem("user")).username
-          )
+        setFollowersArray((prev) =>
+          prev.filter((followedUser) => followedUser !== username)
         );
+        console.log("user unfollowed");
+        console.log(followersArray);
         const data = {
           username,
           userID: JSON.parse(localStorage.getItem("user"))._id,
@@ -245,15 +229,11 @@ function User() {
         </UserProfileAboutContainer>
         <FollowingFollowersContainer>
           <FollowContainer>
-            <FollowCount>
-              {Object.keys(fullUserData).length > 0 && fullUserData.following}
-            </FollowCount>
+            <FollowCount>{followingArray.length}</FollowCount>
             <FollowText>Following</FollowText>
           </FollowContainer>
           <FollowContainer>
-            <FollowCount>
-              {Object.keys(fullUserData).length > 0 && fullUserData.followers}
-            </FollowCount>
+            <FollowCount>{followersArray.length}</FollowCount>
             <FollowText>Followers</FollowText>
           </FollowContainer>
         </FollowingFollowersContainer>
