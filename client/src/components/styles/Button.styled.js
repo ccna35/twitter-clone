@@ -37,10 +37,11 @@ export const MainTweetBtn = styled.button`
 `;
 
 export const FollowUserBtn = styled.button`
+  border: 1px solid lightgrey;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   color: white;
-  border: none;
+  /* border: none; */
   outline: none;
   border-radius: 15rem;
   background-color: ${({ theme }) => theme.colors.FollowBgColor};
@@ -48,7 +49,9 @@ export const FollowUserBtn = styled.button`
   transition: background-color 0.5s;
   cursor: pointer;
   &:hover {
-    background-color: ${({ theme }) => theme.colors.FollowBgHoverColor};
+    background-color: ${(props) => props.hover && "#2c202c"};
+    color: ${(props) => props.hover && "#f4212e"};
+    border-color: ${(props) => props.hover && "#67070f"};
   }
   align-self: ${(props) => (props.align === "center" ? "center" : "flex-end")};
 `;

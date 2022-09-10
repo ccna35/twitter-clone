@@ -56,6 +56,8 @@ function User() {
   const { tweets, isLoading } = useSelector((state) => state.tweet);
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
 
+  // console.log(fullUserData);
+
   const { username } = useParams();
 
   const dispatch = useDispatch();
@@ -70,53 +72,68 @@ function User() {
     });
   }, [user, dispatch, navigate]);
 
-  // const handleFollow = () => {
-  //   console.log("hey");
-  //   console.log(username);
-  //   if (!followingArray.includes(username)) {
-  //     setFollowingArray((prev) => [...prev, username]);
-  //     console.log("user followed");
-
-  //     console.log(followingArray);
-  //   } else {
-  //     setFollowingArray((prev) => prev.filter((user) => user !== username));
-  //     console.log("user unfollowed");
-  //     console.log(followingArray);
-  //   }
-  // };
-
   const handleFollow = () => {
     if (localStorage.getItem("user")) {
-      if (!followersArray.includes(username)) {
-        // setFollowingArray([
-        //   ...followingArray,
-        //   JSON.parse(localStorage.getItem("user")).username,
-        // ]);
-
-        setFollowersArray((prev) => [...prev, username]);
+      if (
+        !followersArray.includes(
+          JSON.parse(localStorage.getItem("user")).username
+        )
+      ) {
+        setFollowersArray((prev) => [
+          ...prev,
+          JSON.parse(localStorage.getItem("user")).username,
+        ]);
         console.log("user followed");
         console.log(followersArray);
+
+        // const data = {
+        //   myUserName --> my username who followed that user.
+        //   otherUserName --> the username of the person I followed.
+        //   didIfollowThisUser --> it's pretty much self explanatory :D
+        // }
         const data = {
-          username,
-          userID: JSON.parse(localStorage.getItem("user"))._id,
+          myUserName: JSON.parse(localStorage.getItem("user")).username,
+          otherUserName: username,
           didIfollowThisUser: false,
         };
 
         dispatch(followProcess(data));
       } else {
         setFollowersArray((prev) =>
-          prev.filter((followedUser) => followedUser !== username)
+          prev.filter(
+            (followedUser) =>
+              followedUser !== JSON.parse(localStorage.getItem("user")).username
+          )
         );
         console.log("user unfollowed");
         console.log(followersArray);
         const data = {
-          username,
-          userID: JSON.parse(localStorage.getItem("user"))._id,
+          myUserName: JSON.parse(localStorage.getItem("user")).username,
+          otherUserName: username,
           didIfollowThisUser: true,
         };
 
         dispatch(followProcess(data));
       }
+    }
+    setHoverColor(false);
+  };
+
+  const [hoverColor, setHoverColor] = useState(false);
+
+  const handleHover = (e) => {
+    console.log(e.target.innerText);
+    let originalText = e.target.innerText;
+    if (e.target.innerText == "Following") {
+      e.target.innerText = "Unfollow";
+      setHoverColor(true);
+    }
+  };
+  const handleMouseLeave = (e) => {
+    console.log(e.target.innerText);
+    let originalText = e.target.innerText;
+    if (e.target.innerText == "Unfollow") {
+      e.target.innerText = "Following";
     }
   };
 
@@ -168,8 +185,17 @@ function User() {
             Edit Profile
           </EditProfileBtn>
         ) : (
-          <FollowUserBtn onClick={handleFollow}>
-            {followingArray.includes(username) ? "Following" : "Follow"}
+          <FollowUserBtn
+            onClick={handleFollow}
+            onMouseOver={(e) => handleHover(e)}
+            onMouseLeave={(e) => handleMouseLeave(e)}
+            hover={hoverColor}
+          >
+            {followersArray.includes(
+              JSON.parse(localStorage.getItem("user")).username
+            )
+              ? "Following"
+              : "Follow"}
           </FollowUserBtn>
         )}
 

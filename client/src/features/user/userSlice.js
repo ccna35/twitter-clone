@@ -125,7 +125,6 @@ export const userSlice = createSlice({
       state.isUserLoading = false;
       state.isSuccess = true;
       state.fullUserData = action.payload;
-      // console.log(state.fullUserData);
       console.log(action.payload);
     },
     [updateUserData.rejected]: (state, action) => {

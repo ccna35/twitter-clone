@@ -129,58 +129,50 @@ const getAllUsers = asyncHandler(async (req, res) => {
   res.status(200).json(usersList);
 });
 
+// @desc follow & unfollow users
+// @route GET /api/users/followUser/:myUserName
+// @access private
+
 const followProcess = asyncHandler(async (req, res) => {
-  // const tweet = await Tweet.findById(
-  //   JSON.stringify(req.params.id).toString().slice(1, -1)
-  // );
-
-  // if (!tweet) {
-  //   res.status(400);
-  //   throw new Error("Tweet not found");
-  // }
-
-  const user = await User.findById(req.user.id);
+  const myUser = await User.findOne({ username: req.body.myUserName });
+  const otherUser = await User.findOne({
+    username: req.body.otherUserName,
+  });
 
   // Check if user exists
-  if (!user) {
+  if (!myUser || !otherUser) {
     res.status(401);
     throw new Error("User not found");
   }
 
-  if (req.body.didUserLikeThisTweet) {
-    const removeLikeFromTweetDatabase = await Tweet.findByIdAndUpdate(
-      JSON.stringify(req.params.id).toString().slice(1, -1),
-      { $pull: { likes: req.body.userID } },
+  if (req.body.didIfollowThisUser) {
+    // First, we remove the user from my "following" list.
+    const removeOtherUserFromMyFollowingList = await User.findByIdAndUpdate(
+      myUser._id.toString(),
+      { $pull: { following: req.body.otherUserName } },
       { new: true }
     );
 
-    // Second we remove the tweet from the likedTweets array stored in that user's database.
-    const removeTweetFromUserDatabase = await User.findByIdAndUpdate(
-      req.body.userID,
-      { $pull: { likedTweets: tweet._id } },
+    // Second, remove my user from the other user's "followers" list.
+    const removeMyUserFromHisFollowersList = await User.findByIdAndUpdate(
+      otherUser._id.toString(),
+      { $pull: { followers: req.body.myUserName } },
       { new: true }
     );
-
-    console.log(removeLikeFromTweetDatabase);
-
-    res.status(200).json(removeLikeFromTweetDatabase);
   } else {
-    const addLikeFromTweetDatabase = await Tweet.findByIdAndUpdate(
-      JSON.stringify(req.params.id).toString().slice(1, -1),
-      { $push: { likes: req.body.userID } },
+    // First, add the user to my "following" list.
+    const addOtherUserToMyFollowingList = await User.findByIdAndUpdate(
+      myUser._id.toString(),
+      { $push: { following: req.body.otherUserName } },
       { new: true }
     );
 
-    // Second we remove the tweet from the likedTweets array stored in that user's database.
-    const addTweetToUserDatabase = await User.findByIdAndUpdate(
-      req.body.userID,
-      { $push: { likedTweets: tweet._id } },
+    // Second, add my user to the other user's "followers" list.
+    const addMyUserToHisFollowersList = await User.findByIdAndUpdate(
+      otherUser._id.toString(),
+      { $push: { followers: req.body.myUserName } },
       { new: true }
     );
-
-    console.log(addTweetToUserDatabase);
-
-    res.status(200).json(addLikeFromTweetDatabase);
   }
 });
 

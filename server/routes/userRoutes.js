@@ -16,7 +16,7 @@ router.post("/login", loginUser);
 router.get("/home", protect, getMe);
 router.get("/:username", getUserPublicData);
 router.put("/:id", updateUserData);
-router.put("/follow/:username", followProcess);
+router.put("/followUser/:myUserName", followProcess);
 router.get("/", getAllUsers);
 
 module.exports = router;
