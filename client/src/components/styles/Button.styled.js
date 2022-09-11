@@ -41,17 +41,18 @@ export const FollowUserBtn = styled.button`
   padding: 0.5rem 1rem;
   font-size: 1rem;
   color: white;
-  /* border: none; */
   outline: none;
   border-radius: 15rem;
   background-color: ${({ theme }) => theme.colors.FollowBgColor};
   color: ${({ theme }) => theme.colors.FollowTextColor};
+  font-weight: 600;
   transition: background-color 0.5s;
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.hover && "#2c202c"};
+    background-color: ${(props) => props.hover && "#f30f5814"};
     color: ${(props) => props.hover && "#f4212e"};
-    border-color: ${(props) => props.hover && "#67070f"};
+    border-color: ${(props) => props.hover && "#e77b84"};
+    font-weight: 600;
   }
   align-self: ${(props) => (props.align === "center" ? "center" : "flex-end")};
 `;

@@ -15,7 +15,7 @@ export const FollowUserContainer = styled.div`
   padding: 1rem;
   display: grid;
   grid-template-columns: ${(props) =>
-    props.search ? "3rem 1fr" : "3rem 1fr 5rem"};
+    props.search ? "3rem 1fr" : "3rem 1fr 7rem"};
   gap: 1rem;
   justify-content: space-between;
   align-items: center;

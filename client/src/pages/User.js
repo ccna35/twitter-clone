@@ -122,7 +122,6 @@ function User() {
   const [hoverColor, setHoverColor] = useState(false);
 
   const handleHover = (e) => {
-    console.log(e.target.innerText);
     let originalText = e.target.innerText;
     if (e.target.innerText == "Following") {
       e.target.innerText = "Unfollow";
@@ -130,7 +129,6 @@ function User() {
     }
   };
   const handleMouseLeave = (e) => {
-    console.log(e.target.innerText);
     let originalText = e.target.innerText;
     if (e.target.innerText == "Unfollow") {
       e.target.innerText = "Following";

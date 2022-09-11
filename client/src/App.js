@@ -26,8 +26,10 @@ function App() {
         theme === "dark" ? "#1c1f23" : theme === "dim" ? "#273340" : "#eff3f4",
       hoverTweetBg: theme === "dark" ? "#080808" : "#eff3f4",
       bgColor: "#f7f9f9",
-      FollowTextColor: theme === "dark" ? "black" : "white",
-      FollowBgColor: theme === "dark" ? "white" : "#0f1419",
+      FollowTextColor: theme === "dim" ? "white" : "black",
+      // FollowBgColor: theme === "dark" ? "white" : "#0f1419",
+      FollowBgColor:
+        theme === "dark" ? "white" : theme === "dim" ? "#0f1419" : "white",
       FollowBgHoverColor: theme === "dark" ? "lightgrey" : "#4a4a49",
       EditProfileBgColor:
         theme === "dark" ? "black" : theme === "dim" ? "#15202b" : "white",
