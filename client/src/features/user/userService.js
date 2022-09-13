@@ -9,6 +9,11 @@ const getUserData = async (userName) => {
   return res.data;
 };
 
+const getMyUserData = async (userName) => {
+  const res = await axios.get(API_URL + userName);
+  return res.data;
+};
+
 const updateUserData = async (userData) => {
   const res = await axios.put(`${API_URL + userData.userId}`, userData.newData);
   console.log(res.data);
@@ -30,6 +35,7 @@ const followProcess = async (data) => {
 };
 
 const userService = {
+  getMyUserData,
   getUserData,
   getAllUsers,
   updateUserData,

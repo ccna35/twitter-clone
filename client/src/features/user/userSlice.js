@@ -8,6 +8,7 @@ import userService from "./userService";
 
 const initialState = {
   fullUserData: {},
+  myUserData: {},
   users: [],
   isError: false,
   isSuccess: false,
@@ -23,6 +24,24 @@ export const getUserData = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       return await userService.getUserData(userName);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const getMyUserData = createAsyncThunk(
+  "tweet/getmyuserdata",
+  async (userName, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      return await userService.getMyUserData(userName);
     } catch (error) {
       const message =
         (error.response &&
@@ -104,6 +123,20 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: {
+    [getMyUserData.pending]: (state) => {
+      state.isUserLoading = true;
+    },
+    [getMyUserData.fulfilled]: (state, action) => {
+      state.isUserLoading = false;
+      state.isSuccess = true;
+      state.myUserData = action.payload[0];
+    },
+    [getMyUserData.rejected]: (state, action) => {
+      state.isUserLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.myUserData = [];
+    },
     [getUserData.pending]: (state) => {
       state.isUserLoading = true;
     },

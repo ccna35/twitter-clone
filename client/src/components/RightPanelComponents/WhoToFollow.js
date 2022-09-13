@@ -10,12 +10,16 @@ import {
 import { TrendingShowMore } from "../styles/RightPanelStyles/WhatsHappening.styled";
 import { UserPhoto, UserPhotoContainer } from "../styles/NewTweet.styled";
 import { FollowUserBtn } from "../styles/Button.styled";
-import { getAllUsers } from "../../features/user/userSlice";
+import {
+  getAllUsers,
+  getMyUserData,
+  getUserData,
+  followProcess,
+} from "../../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { TweetsContainer } from "../../components/styles/Home.styled";
 import Spinner from "../../components/Spinner";
-import { getUserData, followProcess } from "../../features/user/userSlice";
 
 function WhoToFollow() {
   const dispatch = useDispatch();
@@ -29,7 +33,7 @@ function WhoToFollow() {
   useEffect(() => {
     dispatch(getAllUsers());
     dispatch(
-      getUserData(JSON.parse(localStorage.getItem("user")).username)
+      getMyUserData(JSON.parse(localStorage.getItem("user")).username)
     ).then(function (data) {
       setFollowingArray([...data.payload[0].following]);
       setFollowersArray([...data.payload[0].followers]);
