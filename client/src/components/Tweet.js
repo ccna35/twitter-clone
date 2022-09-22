@@ -138,19 +138,16 @@ function Tweet({ tweet }) {
   return (
     <TweetContainer>
       <UserPhotoContainer>
-        <Link
-          to={
-            "/" + Object.keys(fullUserData).length > 0 && fullUserData.username
-          }
-        >
-          <UserPhoto
-            src={
-              Object.keys(fullUserData).length > 0 && fullUserData.profilePhoto
-                ? fullUserData.profilePhoto
-                : "./images/blank-profile-picture-gf8e58e24f_640.png"
-            }
-          />
-        </Link>
+        {Object.keys(fullUserData).length > 0 && (
+          <Link to={"/" + fullUserData.username}>
+            <UserPhoto
+              src={
+                fullUserData.profilePhoto ||
+                "./images/blank-profile-picture-gf8e58e24f_640.png"
+              }
+            />
+          </Link>
+        )}
       </UserPhotoContainer>
       <TweetBody>
         <TweetUpperBar>

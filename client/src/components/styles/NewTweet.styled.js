@@ -29,7 +29,7 @@ export const TweetForm = styled.form`
   flex-grow: 1;
 `;
 
-export const TweetInput = styled.input`
+export const TweetInput = styled.textarea`
   background-color: ${({ theme }) => theme.colors.InputBgColor};
   width: 100%;
   border: none;
@@ -40,9 +40,34 @@ export const TweetInput = styled.input`
   font-weight: 300;
   caret-color: ${({ theme }) => theme.colors.InputCursorColor};
   color: ${({ theme }) => theme.colors.textColor};
+  resize: none;
+  overflow-wrap: anywhere;
   &::placeholder {
     font-size: 1.5rem;
   }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+export const TweetTextInput = styled.div`
+  background-color: ${({ theme }) => theme.colors.InputBgColor};
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-family: inherit;
+  font-weight: 300;
+  caret-color: ${({ theme }) => theme.colors.InputCursorColor};
+  color: ${({ theme }) => theme.colors.textColor};
+  /* resize: none; */
+  &:empty:before {
+    content: attr(data-placeholder);
+  }
+  overflow-wrap: anywhere;
+  /* &::-webkit-scrollbar {
+    display: none;
+  } */
 `;
 
 export const WhoCanReplyContainer = styled.div`

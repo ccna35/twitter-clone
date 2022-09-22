@@ -11,6 +11,7 @@ import {
   WhoCanReplyContainer,
   WhoCanReplyText,
   UploadButton,
+  TweetTextInput,
 } from "./styles/NewTweet.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEarth } from "@fortawesome/free-solid-svg-icons";
@@ -39,6 +40,8 @@ function NewTweet() {
 
   const { user } = useSelector((state) => state.auth);
 
+  const [rows, setRows] = useState(1);
+
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, text: e.target.value }));
   };
@@ -58,6 +61,8 @@ function NewTweet() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    // if (formData.text.length !== 0 && imageUpload.file !== undefined) {
+    // }
     if (formData) {
       formData.token = `Bearer ${
         JSON.parse(localStorage.getItem("user")).token
@@ -114,12 +119,21 @@ function NewTweet() {
 
       <TweetForm onSubmit={onSubmit}>
         <TweetInput
-          type="text"
           placeholder="What’s happening"
           onChange={(e) => onChange(e)}
           value={formData.text}
           onFocus={() => setWhoCanReply(true)}
+          rows={rows}
         />
+        {/* <TweetTextInput
+          placeholder="What’s happening"
+          onChange={(e) => onChange(e)}
+          value={formData.text}
+          onFocus={() => setWhoCanReply(true)}
+          role="textbox"
+          contentEditable="true"
+          data-placeholder="What’s happening"
+        ></TweetTextInput> */}
         {whoCanReply && (
           <WhoCanReplyContainer>
             <FontAwesomeIcon icon={faEarth}></FontAwesomeIcon>
