@@ -135,3 +135,14 @@ export const UploadButton = styled.input`
     visibility: hidden;
   }
 `;
+
+export const RightContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const CharCount = styled.p`
+  font-weight: 600;
+  color: ${(props) => (props.color === "blue" ? "#138bdb" : "#EB1D36")};
+`;

@@ -12,6 +12,8 @@ import {
   WhoCanReplyText,
   UploadButton,
   TweetTextInput,
+  RightContainer,
+  CharCount,
 } from "./styles/NewTweet.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEarth } from "@fortawesome/free-solid-svg-icons";
@@ -37,6 +39,10 @@ function NewTweet() {
   });
 
   const [whoCanReply, setWhoCanReply] = useState(false);
+  // text color of the character count of the tweet text.
+  const [textColor, setTextColor] = useState("blue");
+  // This determines if the tweet body is less or equal to 280 characters.
+  const [disableButton, setDisableButton] = useState(true);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -44,6 +50,20 @@ function NewTweet() {
 
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, text: e.target.value }));
+    if (e.target.value.length > 280) {
+      setTextColor("red");
+      setDisableButton(true);
+    } else {
+      setTextColor("blue");
+      setDisableButton(false);
+    }
+    // e.target.style.color = "lightblue";
+    // const newArray = e.target.value.split("");
+    // console.log(newArray);
+    // if (newArray.at(-1) == "#") {
+    //   console.log("YES");
+    //   let hashIndex = newArray.indexOf("#");
+    // }
   };
 
   const dispatch = useDispatch();
@@ -123,7 +143,6 @@ function NewTweet() {
           onChange={(e) => onChange(e)}
           value={formData.text}
           onFocus={() => setWhoCanReply(true)}
-          rows={rows}
         />
         {/* <TweetTextInput
           placeholder="What’s happening"
@@ -167,14 +186,13 @@ function NewTweet() {
               <CgPin />
             </TweetIconContainer>
           </TweetIconsContainer>
+          <RightContainer>
+            {formData.text.length !== 0 && (
+              <CharCount color={textColor}>{formData.text.length}</CharCount>
+            )}
 
-          <MainTweetBtn
-            disabled={
-              formData.text.length === 0 && imageUpload.file === undefined
-            }
-          >
-            Tweet
-          </MainTweetBtn>
+            <MainTweetBtn disabled={disableButton}>Tweet</MainTweetBtn>
+          </RightContainer>
         </TweetOptionsContainer>
       </TweetForm>
     </NewTweetStyle>
