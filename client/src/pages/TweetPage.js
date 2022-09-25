@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
-import { UserPhoto, UserPhotoContainer } from "./styles/NewTweet.styled";
+import {
+  UserPhoto,
+  UserPhotoContainer,
+} from "../components/styles/NewTweet.styled";
 import {
   TimeSincePosted,
   TweetAuthor,
@@ -21,7 +24,7 @@ import {
   UserHandle,
   UserName,
   UserVerifiedIconContainer,
-} from "./styles/Tweet.styled";
+} from "../components/styles/Tweet.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -36,14 +39,30 @@ import { FiShare } from "react-icons/fi";
 import { IoTrashOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../features/user/userSlice";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
-import { likeTweet, deleteTweet, retweet } from "../features/tweets/tweetSlice";
+import {
+  likeTweet,
+  deleteTweet,
+  retweet,
+  getSingleTweet,
+  reset,
+} from "../features/tweets/tweetSlice";
 import { useRef } from "react";
 import useOnClickOutside from "../custom hooks/useOnClickOutside";
 
-function Tweet({ tweet }) {
+function TweetPage() {
+  const { tweetID } = useParams();
+
+  const { tweet, isLoading } = useSelector((state) => state.tweet);
   console.log(tweet);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getSingleTweet(tweetID)).then((data) => console.log(data));
+
+    dispatch(reset());
+  }, [dispatch]);
   const [likesArray, setLikesArray] = useState([...tweet.likes]);
   const [retweetsArray, setRetweetsArray] = useState([...tweet.retweets]);
   // Handles Tweet Popup state
@@ -59,8 +78,6 @@ function Tweet({ tweet }) {
   const timePosted = Math.floor(timeDiff / (1000 * 60));
 
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
-
-  const dispatch = useDispatch();
 
   const handleLike = (tweetID) => {
     if (localStorage.getItem("user")) {
@@ -135,7 +152,6 @@ function Tweet({ tweet }) {
       setPopup((prev) => !prev);
     }
   };
-
   return (
     <TweetContainer>
       <UserPhotoContainer>
@@ -269,7 +285,8 @@ function Tweet({ tweet }) {
         </TweetLowerBar>
       </TweetBody>
     </TweetContainer>
+    // <div>TweetPage</div>
   );
 }
 
-export default Tweet;
+export default TweetPage;

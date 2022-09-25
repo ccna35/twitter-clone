@@ -3,6 +3,7 @@ import tweetService from "./tweetService";
 
 const initialState = {
   tweets: [],
+  tweet: {},
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -65,10 +66,10 @@ export const getAllTweets = createAsyncThunk(
 
 export const getSingleTweet = createAsyncThunk(
   "tweet/getsingletweet",
-  async (_, thunkAPI) => {
+  async (id, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      return await tweetService.getAllTweets();
+      return await tweetService.getSingleTweet(id);
     } catch (error) {
       const message =
         (error.response &&
@@ -142,6 +143,20 @@ export const tweetSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
       state.tweets = [];
+    },
+    [getSingleTweet.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getSingleTweet.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.tweet = action.payload;
+    },
+    [getSingleTweet.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.tweet = {};
     },
     [createTweet.pending]: (state) => {
       state.isLoading = false;

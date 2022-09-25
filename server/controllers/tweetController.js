@@ -14,6 +14,13 @@ const getTweets = asyncHandler(async (req, res) => {
   res.status(200).json(tweets);
 });
 
+const getTweet = asyncHandler(async (req, res) => {
+  // const userID = await User.findOne({ username: req.params.id });
+  const tweet = await Tweet.findOne({ _id: req.params.id });
+  console.log(tweet);
+  res.status(200).json(tweet);
+});
+
 // // @desc get all tweets
 // // @route GET /api/tweets
 // // @access public
@@ -230,6 +237,7 @@ const retweet = asyncHandler(async (req, res) => {
 
 module.exports = {
   getTweets,
+  getTweet,
   createTweet,
   updateTweet,
   deleteTweet,

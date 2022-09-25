@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_URL = "/api/tweets/";
+const TWEET_API_URL = "/api/tweets/tweet/";
 const LIKES_API_URL = "/api/tweets/likes/";
 const RETWEETS_API_URL = "/api/tweets/retweets/";
 
@@ -19,7 +20,7 @@ const getAllTweets = async (userData) => {
 };
 
 const getSingleTweet = async (id) => {
-  const res = await axios.get(API_URL + id);
+  const res = await axios.get(TWEET_API_URL + id);
   return res.data;
 };
 

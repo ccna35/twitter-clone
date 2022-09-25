@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import User from "./pages/User";
 import AppLayout from "./components/AppLayout";
 import { useSelector } from "react-redux";
+import TweetPage from "./pages/TweetPage";
 
 function App() {
   const { theme } = useSelector((state) => state.user);
@@ -27,7 +28,6 @@ function App() {
       hoverTweetBg: theme === "dark" ? "#080808" : "#eff3f4",
       bgColor: "#f7f9f9",
       FollowTextColor: theme === "dim" ? "white" : "black",
-      // FollowBgColor: theme === "dark" ? "white" : "#0f1419",
       FollowBgColor:
         theme === "dark" ? "white" : theme === "dim" ? "#0f1419" : "white",
       FollowBgHoverColor: theme === "dark" ? "lightgrey" : "#4a4a49",
@@ -73,6 +73,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route path="/home" element={<Home />} />
             <Route path="/:username" element={<User />} />
+            <Route path="/:username/status/:tweetID" element={<TweetPage />} />
           </Route>
         </Routes>
       </Router>
