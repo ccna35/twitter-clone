@@ -79,7 +79,6 @@ function Home() {
           <Link
             to={`/${fullUserData.username}/status/${tweet._id}`}
             key={tweet._id}
-            tweet={tweet}
           >
             <Tweet tweet={tweet} />
           </Link>

@@ -16,6 +16,7 @@ const getTweets = asyncHandler(async (req, res) => {
 
 const getTweet = asyncHandler(async (req, res) => {
   // const userID = await User.findOne({ username: req.params.id });
+  console.log(req.params);
   const tweet = await Tweet.findOne({ _id: req.params.id });
   console.log(tweet);
   res.status(200).json(tweet);
