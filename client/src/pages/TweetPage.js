@@ -39,7 +39,7 @@ import { FiShare } from "react-icons/fi";
 import { IoTrashOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../features/user/userSlice";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import {
   likeTweet,
@@ -55,22 +55,27 @@ import {
   HomeNavbar,
   HomeNavbarTextPhotoContainer,
   HomeUserPhotoContainer,
+  TweetsContainer,
 } from "../components/styles/Home.styled";
-import { BsStars } from "react-icons/bs";
+import { TweetPageContainer } from "../components/styles/TweetPage.styled";
+import { UserNavbarIconContainer } from "../components/styles/User.styled";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import Moment from "react-moment";
+import Spinner from "../components/Spinner";
 
 function TweetPage() {
+  const navigate = useNavigate();
   const { tweetID, username } = useParams();
 
   const { tweet, isLoading } = useSelector((state) => state.tweet);
-  // console.log(tweet.likes);
   const [likesArray, setLikesArray] = useState([]);
   const [retweetsArray, setRetweetsArray] = useState([]);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getSingleTweet(tweetID)).then(function (data) {
-      return setLikesArray([data.payload.likes]);
-      setRetweetsArray([data.payload.retweets]);
+      return setLikesArray([...data.payload.likes]);
+      setRetweetsArray([...data.payload.retweets]);
     });
 
     dispatch(getUserData(username));
@@ -85,14 +90,23 @@ function TweetPage() {
 
   // This custom hook closes the modal or popup if the user clicked outside of them.
   useOnClickOutside(tweetRef, () => setPopup(false)); // This hook is related to themes modal.
-
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   const date1 = new Date(tweet.createdAt);
-  const timeDiff = Date.now() - Date.parse(date1);
-  const timePosted = Math.floor(timeDiff / (1000 * 60));
 
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
-
-  console.log(fullUserData);
 
   const handleLike = (tweetID) => {
     if (localStorage.getItem("user")) {
@@ -169,159 +183,173 @@ function TweetPage() {
   };
   return (
     <>
-      <HomeNavbar>
-        <HomeNavbarTextPhotoContainer>
-          <Link to={"/" + JSON.parse(localStorage.getItem("user")).username}>
-            <HomeUserPhotoContainer>
-              <UserPhoto
-                src={
-                  Object.keys(fullUserData).length > 0 &&
-                  fullUserData.profilePhoto
-                    ? fullUserData.profilePhoto
-                    : "./images/blank-profile-picture-gf8e58e24f_640.png"
-                }
-              />
-            </HomeUserPhotoContainer>
-          </Link>
-          <HomeNavbarText>Home</HomeNavbarText>
-        </HomeNavbarTextPhotoContainer>
-        <BsStars />
-      </HomeNavbar>
-      <TweetContainer>
-        <UserPhotoContainer>
-          {Object.keys(fullUserData).length > 0 && (
-            <Link to={"/" + fullUserData.username}>
-              <UserPhoto
-                src={
-                  fullUserData.profilePhoto ||
-                  "./images/blank-profile-picture-gf8e58e24f_640.png"
-                }
-              />
-            </Link>
-          )}
-        </UserPhotoContainer>
-        <TweetBody>
-          <TweetUpperBar>
-            <TweetInfoContainer>
-              <UserName>
-                <TweetAuthor>
-                  {Object.keys(fullUserData).length > 0 && (
-                    <Link to={"/" + fullUserData.username}>
-                      {fullUserData.name}
-                    </Link>
-                  )}
-                </TweetAuthor>
-                {Object.keys(fullUserData).length > 0 &&
-                  fullUserData.isVerified && (
-                    <UserVerifiedIconContainer>
-                      <MdVerified />
-                    </UserVerifiedIconContainer>
-                  )}
-              </UserName>
-              <UserHandle>
-                @{Object.keys(fullUserData).length > 0 && fullUserData.username}
-              </UserHandle>
-              <TimeSincePosted>
-                {timePosted < 60
-                  ? timePosted + "m"
-                  : timePosted >= 60 && timePosted <= 1440
-                  ? Math.floor(timePosted / 60) + "h"
-                  : Math.floor(timePosted / 3600) + "d"}
-              </TimeSincePosted>
-            </TweetInfoContainer>
-            <TweetUpperBarIconContainer
-              onClick={() => setPopup((prev) => !prev)}
-              ref={tweetRef}
-            >
-              <FontAwesomeIcon icon={faEllipsis} size="lg"></FontAwesomeIcon>
-              {popup && (
-                <TweetPopUp>
-                  <TweetPopUpOption onClick={() => handleDelete(tweet._id)} red>
-                    <TweetPopUpIconContainer>
-                      {/* <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> */}
-
-                      <IoTrashOutline />
-                    </TweetPopUpIconContainer>
-                    <TweetPopUpText>Delete</TweetPopUpText>
-                  </TweetPopUpOption>
-                  <TweetPopUpOption>
-                    <TweetPopUpIconContainer>
-                      <AiFillPushpin />
-                    </TweetPopUpIconContainer>
-                    <TweetPopUpText>Pin to your profile</TweetPopUpText>
-                  </TweetPopUpOption>
-                </TweetPopUp>
+      <TweetPageContainer>
+        <HomeNavbar tweetPage>
+          <UserNavbarIconContainer onClick={() => navigate(-1)}>
+            <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
+          </UserNavbarIconContainer>
+          <HomeNavbarTextPhotoContainer>
+            <HomeNavbarText>Home</HomeNavbarText>
+          </HomeNavbarTextPhotoContainer>
+        </HomeNavbar>
+        {isUserLoading ? (
+          <TweetsContainer>
+            <Spinner />
+          </TweetsContainer>
+        ) : (
+          <TweetContainer>
+            <UserPhotoContainer>
+              {Object.keys(fullUserData).length > 0 && (
+                <Link to={"/" + fullUserData.username}>
+                  <UserPhoto
+                    src={
+                      fullUserData.profilePhoto ||
+                      "./images/blank-profile-picture-gf8e58e24f_640.png"
+                    }
+                  />
+                </Link>
               )}
-            </TweetUpperBarIconContainer>
-          </TweetUpperBar>
-          <TweetText>{tweet.text}</TweetText>
-          {tweet.image && <TweetImage src={tweet.image} />}
-          <TweetLowerBar>
-            <TweetIconCountContainer>
-              <TweetLowerBarIconContainer>
-                <FaRegComment />
-              </TweetLowerBarIconContainer>
-              <TweetCount>0</TweetCount>
-            </TweetIconCountContainer>
+            </UserPhotoContainer>
+            <TweetBody>
+              <TweetUpperBar>
+                <TweetInfoContainer tweetPage>
+                  <UserName>
+                    <TweetAuthor>
+                      {Object.keys(fullUserData).length > 0 && (
+                        <Link to={"/" + fullUserData.username}>
+                          {fullUserData.name}
+                        </Link>
+                      )}
+                    </TweetAuthor>
+                    {Object.keys(fullUserData).length > 0 &&
+                      fullUserData.isVerified && (
+                        <UserVerifiedIconContainer>
+                          <MdVerified />
+                        </UserVerifiedIconContainer>
+                      )}
+                  </UserName>
+                  <UserHandle tweetPage>
+                    @
+                    {Object.keys(fullUserData).length > 0 &&
+                      fullUserData.username}
+                  </UserHandle>
+                </TweetInfoContainer>
+                <TweetUpperBarIconContainer
+                  onClick={() => setPopup((prev) => !prev)}
+                  ref={tweetRef}
+                >
+                  <FontAwesomeIcon
+                    icon={faEllipsis}
+                    size="lg"
+                  ></FontAwesomeIcon>
+                  {popup && (
+                    <TweetPopUp>
+                      <TweetPopUpOption
+                        onClick={() => handleDelete(tweet._id)}
+                        red
+                      >
+                        <TweetPopUpIconContainer>
+                          {/* <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> */}
 
-            <TweetIconCountContainer
-              IconColor="green"
-              active={
-                retweetsArray &&
-                localStorage.getItem("user") &&
-                retweetsArray.includes(
-                  JSON.parse(localStorage.getItem("user"))._id
-                )
-              }
-            >
-              <TweetLowerBarIconContainer
-                onClick={() => handleRetweet(tweet._id)}
-                active={
-                  retweetsArray &&
-                  localStorage.getItem("user") &&
-                  retweetsArray.includes(
-                    JSON.parse(localStorage.getItem("user"))._id
-                  )
-                }
-              >
-                <AiOutlineRetweet />
-              </TweetLowerBarIconContainer>
-              <TweetCount>{retweetsArray.length}</TweetCount>
-            </TweetIconCountContainer>
+                          <IoTrashOutline />
+                        </TweetPopUpIconContainer>
+                        <TweetPopUpText>Delete</TweetPopUpText>
+                      </TweetPopUpOption>
+                      <TweetPopUpOption>
+                        <TweetPopUpIconContainer>
+                          <AiFillPushpin />
+                        </TweetPopUpIconContainer>
+                        <TweetPopUpText>Pin to your profile</TweetPopUpText>
+                      </TweetPopUpOption>
+                    </TweetPopUp>
+                  )}
+                </TweetUpperBarIconContainer>
+              </TweetUpperBar>
+              <TweetText>{tweet.text}</TweetText>
+              {tweet.image && <TweetImage src={tweet.image} />}
+              {/* <TimeSincePosted>
+              {date1.getHours() +
+                ":" +
+                date1.getMinutes() +
+                "  " +
+                monthNames[date1.getMonth()] +
+                " " +
+                date1.getDate() +
+                ", " +
+                date1.getFullYear()}
+            </TimeSincePosted> */}
+              <TimeSincePosted>
+                <Moment format="hh:mm A . MMM DD, YYYY">{date1}</Moment>
+              </TimeSincePosted>
+              <TweetLowerBar>
+                <TweetIconCountContainer>
+                  <TweetLowerBarIconContainer>
+                    <FaRegComment />
+                  </TweetLowerBarIconContainer>
+                  <TweetCount>0</TweetCount>
+                </TweetIconCountContainer>
 
-            <TweetIconCountContainer IconColor="red">
-              <TweetLowerBarIconContainer onClick={() => handleLike(tweet._id)}>
-                {likesArray &&
-                localStorage.getItem("user") &&
-                likesArray.includes(
-                  JSON.parse(localStorage.getItem("user"))._id
-                ) ? (
-                  <AiFillHeart color="#eb0770" />
-                ) : (
-                  <AiOutlineHeart />
-                )}
-              </TweetLowerBarIconContainer>
-              <TweetCount
-                active={
-                  likesArray &&
-                  localStorage.getItem("user") &&
-                  likesArray.includes(
-                    JSON.parse(localStorage.getItem("user"))._id
-                  )
-                }
-              >
-                {likesArray.length}
-              </TweetCount>
-            </TweetIconCountContainer>
+                <TweetIconCountContainer
+                  IconColor="green"
+                  active={
+                    retweetsArray &&
+                    localStorage.getItem("user") &&
+                    retweetsArray.includes(
+                      JSON.parse(localStorage.getItem("user"))._id
+                    )
+                  }
+                >
+                  <TweetLowerBarIconContainer
+                    onClick={() => handleRetweet(tweet._id)}
+                    active={
+                      retweetsArray &&
+                      localStorage.getItem("user") &&
+                      retweetsArray.includes(
+                        JSON.parse(localStorage.getItem("user"))._id
+                      )
+                    }
+                  >
+                    <AiOutlineRetweet />
+                  </TweetLowerBarIconContainer>
+                  <TweetCount>{retweetsArray.length}</TweetCount>
+                </TweetIconCountContainer>
 
-            <TweetLowerBarIconContainer>
-              <FiShare />
-            </TweetLowerBarIconContainer>
-          </TweetLowerBar>
-        </TweetBody>
-      </TweetContainer>
+                <TweetIconCountContainer IconColor="red">
+                  <TweetLowerBarIconContainer
+                    onClick={() => handleLike(tweet._id)}
+                  >
+                    {likesArray &&
+                    localStorage.getItem("user") &&
+                    likesArray.includes(
+                      JSON.parse(localStorage.getItem("user"))._id
+                    ) ? (
+                      <AiFillHeart color="#eb0770" />
+                    ) : (
+                      <AiOutlineHeart />
+                    )}
+                  </TweetLowerBarIconContainer>
+                  <TweetCount
+                    active={
+                      likesArray &&
+                      localStorage.getItem("user") &&
+                      likesArray.includes(
+                        JSON.parse(localStorage.getItem("user"))._id
+                      )
+                    }
+                  >
+                    {likesArray.length}
+                  </TweetCount>
+                </TweetIconCountContainer>
+
+                <TweetLowerBarIconContainer>
+                  <FiShare />
+                </TweetLowerBarIconContainer>
+              </TweetLowerBar>
+            </TweetBody>
+          </TweetContainer>
+        )}
+      </TweetPageContainer>
     </>
-    // <div>TweetPage</div>
   );
 }
 

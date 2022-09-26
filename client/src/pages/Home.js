@@ -75,14 +75,7 @@ function Home() {
           <Spinner />
         </TweetsContainer>
       ) : (
-        tweets.map((tweet) => (
-          <Link
-            to={`/${fullUserData.username}/status/${tweet._id}`}
-            key={tweet._id}
-          >
-            <Tweet tweet={tweet} />
-          </Link>
-        ))
+        tweets.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)
       )}
     </StyledHome>
   );

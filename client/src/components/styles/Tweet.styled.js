@@ -43,8 +43,11 @@ export const TweetUpperBar = styled.div`
 export const TweetInfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 0.6rem;
-  align-items: center;
+  ${(props) => (props.tweetPage ? "gap: 0rem" : "gap: 0.6rem")};
+  /* align-items: center; */
+  ${(props) =>
+    props.tweetPage ? "align-items: flex-start" : "align-items: center"};
+  ${(props) => props.tweetPage && "flex-direction: column"};
 `;
 
 export const UserName = styled.div`
@@ -62,8 +65,8 @@ export const UserHandle = styled.p`
   &::after {
     content: "";
     position: absolute;
-    width: 2px;
-    height: 2px;
+    ${(props) => !props.tweetPage && "width: 2px"};
+    ${(props) => !props.tweetPage && "height: 2px"};
     background-color: ${({ theme }) => theme.colors.secColor};
     top: 55%;
     right: -0.3rem;

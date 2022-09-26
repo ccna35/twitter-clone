@@ -14,7 +14,10 @@ export const HomeNavbar = styled.div`
   padding: 0 1rem;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: ${(props) =>
+    props.tweetPage ? "flex-start" : "space-between"};
+  ${(props) => props.tweetPage && "gap: 2rem"};
   align-items: center;
   position: sticky;
   top: 0;

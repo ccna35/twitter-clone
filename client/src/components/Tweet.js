@@ -43,7 +43,6 @@ import { useRef } from "react";
 import useOnClickOutside from "../custom hooks/useOnClickOutside";
 
 function Tweet({ tweet }) {
-  console.log(tweet);
   const [likesArray, setLikesArray] = useState([...tweet.likes]);
   const [retweetsArray, setRetweetsArray] = useState([...tweet.retweets]);
   // Handles Tweet Popup state
@@ -206,12 +205,14 @@ function Tweet({ tweet }) {
         <TweetText>{tweet.text}</TweetText>
         {tweet.image && <TweetImage src={tweet.image} />}
         <TweetLowerBar>
-          <TweetIconCountContainer>
-            <TweetLowerBarIconContainer>
-              <FaRegComment />
-            </TweetLowerBarIconContainer>
-            <TweetCount>0</TweetCount>
-          </TweetIconCountContainer>
+          <Link to={`/${fullUserData.username}/status/${tweet._id}`}>
+            <TweetIconCountContainer>
+              <TweetLowerBarIconContainer>
+                <FaRegComment />
+              </TweetLowerBarIconContainer>
+              <TweetCount>0</TweetCount>
+            </TweetIconCountContainer>
+          </Link>
 
           <TweetIconCountContainer
             IconColor="green"
