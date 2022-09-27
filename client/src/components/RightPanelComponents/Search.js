@@ -26,13 +26,16 @@ function Search() {
   let newUsers;
   const handleSearchInput = (e) => {
     setSearchContent(e.target.value);
-    console.log(searchContent);
     newUsers = users.filter(
       (user) =>
         user.name.toLowerCase().includes(searchContent) ||
         user.username.toLowerCase().includes(searchContent)
     );
-    console.log(newUsers);
+  };
+
+  const handleUserClick = () => {
+    setSearchPopup((prev) => !prev);
+    setSearchContent("");
   };
 
   const searchRef = useRef(); // Left Panel ref.
@@ -68,7 +71,11 @@ function Search() {
               )
               .map((user) => {
                 return (
-                  <Link to={`/${user.username}`} key={user._id}>
+                  <Link
+                    to={`/${user.username}`}
+                    key={user._id}
+                    onClick={handleUserClick}
+                  >
                     <FollowUserContainer search>
                       <UserPhotoContainer>
                         <UserPhoto

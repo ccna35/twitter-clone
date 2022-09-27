@@ -9,15 +9,8 @@ const GlobalStyles = createGlobalStyle`
   
   body {
     font-family: 'Source Sans Pro', sans-serif;
-    /* background-color: ${
-      window.location.href.endsWith("/")
-        ? "white"
-        : ({ theme }) => theme.colors.BgColor
-    }; */
-
     background-color: ${({ theme }) => theme.colors.BgColor};
-
-    
+    transition: all 0.5s;
   }
 
   a {

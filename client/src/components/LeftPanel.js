@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { MenuItem, MenuItemText, TweetBtn } from "./styles/LeftMenu.styled";
 import {
   LeftPanelAllContainer,
@@ -67,6 +68,9 @@ function LeftPanel() {
     navigate("/");
   };
 
+  const domElement = document.getElementById("modals");
+  // const domElement2 = document.getElementById("modals2");
+
   return (
     <LeftPanelStyle>
       <LeftPanelContainer>
@@ -123,12 +127,14 @@ function LeftPanel() {
                     <MenuItemText>Profile</MenuItemText>
                   </MenuItem>
                 </Link>
-                {themesModal && (
-                  <ThemesModal
-                    popupRef={popupRef}
-                    setThemesModal={setThemesModal}
-                  />
-                )}
+                {themesModal &&
+                  ReactDOM.createPortal(
+                    <ThemesModal
+                      popupRef={popupRef}
+                      setThemesModal={setThemesModal}
+                    />,
+                    domElement
+                  )}
                 <MenuItem onClick={() => setThemesModal((prev) => !prev)}>
                   <CgMoreO size="1.75rem" />
                   <MenuItemText>More</MenuItemText>

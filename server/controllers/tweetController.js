@@ -89,8 +89,6 @@ const updateTweet = asyncHandler(async (req, res) => {
 // @access private
 
 const deleteTweet = asyncHandler(async (req, res) => {
-  console.log(req.user);
-
   const tweet = await Tweet.findById(req.params.id);
 
   if (!tweet) {
@@ -153,8 +151,6 @@ const likeTweet = asyncHandler(async (req, res) => {
       { new: true }
     );
 
-    console.log(removeLikeFromTweetDatabase);
-
     res.status(200).json(removeLikeFromTweetDatabase);
   } else {
     const addLikeFromTweetDatabase = await Tweet.findByIdAndUpdate(
@@ -169,8 +165,6 @@ const likeTweet = asyncHandler(async (req, res) => {
       { $push: { likedTweets: tweet._id } },
       { new: true }
     );
-
-    console.log(addTweetToUserDatabase);
 
     res.status(200).json(addLikeFromTweetDatabase);
   }
