@@ -179,6 +179,7 @@ function TweetPage() {
     ) {
       dispatch(deleteTweet(id)).then((data) => console.log(data));
       setPopup((prev) => !prev);
+      navigate(-1);
     }
   };
   return (

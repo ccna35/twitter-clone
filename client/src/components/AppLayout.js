@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes, Outlet } from "react-router-dom";
+import ChatBox from "./ChatBox";
 import LeftPanel from "./LeftPanel";
 import MobileBar from "./MobileBar";
 import RightPanel from "./RightPanel";
@@ -14,6 +15,7 @@ function AppLayout() {
         <RightPanel />
       </MainStyle>
       <MobileBar />
+      <ChatBox />
     </>
   );
 }
