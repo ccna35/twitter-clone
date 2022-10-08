@@ -27,8 +27,10 @@ export const MenuItem = styled.div`
 
 export const MenuItemText = styled.p`
   font-size: 1.5rem;
-  font-weight: 300;
+  font-weight: ${(props) => (props.active ? "600" : "300")};
   margin-left: 1rem;
+  transition: font-weight 0.25s;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }

@@ -146,3 +146,28 @@ export const CharCount = styled.p`
   font-weight: 600;
   color: ${(props) => (props.color === "blue" ? "#138bdb" : "#EB1D36")};
 `;
+
+export const UploadedImageContainer = styled.div`
+  width: 100%;
+
+  position: relative;
+  p {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    padding: 1rem;
+    background-color: lightgray;
+    border-radius: 50rem;
+  }
+
+  svg {
+    cursor: pointer;
+  }
+`;
+
+export const UploadedImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.75rem;
+`;

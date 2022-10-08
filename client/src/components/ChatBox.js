@@ -14,12 +14,14 @@ import {
   ChatBoxIconsContainer,
   ChatBoxStyle,
   ChatsContainer,
+  ChatText,
   Conversation,
   UserInfoMessageContainer,
 } from "./styles/ChatBox.styled";
 import { useState } from "react";
 import { UserPhoto, UserPhotoContainer } from "./styles/NewTweet.styled";
 import {
+  TimeSincePosted,
   TweetAuthor,
   TweetInfoContainer,
   UserHandle,
@@ -43,9 +45,9 @@ function ChatBox() {
           </ChatBoxIconContainer>
           <ChatBoxIconContainer>
             {boxVisible ? (
-              <FiArrowUp size="1.5rem" />
-            ) : (
               <FiArrowDown size="1.5rem" />
+            ) : (
+              <FiArrowUp size="1.5rem" />
             )}
           </ChatBoxIconContainer>
         </ChatBoxIconsContainer>
@@ -66,19 +68,210 @@ function ChatBox() {
                 </UserVerifiedIconContainer>
               </UserName>
               <UserHandle>@mike_adams</UserHandle>
+              <TimeSincePosted>Aug 12</TimeSincePosted>
             </TweetInfoContainer>
-            <p>This is amazing I must say, well done man 👏</p>
+            <ChatText>This is amazing I must say, well done man 👏</ChatText>
           </UserInfoMessageContainer>
         </Conversation>
         <Conversation>
-          <h2>User</h2>
-          <p>Chat text</p>
-          <p>Chat date</p>
+          <UserPhotoContainer>
+            <UserPhoto
+              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+            />
+          </UserPhotoContainer>
+          <UserInfoMessageContainer>
+            <TweetInfoContainer>
+              <UserName>
+                <TweetAuthor>Mike Adams</TweetAuthor>
+                <UserVerifiedIconContainer>
+                  <MdVerified />
+                </UserVerifiedIconContainer>
+              </UserName>
+              <UserHandle>@mike_adams</UserHandle>
+              <TimeSincePosted>Aug 12</TimeSincePosted>
+            </TweetInfoContainer>
+            <ChatText>This is amazing I must say, well done man 👏</ChatText>
+          </UserInfoMessageContainer>
         </Conversation>
         <Conversation>
-          <h2>User</h2>
-          <p>Chat text</p>
-          <p>Chat date</p>
+          <UserPhotoContainer>
+            <UserPhoto
+              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+            />
+          </UserPhotoContainer>
+          <UserInfoMessageContainer>
+            <TweetInfoContainer>
+              <UserName>
+                <TweetAuthor>Mike Adams</TweetAuthor>
+                <UserVerifiedIconContainer>
+                  <MdVerified />
+                </UserVerifiedIconContainer>
+              </UserName>
+              <UserHandle>@mike_adams</UserHandle>
+              <TimeSincePosted>Aug 12</TimeSincePosted>
+            </TweetInfoContainer>
+            <ChatText>This is amazing I must say, well done man 👏</ChatText>
+          </UserInfoMessageContainer>
+        </Conversation>
+        <Conversation>
+          <UserPhotoContainer>
+            <UserPhoto
+              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+            />
+          </UserPhotoContainer>
+          <UserInfoMessageContainer>
+            <TweetInfoContainer>
+              <UserName>
+                <TweetAuthor>Mike Adams</TweetAuthor>
+                <UserVerifiedIconContainer>
+                  <MdVerified />
+                </UserVerifiedIconContainer>
+              </UserName>
+              <UserHandle>@mike_adams</UserHandle>
+              <TimeSincePosted>Aug 12</TimeSincePosted>
+            </TweetInfoContainer>
+            <ChatText>This is amazing I must say, well done man 👏</ChatText>
+          </UserInfoMessageContainer>
+        </Conversation>
+        <Conversation>
+          <UserPhotoContainer>
+            <UserPhoto
+              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+            />
+          </UserPhotoContainer>
+          <UserInfoMessageContainer>
+            <TweetInfoContainer>
+              <UserName>
+                <TweetAuthor>Mike Adams</TweetAuthor>
+                <UserVerifiedIconContainer>
+                  <MdVerified />
+                </UserVerifiedIconContainer>
+              </UserName>
+              <UserHandle>@mike_adams</UserHandle>
+              <TimeSincePosted>Aug 12</TimeSincePosted>
+            </TweetInfoContainer>
+            <ChatText>This is amazing I must say, well done man 👏</ChatText>
+          </UserInfoMessageContainer>
+        </Conversation>
+        <Conversation>
+          <UserPhotoContainer>
+            <UserPhoto
+              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+            />
+          </UserPhotoContainer>
+          <UserInfoMessageContainer>
+            <TweetInfoContainer>
+              <UserName>
+                <TweetAuthor>Mike Adams</TweetAuthor>
+                <UserVerifiedIconContainer>
+                  <MdVerified />
+                </UserVerifiedIconContainer>
+              </UserName>
+              <UserHandle>@mike_adams</UserHandle>
+              <TimeSincePosted>Aug 12</TimeSincePosted>
+            </TweetInfoContainer>
+            <ChatText>This is amazing I must say, well done man 👏</ChatText>
+          </UserInfoMessageContainer>
+        </Conversation>
+        <Conversation>
+          <UserPhotoContainer>
+            <UserPhoto
+              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+            />
+          </UserPhotoContainer>
+          <UserInfoMessageContainer>
+            <TweetInfoContainer>
+              <UserName>
+                <TweetAuthor>Mike Adams</TweetAuthor>
+                <UserVerifiedIconContainer>
+                  <MdVerified />
+                </UserVerifiedIconContainer>
+              </UserName>
+              <UserHandle>@mike_adams</UserHandle>
+              <TimeSincePosted>Aug 12</TimeSincePosted>
+            </TweetInfoContainer>
+            <ChatText>This is amazing I must say, well done man 👏</ChatText>
+          </UserInfoMessageContainer>
+        </Conversation>
+        <Conversation>
+          <UserPhotoContainer>
+            <UserPhoto
+              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+            />
+          </UserPhotoContainer>
+          <UserInfoMessageContainer>
+            <TweetInfoContainer>
+              <UserName>
+                <TweetAuthor>Mike Adams</TweetAuthor>
+                <UserVerifiedIconContainer>
+                  <MdVerified />
+                </UserVerifiedIconContainer>
+              </UserName>
+              <UserHandle>@mike_adams</UserHandle>
+              <TimeSincePosted>Aug 12</TimeSincePosted>
+            </TweetInfoContainer>
+            <ChatText>This is amazing I must say, well done man 👏</ChatText>
+          </UserInfoMessageContainer>
+        </Conversation>
+        <Conversation>
+          <UserPhotoContainer>
+            <UserPhoto
+              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+            />
+          </UserPhotoContainer>
+          <UserInfoMessageContainer>
+            <TweetInfoContainer>
+              <UserName>
+                <TweetAuthor>Mike Adams</TweetAuthor>
+                <UserVerifiedIconContainer>
+                  <MdVerified />
+                </UserVerifiedIconContainer>
+              </UserName>
+              <UserHandle>@mike_adams</UserHandle>
+              <TimeSincePosted>Aug 12</TimeSincePosted>
+            </TweetInfoContainer>
+            <ChatText>This is amazing I must say, well done man 👏</ChatText>
+          </UserInfoMessageContainer>
+        </Conversation>
+        <Conversation>
+          <UserPhotoContainer>
+            <UserPhoto
+              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+            />
+          </UserPhotoContainer>
+          <UserInfoMessageContainer>
+            <TweetInfoContainer>
+              <UserName>
+                <TweetAuthor>Mike Adams</TweetAuthor>
+                <UserVerifiedIconContainer>
+                  <MdVerified />
+                </UserVerifiedIconContainer>
+              </UserName>
+              <UserHandle>@mike_adams</UserHandle>
+              <TimeSincePosted>Aug 12</TimeSincePosted>
+            </TweetInfoContainer>
+            <ChatText>This is amazing I must say, well done man 👏</ChatText>
+          </UserInfoMessageContainer>
+        </Conversation>
+        <Conversation>
+          <UserPhotoContainer>
+            <UserPhoto
+              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+            />
+          </UserPhotoContainer>
+          <UserInfoMessageContainer>
+            <TweetInfoContainer>
+              <UserName>
+                <TweetAuthor>Mike Adams</TweetAuthor>
+                <UserVerifiedIconContainer>
+                  <MdVerified />
+                </UserVerifiedIconContainer>
+              </UserName>
+              <UserHandle>@mike_adams</UserHandle>
+              <TimeSincePosted>Aug 12</TimeSincePosted>
+            </TweetInfoContainer>
+            <ChatText>This is amazing I must say, well done man 👏</ChatText>
+          </UserInfoMessageContainer>
         </Conversation>
       </ChatsContainer>
     </ChatBoxStyle>

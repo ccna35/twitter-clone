@@ -71,6 +71,17 @@ function LeftPanel() {
   const domElement = document.getElementById("modals");
   // const domElement2 = document.getElementById("modals2");
 
+  const [activeTab, setActiveTab] = useState("Home");
+
+  const handleActiveTab = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const handleMoreTab = (tab) => {
+    setActiveTab(tab);
+    setThemesModal((prev) => !prev);
+  };
+
   return (
     <LeftPanelStyle>
       <LeftPanelContainer>
@@ -82,37 +93,54 @@ function LeftPanel() {
           <LogoMenuContainer>
             {user && (
               <Link to="/home">
-                <MenuItem>
+                <MenuItem onClick={() => handleActiveTab("Home")}>
                   <BiHomeCircle size="1.75rem" />
-                  <MenuItemText>Home</MenuItemText>
+                  <MenuItemText active={activeTab === "Home" ? true : false}>
+                    Home
+                  </MenuItemText>
                 </MenuItem>
               </Link>
             )}
-            <MenuItem>
+            <MenuItem onClick={() => handleActiveTab("Explore")}>
               <FiHash size="1.75rem" />
-
-              <MenuItemText>Explore</MenuItemText>
+              <MenuItemText active={activeTab === "Explore" ? true : false}>
+                Explore
+              </MenuItemText>
             </MenuItem>
 
             {user && (
               <>
-                <MenuItem>
+                <MenuItem onClick={() => handleActiveTab("Notifications")}>
                   <BsBell size="1.75rem" />
-                  <MenuItemText>Notifications</MenuItemText>
+                  <MenuItemText
+                    active={activeTab === "Notifications" ? true : false}
+                  >
+                    Notifications
+                  </MenuItemText>
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={() => handleActiveTab("Messages")}>
                   <HiOutlineMail size="1.75rem" />
-                  <MenuItemText>Messages</MenuItemText>
+                  <MenuItemText
+                    active={activeTab === "Messages" ? true : false}
+                  >
+                    Messages
+                  </MenuItemText>
                 </MenuItem>
-                <MenuItem hide>
+                <MenuItem hide onClick={() => handleActiveTab("Bookmarks")}>
                   <BiBookmark size="1.75rem" />
 
-                  <MenuItemText>Bookmarks</MenuItemText>
+                  <MenuItemText
+                    active={activeTab === "Bookmarks" ? true : false}
+                  >
+                    Bookmarks
+                  </MenuItemText>
                 </MenuItem>
-                <MenuItem hide>
+                <MenuItem hide onClick={() => handleActiveTab("Lists")}>
                   <CgList size="1.75rem" />
 
-                  <MenuItemText>Lists</MenuItemText>
+                  <MenuItemText active={activeTab === "Lists" ? true : false}>
+                    Lists
+                  </MenuItemText>
                 </MenuItem>
               </>
             )}
@@ -122,9 +150,13 @@ function LeftPanel() {
                 <Link
                   to={"/" + JSON.parse(localStorage.getItem("user")).username}
                 >
-                  <MenuItem>
+                  <MenuItem onClick={() => handleActiveTab("Profile")}>
                     <HiOutlineUser size="1.75rem" />
-                    <MenuItemText>Profile</MenuItemText>
+                    <MenuItemText
+                      active={activeTab === "Profile" ? true : false}
+                    >
+                      Profile
+                    </MenuItemText>
                   </MenuItem>
                 </Link>
                 {themesModal &&
@@ -135,9 +167,11 @@ function LeftPanel() {
                     />,
                     domElement
                   )}
-                <MenuItem onClick={() => setThemesModal((prev) => !prev)}>
+                <MenuItem onClick={() => handleMoreTab("More")}>
                   <CgMoreO size="1.75rem" />
-                  <MenuItemText>More</MenuItemText>
+                  <MenuItemText active={activeTab === "More" ? true : false}>
+                    More
+                  </MenuItemText>
                 </MenuItem>
               </>
             )}

@@ -14,12 +14,18 @@ import {
   TweetTextInput,
   RightContainer,
   CharCount,
+  UploadedImageContainer,
+  UploadedImage,
 } from "./styles/NewTweet.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEarth } from "@fortawesome/free-solid-svg-icons";
 import { MainTweetBtn } from "./styles/Button.styled";
 import { Link } from "react-router-dom";
-import { AiOutlineFileGif, AiOutlineCalendar } from "react-icons/ai";
+import {
+  AiOutlineFileGif,
+  AiOutlineCalendar,
+  AiFillCloseCircle,
+} from "react-icons/ai";
 import { FaRegSmile } from "react-icons/fa";
 import { CgPin } from "react-icons/cg";
 import { BiPoll } from "react-icons/bi";
@@ -69,6 +75,7 @@ function NewTweet() {
   const dispatch = useDispatch();
 
   const [imageUpload, setImageUpload] = useState({});
+  const [imageURL, setImageURL] = useState(null);
 
   const imgData = new FormData();
 
@@ -77,6 +84,18 @@ function NewTweet() {
     imgData.append("upload_preset", "lqpivui7kjk78");
     imgData.append("cloud_name", "dmua4axn3");
     console.log(file);
+    const data = await fetch(
+      "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
+      {
+        method: "POST",
+        body: imgData,
+      }
+    );
+
+    const res = await data.json();
+
+    console.log(res.url);
+    setImageURL(res.url);
   };
 
   const onSubmit = async (e) => {
@@ -100,8 +119,9 @@ function NewTweet() {
         const res = await data.json();
 
         console.log(res.url);
+        console.log(imageURL);
 
-        formData.image = res.url;
+        formData.image = imageURL;
 
         dispatch(createTweet(formData));
       } else {
@@ -110,6 +130,7 @@ function NewTweet() {
 
       setFormData({ text: "", image: null });
       setImageUpload({});
+      setImageURL(null);
     }
   };
 
@@ -144,6 +165,16 @@ function NewTweet() {
           value={formData.text}
           onFocus={() => setWhoCanReply(true)}
         />
+        {imageURL && (
+          <UploadedImageContainer>
+            <AiFillCloseCircle
+              size="1.75rem"
+              onClick={() => setImageURL(null)}
+            />
+            <UploadedImage src={imageURL} />
+          </UploadedImageContainer>
+        )}
+
         {/* <TweetTextInput
           placeholder="What’s happening"
           onChange={(e) => onChange(e)}
