@@ -21,11 +21,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEarth } from "@fortawesome/free-solid-svg-icons";
 import { MainTweetBtn } from "./styles/Button.styled";
 import { Link } from "react-router-dom";
-import {
-  AiOutlineFileGif,
-  AiOutlineCalendar,
-  AiFillCloseCircle,
-} from "react-icons/ai";
+import { AiOutlineFileGif, AiOutlineCalendar } from "react-icons/ai";
+import { RiCloseFill } from "react-icons/ri";
 import { FaRegSmile } from "react-icons/fa";
 import { CgPin } from "react-icons/cg";
 import { BiPoll } from "react-icons/bi";
@@ -100,8 +97,6 @@ function NewTweet() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // if (formData.text.length !== 0 && imageUpload.file !== undefined) {
-    // }
     if (formData) {
       formData.token = `Bearer ${
         JSON.parse(localStorage.getItem("user")).token
@@ -167,10 +162,7 @@ function NewTweet() {
         />
         {imageURL && (
           <UploadedImageContainer>
-            <AiFillCloseCircle
-              size="1.75rem"
-              onClick={() => setImageURL(null)}
-            />
+            <RiCloseFill size="1.75rem" onClick={() => setImageURL(null)} />
             <UploadedImage src={imageURL} />
           </UploadedImageContainer>
         )}

@@ -1,9 +1,13 @@
 import styled from "styled-components";
 
 export const TweetContainer = styled.div`
-  display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 2rem;
+  display: ${(props) => (props.tweetPage ? "flex" : "grid")};
+  ${(props) =>
+    props.tweetPage
+      ? "flex-direction: column"
+      : "grid-template-columns: 2rem 1fr;"};
+
+  gap: ${(props) => (props.tweetPage ? "1rem" : "2rem")};
   padding: 1rem;
   border-top: 1px solid ${({ theme }) => theme.colors.borderColor};
   transition: background-color 0.5s;
@@ -205,4 +209,10 @@ export const TweetPopUpIconContainer = styled.div`
 
 export const TweetPopUpText = styled.p`
   /* padding: 1rem; */
+`;
+
+export const TweetPhotoNameContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 `;

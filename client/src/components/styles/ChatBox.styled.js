@@ -6,12 +6,13 @@ export const ChatBoxStyle = styled.div`
   position: fixed;
   right: 2rem;
   bottom: 0;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.BgColor};
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  box-shadow: 0px 0px 3px 1px #dde0e3;
-  overflow-x: hidden;
-  overflow-y: ${(props) => (props.visible ? "scroll" : "hidden")};
+  box-shadow: 0px 0px 9px -2px #7e7e7e;
+  overflow: auto;
+  /* overflow-x: hidden;
+  overflow-y: ${(props) => (props.visible ? "scroll" : "hidden")}; */
 
   /* @media (min-width: ${({ theme }) => theme.breakpoints.xxs}) {
     display: none;
@@ -26,6 +27,7 @@ export const ChatBoxBar = styled.div`
   align-items: center;
   padding: 1rem;
   backdrop-filter: blur(15px);
+  color: ${({ theme }) => theme.colors.textColor};
   /* position: fixed;
   z-index: 999; */
   h2 {

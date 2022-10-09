@@ -14,6 +14,7 @@ import {
   TweetInfoContainer,
   TweetLowerBar,
   TweetLowerBarIconContainer,
+  TweetPhotoNameContainer,
   TweetPopUp,
   TweetPopUpIconContainer,
   TweetPopUpOption,
@@ -198,21 +199,21 @@ function TweetPage() {
             <Spinner />
           </TweetsContainer>
         ) : (
-          <TweetContainer>
-            <UserPhotoContainer>
-              {Object.keys(fullUserData).length > 0 && (
-                <Link to={"/" + fullUserData.username}>
-                  <UserPhoto
-                    src={
-                      fullUserData.profilePhoto ||
-                      "./images/blank-profile-picture-gf8e58e24f_640.png"
-                    }
-                  />
-                </Link>
-              )}
-            </UserPhotoContainer>
-            <TweetBody>
-              <TweetUpperBar>
+          <TweetContainer tweetPage>
+            <TweetUpperBar>
+              <TweetPhotoNameContainer>
+                <UserPhotoContainer>
+                  {Object.keys(fullUserData).length > 0 && (
+                    <Link to={"/" + fullUserData.username}>
+                      <UserPhoto
+                        src={
+                          fullUserData.profilePhoto ||
+                          "./images/blank-profile-picture-gf8e58e24f_640.png"
+                        }
+                      />
+                    </Link>
+                  )}
+                </UserPhotoContainer>
                 <TweetInfoContainer tweetPage>
                   <UserName>
                     <TweetAuthor>
@@ -235,37 +236,36 @@ function TweetPage() {
                       fullUserData.username}
                   </UserHandle>
                 </TweetInfoContainer>
-                <TweetUpperBarIconContainer
-                  onClick={() => setPopup((prev) => !prev)}
-                  ref={tweetRef}
-                >
-                  <FontAwesomeIcon
-                    icon={faEllipsis}
-                    size="lg"
-                  ></FontAwesomeIcon>
-                  {popup && (
-                    <TweetPopUp>
-                      <TweetPopUpOption
-                        onClick={() => handleDelete(tweet._id)}
-                        red
-                      >
-                        <TweetPopUpIconContainer>
-                          {/* <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> */}
+              </TweetPhotoNameContainer>
+              <TweetUpperBarIconContainer
+                onClick={() => setPopup((prev) => !prev)}
+                ref={tweetRef}
+              >
+                <FontAwesomeIcon icon={faEllipsis} size="lg"></FontAwesomeIcon>
+                {popup && (
+                  <TweetPopUp>
+                    <TweetPopUpOption
+                      onClick={() => handleDelete(tweet._id)}
+                      red
+                    >
+                      <TweetPopUpIconContainer>
+                        {/* <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> */}
 
-                          <IoTrashOutline />
-                        </TweetPopUpIconContainer>
-                        <TweetPopUpText>Delete</TweetPopUpText>
-                      </TweetPopUpOption>
-                      <TweetPopUpOption>
-                        <TweetPopUpIconContainer>
-                          <AiFillPushpin />
-                        </TweetPopUpIconContainer>
-                        <TweetPopUpText>Pin to your profile</TweetPopUpText>
-                      </TweetPopUpOption>
-                    </TweetPopUp>
-                  )}
-                </TweetUpperBarIconContainer>
-              </TweetUpperBar>
+                        <IoTrashOutline />
+                      </TweetPopUpIconContainer>
+                      <TweetPopUpText>Delete</TweetPopUpText>
+                    </TweetPopUpOption>
+                    <TweetPopUpOption>
+                      <TweetPopUpIconContainer>
+                        <AiFillPushpin />
+                      </TweetPopUpIconContainer>
+                      <TweetPopUpText>Pin to your profile</TweetPopUpText>
+                    </TweetPopUpOption>
+                  </TweetPopUp>
+                )}
+              </TweetUpperBarIconContainer>
+            </TweetUpperBar>
+            <TweetBody>
               <TweetText>{tweet.text}</TweetText>
               {tweet.image && <TweetImage src={tweet.image} />}
               {/* <TimeSincePosted>
