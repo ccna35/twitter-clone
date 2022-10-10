@@ -60,13 +60,6 @@ function NewTweet() {
       setTextColor("blue");
       setDisableButton(false);
     }
-    // e.target.style.color = "lightblue";
-    // const newArray = e.target.value.split("");
-    // console.log(newArray);
-    // if (newArray.at(-1) == "#") {
-    //   console.log("YES");
-    //   let hashIndex = newArray.indexOf("#");
-    // }
   };
 
   const dispatch = useDispatch();
@@ -166,16 +159,6 @@ function NewTweet() {
             <UploadedImage src={imageURL} />
           </UploadedImageContainer>
         )}
-
-        {/* <TweetTextInput
-          placeholder="What’s happening"
-          onChange={(e) => onChange(e)}
-          value={formData.text}
-          onFocus={() => setWhoCanReply(true)}
-          role="textbox"
-          contentEditable="true"
-          data-placeholder="What’s happening"
-        ></TweetTextInput> */}
         {whoCanReply && (
           <WhoCanReplyContainer>
             <FontAwesomeIcon icon={faEarth}></FontAwesomeIcon>

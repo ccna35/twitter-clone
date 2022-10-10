@@ -174,7 +174,7 @@ function Tweet({ tweet }) {
                 ? timePosted + "m"
                 : timePosted >= 60 && timePosted <= 1440
                 ? Math.floor(timePosted / 60) + "h"
-                : Math.floor(timePosted / 3600) + "d"}
+                : Math.floor(timePosted / 1440) + "d"}
             </TimeSincePosted>
           </TweetInfoContainer>
           <TweetUpperBarIconContainer

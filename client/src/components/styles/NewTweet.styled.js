@@ -94,8 +94,12 @@ export const TweetOptionsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid ${({ theme }) => theme.colors.borderColor};
-  margin-top: 1rem;
+
+  ${(props) =>
+    !props.newReply &&
+    `border-top: 1px solid ${({ theme }) => theme.colors.borderColor}`};
+
+  ${(props) => !props.newReply && "margin-top: 1rem;"};
   padding-top: 1rem;
 `;
 

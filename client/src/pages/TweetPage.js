@@ -63,6 +63,7 @@ import { UserNavbarIconContainer } from "../components/styles/User.styled";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Moment from "react-moment";
 import Spinner from "../components/Spinner";
+import NewReply from "../components/NewReply";
 
 function TweetPage() {
   const navigate = useNavigate();
@@ -91,20 +92,20 @@ function TweetPage() {
 
   // This custom hook closes the modal or popup if the user clicked outside of them.
   useOnClickOutside(tweetRef, () => setPopup(false)); // This hook is related to themes modal.
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "June",
-    "July",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  // const monthNames = [
+  //   "Jan",
+  //   "Feb",
+  //   "Mar",
+  //   "Apr",
+  //   "May",
+  //   "June",
+  //   "July",
+  //   "Aug",
+  //   "Sep",
+  //   "Oct",
+  //   "Nov",
+  //   "Dec",
+  // ];
   const date1 = new Date(tweet.createdAt);
 
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
@@ -208,7 +209,7 @@ function TweetPage() {
                       <UserPhoto
                         src={
                           fullUserData.profilePhoto ||
-                          "./images/blank-profile-picture-gf8e58e24f_640.png"
+                          "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
                         }
                       />
                     </Link>
@@ -249,8 +250,6 @@ function TweetPage() {
                       red
                     >
                       <TweetPopUpIconContainer>
-                        {/* <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> */}
-
                         <IoTrashOutline />
                       </TweetPopUpIconContainer>
                       <TweetPopUpText>Delete</TweetPopUpText>
@@ -268,17 +267,7 @@ function TweetPage() {
             <TweetBody>
               <TweetText>{tweet.text}</TweetText>
               {tweet.image && <TweetImage src={tweet.image} />}
-              {/* <TimeSincePosted>
-              {date1.getHours() +
-                ":" +
-                date1.getMinutes() +
-                "  " +
-                monthNames[date1.getMonth()] +
-                " " +
-                date1.getDate() +
-                ", " +
-                date1.getFullYear()}
-            </TimeSincePosted> */}
+
               <TimeSincePosted>
                 <Moment format="hh:mm A . MMM DD, YYYY">{date1}</Moment>
               </TimeSincePosted>
@@ -349,6 +338,7 @@ function TweetPage() {
             </TweetBody>
           </TweetContainer>
         )}
+        <NewReply username={username} />
       </TweetPageContainer>
     </>
   );
