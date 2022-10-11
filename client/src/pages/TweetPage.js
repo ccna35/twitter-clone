@@ -64,6 +64,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Moment from "react-moment";
 import Spinner from "../components/Spinner";
 import NewReply from "../components/NewReply";
+import Reply from "../components/Reply";
 
 function TweetPage() {
   const navigate = useNavigate();
@@ -339,6 +340,7 @@ function TweetPage() {
           </TweetContainer>
         )}
         <NewReply username={username} />
+        <Reply username={username} />
       </TweetPageContainer>
     </>
   );

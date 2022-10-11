@@ -14,9 +14,9 @@ export const ChatBoxStyle = styled.div`
   /* overflow-x: hidden;
   overflow-y: ${(props) => (props.visible ? "scroll" : "hidden")}; */
 
-  /* @media (min-width: ${({ theme }) => theme.breakpoints.xxs}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: none;
-  } */
+  }
 `;
 
 export const ChatBoxBar = styled.div`
