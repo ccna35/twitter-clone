@@ -43,7 +43,8 @@ function NewReply({ username }) {
     token: null,
   });
 
-  const [replyingTo, setReplyingTo] = useState(false);
+  // Show replying to & reply options
+  const [replyOptions, setReplyOptions] = useState(false);
   // text color of the character count of the tweet text.
   const [textColor, setTextColor] = useState("blue");
   // This determines if the tweet body is less or equal to 280 characters.
@@ -133,34 +134,41 @@ function NewReply({ username }) {
           )}
         </UserPhotoContainer>
         <div style={{ width: "100%" }}>
-          <ReplyingTo>
-            Replying to <Link to={"/" + username}>@{username}</Link>
-          </ReplyingTo>
+          {replyOptions && (
+            <ReplyingTo>
+              Replying to <Link to={"/" + username}>@{username}</Link>
+            </ReplyingTo>
+          )}
+
           <TweetInput
             placeholder="Tweet your reply"
             onChange={(e) => onChange(e)}
             value={formData.text}
-            onFocus={() => setReplyingTo(true)}
+            onFocus={() => setReplyOptions(true)}
+            newReply
           />
           <NewReplyBottomContainer>
-            <TweetOptionsContainer newReply>
-              <TweetIconsContainer>
-                <TweetIconContainer>
-                  <HiOutlinePhotograph size="1.25rem" />
-                </TweetIconContainer>
-                <TweetIconContainer>
-                  <AiOutlineFileGif size="1.25rem" />
-                </TweetIconContainer>
+            {replyOptions && (
+              <TweetOptionsContainer newReply>
+                <TweetIconsContainer>
+                  <TweetIconContainer>
+                    <HiOutlinePhotograph size="1.25rem" />
+                  </TweetIconContainer>
+                  <TweetIconContainer>
+                    <AiOutlineFileGif size="1.25rem" />
+                  </TweetIconContainer>
 
-                <TweetIconContainer>
-                  <FaRegSmile size="1.25rem" />
-                </TweetIconContainer>
+                  <TweetIconContainer>
+                    <FaRegSmile size="1.25rem" />
+                  </TweetIconContainer>
 
-                <TweetIconContainer>
-                  <CgPin />
-                </TweetIconContainer>
-              </TweetIconsContainer>
-            </TweetOptionsContainer>
+                  <TweetIconContainer>
+                    <CgPin />
+                  </TweetIconContainer>
+                </TweetIconsContainer>
+              </TweetOptionsContainer>
+            )}
+
             <RightContainer>
               {formData.text.length !== 0 && (
                 <CharCount color={textColor}>{formData.text.length}</CharCount>

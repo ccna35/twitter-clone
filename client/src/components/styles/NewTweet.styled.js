@@ -35,7 +35,8 @@ export const TweetInput = styled.textarea`
   border: none;
   outline: none;
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+
+  ${(props) => !props.newReply && "margin-bottom: 1rem;"}
   font-family: inherit;
   font-weight: 300;
   caret-color: ${({ theme }) => theme.colors.InputCursorColor};
@@ -99,8 +100,8 @@ export const TweetOptionsContainer = styled.div`
     !props.newReply &&
     `border-top: 1px solid ${({ theme }) => theme.colors.borderColor}`};
 
-  ${(props) => !props.newReply && "margin-top: 1rem;"};
-  padding-top: 1rem;
+  ${(props) => !props.newReply && "margin-top: 1rem; padding-top: 1rem;"};
+  /* ${(props) => !props.newReply && "padding-top: 1rem;"}; */
 `;
 
 export const TweetIconsContainer = styled.div`

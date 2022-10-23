@@ -149,7 +149,7 @@ function Reply({ tweet, username }) {
           </Link>
         )}
       </UserPhotoContainer>
-      <TweetBody>
+      <TweetBody reply>
         <TweetUpperBar>
           <TweetInfoContainer>
             <UserName>
@@ -196,7 +196,7 @@ function Reply({ tweet, username }) {
             )}
           </TweetUpperBarIconContainer>
         </TweetUpperBar>
-        <ReplyingTo>
+        <ReplyingTo removeMargin>
           Replying to <Link to={"/" + username}>@{username}</Link>
         </ReplyingTo>
         <TweetText>

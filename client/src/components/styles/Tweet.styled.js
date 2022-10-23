@@ -34,7 +34,7 @@ export const TweetBody = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  ${(props) => (props.reply ? "gap: 0.25rem;" : "gap: 0.8rem;")};
 `;
 
 export const TweetUpperBar = styled.div`

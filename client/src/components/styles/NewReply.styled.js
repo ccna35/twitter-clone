@@ -22,7 +22,8 @@ export const NewReplyBottomContainer = styled.div`
 
 export const ReplyingTo = styled.p`
   color: ${({ theme }) => theme.colors.secColor};
-  margin-bottom: 1rem;
+
+  ${(props) => !props.removeMargin && "margin-bottom: 1rem;"}
   a {
     color: ${({ theme }) => theme.colors.mainColor};
   }
