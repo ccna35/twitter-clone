@@ -58,7 +58,7 @@ function Home() {
                   Object.keys(fullUserData).length > 0 &&
                   fullUserData.profilePhoto
                     ? fullUserData.profilePhoto
-                    : "./images/blank-profile-picture-gf8e58e24f_640.png"
+                    : "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
                 }
               />
             </HomeUserPhotoContainer>

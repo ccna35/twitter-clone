@@ -140,7 +140,7 @@ function NewTweet() {
               localStorage.getItem("user") &&
               JSON.parse(localStorage.getItem("user")).profilePhoto !== null
                 ? JSON.parse(localStorage.getItem("user")).profilePhoto
-                : "./images/blank-profile-picture-gf8e58e24f_640.png"
+                : "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
             }
           />
         </UserPhotoContainer>

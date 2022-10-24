@@ -340,7 +340,11 @@ function TweetPage() {
           </TweetContainer>
         )}
         <NewReply username={username} />
-        <Reply username={username} />
+        <div style={{ marginBottom: "4rem" }}>
+          <Reply username={username} />
+          <Reply username={username} />
+          <Reply username={username} />
+        </div>
       </TweetPageContainer>
     </>
   );

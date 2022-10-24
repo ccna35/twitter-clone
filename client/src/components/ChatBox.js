@@ -56,7 +56,9 @@ function ChatBox() {
         <Conversation>
           <UserPhotoContainer>
             <UserPhoto
-              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+              src={
+                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+              }
             />
           </UserPhotoContainer>
           <UserInfoMessageContainer>
@@ -76,7 +78,9 @@ function ChatBox() {
         <Conversation>
           <UserPhotoContainer>
             <UserPhoto
-              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+              src={
+                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+              }
             />
           </UserPhotoContainer>
           <UserInfoMessageContainer>
@@ -96,7 +100,9 @@ function ChatBox() {
         <Conversation>
           <UserPhotoContainer>
             <UserPhoto
-              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+              src={
+                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+              }
             />
           </UserPhotoContainer>
           <UserInfoMessageContainer>
@@ -116,7 +122,9 @@ function ChatBox() {
         <Conversation>
           <UserPhotoContainer>
             <UserPhoto
-              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+              src={
+                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+              }
             />
           </UserPhotoContainer>
           <UserInfoMessageContainer>
@@ -136,7 +144,9 @@ function ChatBox() {
         <Conversation>
           <UserPhotoContainer>
             <UserPhoto
-              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+              src={
+                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+              }
             />
           </UserPhotoContainer>
           <UserInfoMessageContainer>
@@ -156,7 +166,9 @@ function ChatBox() {
         <Conversation>
           <UserPhotoContainer>
             <UserPhoto
-              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+              src={
+                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+              }
             />
           </UserPhotoContainer>
           <UserInfoMessageContainer>
@@ -176,7 +188,9 @@ function ChatBox() {
         <Conversation>
           <UserPhotoContainer>
             <UserPhoto
-              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+              src={
+                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+              }
             />
           </UserPhotoContainer>
           <UserInfoMessageContainer>
@@ -196,7 +210,9 @@ function ChatBox() {
         <Conversation>
           <UserPhotoContainer>
             <UserPhoto
-              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+              src={
+                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+              }
             />
           </UserPhotoContainer>
           <UserInfoMessageContainer>
@@ -216,7 +232,9 @@ function ChatBox() {
         <Conversation>
           <UserPhotoContainer>
             <UserPhoto
-              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+              src={
+                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+              }
             />
           </UserPhotoContainer>
           <UserInfoMessageContainer>
@@ -236,7 +254,9 @@ function ChatBox() {
         <Conversation>
           <UserPhotoContainer>
             <UserPhoto
-              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+              src={
+                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+              }
             />
           </UserPhotoContainer>
           <UserInfoMessageContainer>
@@ -256,7 +276,9 @@ function ChatBox() {
         <Conversation>
           <UserPhotoContainer>
             <UserPhoto
-              src={"./images/blank-profile-picture-gf8e58e24f_640.png"}
+              src={
+                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+              }
             />
           </UserPhotoContainer>
           <UserInfoMessageContainer>
