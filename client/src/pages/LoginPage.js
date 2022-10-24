@@ -42,11 +42,16 @@ function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { userExists, isError, isSuccess, message } = useSelector(
+  const { userExists, isError, isSuccess, message, user } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
+    if (user) {
+      console.log("User exists");
+      navigate("/home");
+    }
+
     if (isError) {
       console.log("isErrror: ", isError);
     }
