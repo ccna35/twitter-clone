@@ -27,7 +27,7 @@ export const UserNavBar = styled.div`
 export const UserNavbarInfo = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
-  /* margin-top: 1rem; */
+  flex-grow: 1;
 `;
 
 export const UserNavbarFullName = styled.h2`

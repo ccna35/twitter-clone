@@ -51,6 +51,8 @@ function User() {
   const [editProfileModal, setEditProfileModal] = useState(false);
   const [followingArray, setFollowingArray] = useState([]);
   const [followersArray, setFollowersArray] = useState([]);
+  // control whether to show the Bar button or not
+  const [showBarButton, setShowBarButton] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
   const { tweets, isLoading } = useSelector((state) => state.tweet);
@@ -70,7 +72,19 @@ function User() {
       setFollowingArray([...data.payload[0].following]);
       setFollowersArray([...data.payload[0].followers]);
     });
+
+    // return window.removeEventListener("scroll", handleScroll);
   }, [user, dispatch, navigate]);
+
+  const handleScroll = (e) => {
+    console.log(window.scrollY);
+    if (window.scrollY >= "269") {
+      setShowBarButton(true);
+    } else {
+      setShowBarButton(false);
+    }
+  };
+  window.addEventListener("scroll", handleScroll);
 
   const handleFollow = () => {
     if (localStorage.getItem("user")) {
@@ -151,6 +165,21 @@ function User() {
           </UserNavbarFullName>
           <UserNavbarTweetCount>{tweets.length} Tweets</UserNavbarTweetCount>
         </UserNavbarInfo>
+        {showBarButton && (
+          <FollowUserBtn
+            onClick={handleFollow}
+            onMouseOver={(e) => handleHover(e)}
+            onMouseLeave={(e) => handleMouseLeave(e)}
+            hover={hoverColor}
+            align="center"
+          >
+            {followersArray.includes(
+              JSON.parse(localStorage.getItem("user")).username
+            )
+              ? "Following"
+              : "Follow"}
+          </FollowUserBtn>
+        )}
       </UserNavBar>
 
       <UserPhotoCoverContainer>
