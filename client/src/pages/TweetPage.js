@@ -110,6 +110,7 @@ function TweetPage() {
   const date1 = new Date(tweet.createdAt);
 
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
+  const { replies } = useSelector((state) => state.reply);
 
   const handleLike = (tweetID) => {
     if (localStorage.getItem("user")) {
@@ -341,9 +342,11 @@ function TweetPage() {
         )}
         <NewReply username={username} />
         <div style={{ marginBottom: "4rem" }}>
-          <Reply username={username} />
-          <Reply username={username} />
-          <Reply username={username} />
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            replies.map((reply) => <Reply reply={reply} key={reply._id} />)
+          )}
         </div>
       </TweetPageContainer>
     </>

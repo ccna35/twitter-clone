@@ -47,17 +47,17 @@ function LoginPage() {
   );
 
   useEffect(() => {
-    if (user) {
-      console.log("User exists");
-      navigate("/home");
-    }
+    // if (user) {
+    //   console.log("User exists user");
+    //   navigate("/home");
+    // }
 
     if (isError) {
       console.log("isErrror: ", isError);
     }
 
     if (isSuccess || userExists) {
-      console.log("User exists");
+      console.log("User exists, isSuccess || userExists");
       navigate("/home");
     }
 

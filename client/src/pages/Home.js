@@ -30,8 +30,6 @@ function Home() {
 
   const [allTweets, setAllTweets] = useState([]);
 
-  // fullUserData.length > 0 && console.log(fullUserData[0].retweetedTweets);
-
   useEffect(() => {
     if (user) {
       navigate("/home");

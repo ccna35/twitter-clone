@@ -18,12 +18,8 @@ const replySchema = new Schema(
       required: true,
     },
     likes: {
-      type: Number,
-      default: 0,
-    },
-    retweets: {
-      type: Number,
-      default: 0,
+      type: Array,
+      default: [],
     },
   },
   { timestamps: true }

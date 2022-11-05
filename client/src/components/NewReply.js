@@ -27,7 +27,7 @@ import {
   UploadedImage,
 } from "./styles/NewTweet.styled";
 import { HiOutlinePhotograph } from "react-icons/hi";
-import { createTweet } from "../features/tweets/tweetSlice";
+import { createReply } from "../features/replies/replySlice";
 import { useDispatch } from "react-redux";
 import {
   NewReplyBottomContainer,
@@ -108,9 +108,9 @@ function NewReply({ username }) {
 
         formData.image = imageURL;
 
-        dispatch(createTweet(formData));
+        dispatch(createReply(formData));
       } else {
-        dispatch(createTweet(formData));
+        dispatch(createReply(formData));
       }
 
       setFormData({ text: "", image: null });
@@ -139,7 +139,6 @@ function NewReply({ username }) {
               Replying to <Link to={"/" + username}>@{username}</Link>
             </ReplyingTo>
           )}
-
           <TweetInput
             placeholder="Tweet your reply"
             onChange={(e) => onChange(e)}

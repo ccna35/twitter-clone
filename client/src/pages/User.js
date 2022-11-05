@@ -72,19 +72,16 @@ function User() {
       setFollowingArray([...data.payload[0].following]);
       setFollowersArray([...data.payload[0].followers]);
     });
-
+    const handleScroll = (e) => {
+      if (window.scrollY >= "269") {
+        setShowBarButton(true);
+      } else {
+        setShowBarButton(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
     // return window.removeEventListener("scroll", handleScroll);
   }, [user, dispatch, navigate]);
-
-  const handleScroll = (e) => {
-    console.log(window.scrollY);
-    if (window.scrollY >= "269") {
-      setShowBarButton(true);
-    } else {
-      setShowBarButton(false);
-    }
-  };
-  window.addEventListener("scroll", handleScroll);
 
   const handleFollow = () => {
     if (localStorage.getItem("user")) {
