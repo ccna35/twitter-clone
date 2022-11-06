@@ -36,11 +36,12 @@ import {
   ReplyingTo,
 } from "./styles/NewReply.styled";
 
-function NewReply({ username }) {
+function NewReply({ username, tweetID }) {
   const [formData, setFormData] = useState({
     text: "",
     image: null,
     token: null,
+    tweetID,
   });
 
   // Show replying to & reply options
@@ -92,26 +93,28 @@ function NewReply({ username }) {
         JSON.parse(localStorage.getItem("user")).token
       }`;
       console.log(formData);
-      if (imgData.keys().length !== 0) {
-        const data = await fetch(
-          "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
-          {
-            method: "POST",
-            body: imgData,
-          }
-        );
+      // if (imgData.keys().length !== 0) {
+      //   const data = await fetch(
+      //     "https://api.cloudinary.com/v1_1/dmua4axn3/image/upload",
+      //     {
+      //       method: "POST",
+      //       body: imgData,
+      //     }
+      //   );
 
-        const res = await data.json();
+      //   const res = await data.json();
 
-        console.log(res.url);
-        console.log(imageURL);
+      //   console.log(res.url);
+      //   console.log(imageURL);
 
-        formData.image = imageURL;
+      //   formData.image = imageURL;
 
-        dispatch(createReply(formData));
-      } else {
-        dispatch(createReply(formData));
-      }
+      //   dispatch(createReply(formData));
+      // } else {
+      //   dispatch(createReply(formData));
+      // }
+
+      dispatch(createReply(formData));
 
       setFormData({ text: "", image: null });
       setImageUpload({});
@@ -139,43 +142,47 @@ function NewReply({ username }) {
               Replying to <Link to={"/" + username}>@{username}</Link>
             </ReplyingTo>
           )}
-          <TweetInput
-            placeholder="Tweet your reply"
-            onChange={(e) => onChange(e)}
-            value={formData.text}
-            onFocus={() => setReplyOptions(true)}
-            newReply
-          />
-          <NewReplyBottomContainer>
-            {replyOptions && (
-              <TweetOptionsContainer newReply>
-                <TweetIconsContainer>
-                  <TweetIconContainer>
-                    <HiOutlinePhotograph size="1.25rem" />
-                  </TweetIconContainer>
-                  <TweetIconContainer>
-                    <AiOutlineFileGif size="1.25rem" />
-                  </TweetIconContainer>
+          <TweetForm onSubmit={onSubmit}>
+            <TweetInput
+              placeholder="Tweet your reply"
+              onChange={(e) => onChange(e)}
+              value={formData.text}
+              onFocus={() => setReplyOptions(true)}
+              newReply
+            />
+            <NewReplyBottomContainer>
+              {replyOptions && (
+                <TweetOptionsContainer newReply>
+                  <TweetIconsContainer>
+                    <TweetIconContainer>
+                      <HiOutlinePhotograph size="1.25rem" />
+                    </TweetIconContainer>
+                    <TweetIconContainer>
+                      <AiOutlineFileGif size="1.25rem" />
+                    </TweetIconContainer>
 
-                  <TweetIconContainer>
-                    <FaRegSmile size="1.25rem" />
-                  </TweetIconContainer>
+                    <TweetIconContainer>
+                      <FaRegSmile size="1.25rem" />
+                    </TweetIconContainer>
 
-                  <TweetIconContainer>
-                    <CgPin />
-                  </TweetIconContainer>
-                </TweetIconsContainer>
-              </TweetOptionsContainer>
-            )}
-
-            <RightContainer>
-              {formData.text.length !== 0 && (
-                <CharCount color={textColor}>{formData.text.length}</CharCount>
+                    <TweetIconContainer>
+                      <CgPin />
+                    </TweetIconContainer>
+                  </TweetIconsContainer>
+                </TweetOptionsContainer>
               )}
 
-              <MainTweetBtn disabled={disableButton}>Reply</MainTweetBtn>
-            </RightContainer>
-          </NewReplyBottomContainer>
+              <RightContainer>
+                {formData.text.length !== 0 && (
+                  <CharCount color={textColor}>
+                    {formData.text.length}
+                  </CharCount>
+                )}
+
+                <MainTweetBtn disabled={disableButton}>Reply</MainTweetBtn>
+              </RightContainer>
+            </NewReplyBottomContainer>
+          </TweetForm>
         </div>
       </NewReplyContainer>
     </NewReplyStyle>

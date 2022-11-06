@@ -14,8 +14,10 @@ const createReply = async (replyData) => {
   return res.data;
 };
 
-const getAllReplies = async (userData) => {
-  const res = await axios.get(API_URL + userData.username);
+const getAllReplies = async (tweetID) => {
+  console.log(tweetID);
+  const res = await axios.get(API_URL + tweetID);
+  console.log(res.data);
   return res.data;
 };
 

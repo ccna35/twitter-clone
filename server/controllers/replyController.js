@@ -7,7 +7,14 @@ const User = require("../models/userModel");
 // @access private
 
 const getReplies = asyncHandler(async (req, res) => {
-  const replies = await Reply.find({ user: req.user.id });
+  const finalReplies = [];
+
+  const replies = await Reply.find({ tweet: req.params.id });
+
+  for (reply of replies) {
+    const user = await User.findById(reply.user);
+    const replyData = {};
+  }
 
   res.status(200).json(replies);
 });
@@ -25,8 +32,8 @@ const createReply = asyncHandler(async (req, res) => {
 
   const reply = await Reply.create({
     text: req.body.text,
+    tweet: req.body.tweetID,
     user: req.user.id,
-    tweet: "6222aec3d3506927081ec84b",
   });
 
   res.status(200).json(reply);

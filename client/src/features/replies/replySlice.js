@@ -48,10 +48,10 @@ export const deleteReply = createAsyncThunk(
 
 export const getAllReplies = createAsyncThunk(
   "reply/getallreplies",
-  async (user, thunkAPI) => {
+  async (tweetID, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      return await replyService.getAllReplies(user);
+      return await replyService.getAllReplies(tweetID);
     } catch (error) {
       const message =
         (error.response &&

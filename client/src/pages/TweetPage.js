@@ -65,6 +65,7 @@ import Moment from "react-moment";
 import Spinner from "../components/Spinner";
 import NewReply from "../components/NewReply";
 import Reply from "../components/Reply";
+import { getAllReplies } from "../features/replies/replySlice";
 
 function TweetPage() {
   const navigate = useNavigate();
@@ -80,6 +81,8 @@ function TweetPage() {
       return setLikesArray([...data.payload.likes]);
       setRetweetsArray([...data.payload.retweets]);
     });
+
+    dispatch(getAllReplies(tweetID)).then((data) => console.log(data));
 
     dispatch(getUserData(username));
 
@@ -111,6 +114,8 @@ function TweetPage() {
 
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
   const { replies } = useSelector((state) => state.reply);
+
+  console.log(replies);
 
   const handleLike = (tweetID) => {
     if (localStorage.getItem("user")) {
@@ -340,12 +345,14 @@ function TweetPage() {
             </TweetBody>
           </TweetContainer>
         )}
-        <NewReply username={username} />
+        <NewReply username={username} tweetID={tweetID} />
         <div style={{ marginBottom: "4rem" }}>
           {isLoading ? (
             <Spinner />
           ) : (
-            replies.map((reply) => <Reply reply={reply} key={reply._id} />)
+            replies.map((reply) => (
+              <Reply reply={reply} username={username} key={reply._id} />
+            ))
           )}
         </div>
       </TweetPageContainer>

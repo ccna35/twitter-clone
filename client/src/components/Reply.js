@@ -42,8 +42,9 @@ import { likeTweet, deleteTweet, retweet } from "../features/tweets/tweetSlice";
 import { useRef } from "react";
 import useOnClickOutside from "../custom hooks/useOnClickOutside";
 import { ReplyingTo } from "./styles/NewReply.styled";
+import { deleteReply } from "../features/replies/replySlice";
 
-function Reply({ tweet, username }) {
+function Reply({ reply, username }) {
   //   const [likesArray, setLikesArray] = useState([...tweet.likes]);
   //   const [retweetsArray, setRetweetsArray] = useState([...tweet.retweets]);
   // Handles Tweet Popup state
@@ -129,9 +130,9 @@ function Reply({ tweet, username }) {
   const handleDelete = (id) => {
     if (
       localStorage.getItem("user") &&
-      JSON.parse(localStorage.getItem("user"))._id === tweet.user
+      JSON.parse(localStorage.getItem("user"))._id === reply.user
     ) {
-      dispatch(deleteTweet(id)).then((data) => console.log(data));
+      dispatch(deleteReply(id)).then((data) => console.log(data));
       setPopup((prev) => !prev);
     }
   };
@@ -178,7 +179,7 @@ function Reply({ tweet, username }) {
             <FontAwesomeIcon icon={faEllipsis} size="lg"></FontAwesomeIcon>
             {popup && (
               <TweetPopUp>
-                <TweetPopUpOption onClick={() => handleDelete(tweet._id)} red>
+                <TweetPopUpOption onClick={() => handleDelete(reply._id)} red>
                   <TweetPopUpIconContainer>
                     {/* <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> */}
 
@@ -199,10 +200,7 @@ function Reply({ tweet, username }) {
         <ReplyingTo removeMargin>
           Replying to <Link to={"/" + username}>@{username}</Link>
         </ReplyingTo>
-        <TweetText>
-          I've never seen this templates you promise now and then? Is it a
-          selective process?
-        </TweetText>
+        <TweetText>{reply.text}</TweetText>
         {/* {tweet.image && <TweetImage src={tweet.image} />} */}
         <TweetLowerBar>
           <TweetIconCountContainer>
