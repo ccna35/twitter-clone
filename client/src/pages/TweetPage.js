@@ -113,7 +113,7 @@ function TweetPage() {
   const date1 = new Date(tweet.createdAt);
 
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
-  const { replies } = useSelector((state) => state.reply);
+  const { replies, areRepliesLoading } = useSelector((state) => state.reply);
 
   console.log(replies);
 
@@ -346,12 +346,27 @@ function TweetPage() {
           </TweetContainer>
         )}
         <NewReply username={username} tweetID={tweetID} />
-        <div style={{ marginBottom: "4rem" }}>
-          {isLoading ? (
-            <Spinner />
+        <div
+          style={{
+            marginBottom: "4rem",
+          }}
+        >
+          {areRepliesLoading ? (
+            <div
+              style={{
+                display: "grid",
+                placeItems: "center",
+              }}
+            >
+              <Spinner />
+            </div>
           ) : (
             replies.map((reply) => (
-              <Reply reply={reply} username={username} key={reply._id} />
+              <Reply
+                reply={reply}
+                username={username}
+                key={reply._id || reply._doc._id}
+              />
             ))
           )}
         </div>

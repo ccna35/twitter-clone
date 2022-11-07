@@ -49,8 +49,6 @@ function NewTweet() {
 
   const { user } = useSelector((state) => state.auth);
 
-  const [rows, setRows] = useState(1);
-
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, text: e.target.value }));
     if (e.target.value.length > 280) {

@@ -35,7 +35,7 @@ import { MdVerified } from "react-icons/md";
 import { FiShare } from "react-icons/fi";
 import { IoTrashOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData } from "../features/user/userSlice";
+import { getUserData, reset } from "../features/user/userSlice";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { likeTweet, deleteTweet, retweet } from "../features/tweets/tweetSlice";
@@ -50,18 +50,31 @@ function Reply({ reply, username }) {
   // Handles Tweet Popup state
   const [popup, setPopup] = useState(false);
 
+  const [replyUser, setReplyUser] = useState({});
+
   const tweetRef = useRef(); // Left Panel ref.
 
   // This custom hook closes the modal or popup if the user clicked outside of them.
   useOnClickOutside(tweetRef, () => setPopup(false)); // This hook is related to themes modal.
 
-  //   const date1 = new Date(tweet.createdAt);
-  //   const timeDiff = Date.now() - Date.parse(date1);
-  //   const timePosted = Math.floor(timeDiff / (1000 * 60));
+  // console.log(reply._doc.createdAt);
+  // const date1 = new Date(reply.createdAt);
+  // const timeDiff = Date.now() - Date.parse(date1);
+  // const timePosted = Math.floor(timeDiff / (1000 * 60));
 
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
 
+  // const replyUser = users.find((user) => user._id === reply.user);
+
+  // console.log(replyUser);
+
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getUserData(reply.username)).then((data) => console.log(data));
+
+  //   dispatch(reset());
+  // }, [dispatch]);
 
   //   const handleLike = (tweetID) => {
   //     if (localStorage.getItem("user")) {
@@ -128,6 +141,7 @@ function Reply({ reply, username }) {
   //   };
 
   const handleDelete = (id) => {
+    console.log(id);
     if (
       localStorage.getItem("user") &&
       JSON.parse(localStorage.getItem("user"))._id === reply.user
@@ -139,27 +153,39 @@ function Reply({ reply, username }) {
   return (
     <TweetContainer>
       <UserPhotoContainer>
-        {Object.keys(fullUserData).length > 0 && (
-          <Link to={"/" + fullUserData.username}>
+        {
+          <Link
+            to={
+              "/" + replyUser.username ||
+              JSON.parse(localStorage.getItem("user")).username
+            }
+          >
             <UserPhoto
               src={
-                fullUserData.profilePhoto ||
+                replyUser.profilePhoto ||
+                JSON.parse(localStorage.getItem("user")).profilePhoto ||
                 "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
               }
             />
           </Link>
-        )}
+        }
       </UserPhotoContainer>
       <TweetBody reply>
         <TweetUpperBar>
           <TweetInfoContainer>
             <UserName>
               <TweetAuthor>
-                {Object.keys(fullUserData).length > 0 && (
-                  <Link to={"/" + fullUserData.username}>
-                    {fullUserData.name}
+                {
+                  <Link
+                    to={
+                      "/" + replyUser.username ||
+                      JSON.parse(localStorage.getItem("user")).username
+                    }
+                  >
+                    {replyUser.name ||
+                      JSON.parse(localStorage.getItem("user")).name}
                   </Link>
-                )}
+                }
               </TweetAuthor>
               {Object.keys(fullUserData).length > 0 && fullUserData.isVerified && (
                 <UserVerifiedIconContainer>
@@ -168,9 +194,17 @@ function Reply({ reply, username }) {
               )}
             </UserName>
             <UserHandle>
-              @{Object.keys(fullUserData).length > 0 && fullUserData.username}
+              @
+              {replyUser.username ||
+                JSON.parse(localStorage.getItem("user")).username}
             </UserHandle>
-            <TimeSincePosted>5m</TimeSincePosted>
+            {/* <TimeSincePosted>
+              {timePosted < 60
+                ? timePosted + "m"
+                : timePosted >= 60 && timePosted <= 1440
+                ? Math.floor(timePosted / 60) + "h"
+                : Math.floor(timePosted / 1440) + "d"}
+            </TimeSincePosted> */}
           </TweetInfoContainer>
           <TweetUpperBarIconContainer
             onClick={() => setPopup((prev) => !prev)}
@@ -181,8 +215,6 @@ function Reply({ reply, username }) {
               <TweetPopUp>
                 <TweetPopUpOption onClick={() => handleDelete(reply._id)} red>
                   <TweetPopUpIconContainer>
-                    {/* <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> */}
-
                     <IoTrashOutline />
                   </TweetPopUpIconContainer>
                   <TweetPopUpText>Delete</TweetPopUpText>

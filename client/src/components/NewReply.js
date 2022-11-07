@@ -41,6 +41,7 @@ function NewReply({ username, tweetID }) {
     text: "",
     image: null,
     token: null,
+    username: JSON.parse(localStorage.getItem("user")).username,
     tweetID,
   });
 

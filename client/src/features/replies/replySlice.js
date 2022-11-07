@@ -6,7 +6,7 @@ const initialState = {
   reply: {},
   isError: false,
   isSuccess: false,
-  isLoading: false,
+  areRepliesLoading: false,
   message: "",
 };
 
@@ -123,7 +123,7 @@ export const replySlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.isLoading = false;
+      state.areRepliesLoading = false;
       state.isSuccess = false;
       state.isError = false;
       state.message = "";
@@ -131,59 +131,59 @@ export const replySlice = createSlice({
   },
   extraReducers: {
     [getAllReplies.pending]: (state) => {
-      state.isLoading = true;
+      state.areRepliesLoading = true;
     },
     [getAllReplies.fulfilled]: (state, action) => {
-      state.isLoading = false;
+      state.areRepliesLoading = false;
       state.isSuccess = true;
       state.replies = action.payload;
     },
     [getAllReplies.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.areRepliesLoading = false;
       state.isError = true;
       state.message = action.payload;
       state.replies = [];
     },
     [getSingleReply.pending]: (state) => {
-      state.isLoading = true;
+      state.areRepliesLoading = true;
     },
     [getSingleReply.fulfilled]: (state, action) => {
-      state.isLoading = false;
+      state.areRepliesLoading = false;
       state.isSuccess = true;
       state.reply = action.payload;
     },
     [getSingleReply.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.areRepliesLoading = false;
       state.isError = true;
       state.message = action.payload;
       state.reply = {};
     },
     [createReply.pending]: (state) => {
-      state.isLoading = false;
+      state.areRepliesLoading = false;
     },
     [createReply.fulfilled]: (state, action) => {
-      state.isLoading = false;
+      state.areRepliesLoading = false;
       state.isSuccess = true;
       state.replies = [action.payload, ...state.replies];
     },
     [createReply.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.areRepliesLoading = false;
       state.isError = true;
       state.message = action.payload;
       state.replies = [...state.replies];
     },
     [deleteReply.pending]: (state) => {
-      state.isLoading = false;
+      state.areRepliesLoading = false;
     },
     [deleteReply.fulfilled]: (state, action) => {
-      state.isLoading = false;
+      state.areRepliesLoading = false;
       state.isSuccess = true;
       state.replies = state.replies.filter(
-        (reply) => reply._id !== action.payload.id
+        (reply) => reply._id !== action.payload._id
       );
     },
     [deleteReply.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.areRepliesLoading = false;
       state.isError = true;
       state.message = action.payload;
       state.replies = [...state.replies];

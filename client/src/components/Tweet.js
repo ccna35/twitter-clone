@@ -186,8 +186,6 @@ function Tweet({ tweet }) {
               <TweetPopUp>
                 <TweetPopUpOption onClick={() => handleDelete(tweet._id)} red>
                   <TweetPopUpIconContainer>
-                    {/* <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> */}
-
                     <IoTrashOutline />
                   </TweetPopUpIconContainer>
                   <TweetPopUpText>Delete</TweetPopUpText>

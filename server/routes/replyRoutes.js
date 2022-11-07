@@ -11,6 +11,6 @@ const router = express.Router();
 router.route("/").post(protect, createReply);
 router.route("/:id").get(getReplies);
 
-// router.route("/:id").put(protect, updateReply).delete(protect, deleteReply);
+router.route("/reply/:id").put(protect, updateReply).delete(deleteReply);
 
 module.exports = router;
