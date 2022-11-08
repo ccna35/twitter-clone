@@ -15,7 +15,6 @@ const createReply = async (replyData) => {
 };
 
 const getAllReplies = async (tweetID) => {
-  console.log(tweetID);
   const res = await axios.get(API_URL + tweetID);
   console.log(res.data);
   return res.data;

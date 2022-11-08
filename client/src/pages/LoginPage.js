@@ -57,7 +57,6 @@ function LoginPage() {
     }
 
     if (isSuccess || userExists) {
-      console.log("User exists, isSuccess || userExists");
       navigate("/home");
     }
 

@@ -31,7 +31,6 @@ function LoginModal({ closeLoginModal }) {
   const onSubmit = (e) => {
     e.preventDefault();
     const userData = { email, password };
-    console.log(userData);
     dispatch(login(userData));
     document.body.style.overflow = "unset";
   };

@@ -82,7 +82,7 @@ function TweetPage() {
       setRetweetsArray([...data.payload.retweets]);
     });
 
-    dispatch(getAllReplies(tweetID)).then((data) => console.log(data));
+    dispatch(getAllReplies(tweetID));
 
     dispatch(getUserData(username));
 
@@ -115,7 +115,7 @@ function TweetPage() {
   const { fullUserData, isUserLoading } = useSelector((state) => state.user);
   const { replies, areRepliesLoading } = useSelector((state) => state.reply);
 
-  console.log(replies);
+  // console.log(replies);
 
   const handleLike = (tweetID) => {
     if (localStorage.getItem("user")) {
@@ -186,7 +186,7 @@ function TweetPage() {
       localStorage.getItem("user") &&
       JSON.parse(localStorage.getItem("user"))._id === tweet.user
     ) {
-      dispatch(deleteTweet(id)).then((data) => console.log(data));
+      dispatch(deleteTweet(id));
       setPopup((prev) => !prev);
       navigate(-1);
     }
