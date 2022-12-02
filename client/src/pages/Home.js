@@ -73,7 +73,9 @@ function Home() {
           <Spinner />
         </TweetsContainer>
       ) : (
-        tweets.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)
+        [...tweets]
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)
       )}
     </StyledHome>
   );

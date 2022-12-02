@@ -43,6 +43,7 @@ import { useRef } from "react";
 import useOnClickOutside from "../custom hooks/useOnClickOutside";
 
 function Tweet({ tweet }) {
+  // console.log(tweet);
   const [likesArray, setLikesArray] = useState([...tweet.likes]);
   const [retweetsArray, setRetweetsArray] = useState([...tweet.retweets]);
   // Handles Tweet Popup state
@@ -135,39 +136,40 @@ function Tweet({ tweet }) {
     }
   };
 
+  console.log(fullUserData.username);
+
   return (
     <TweetContainer>
       <UserPhotoContainer>
-        {Object.keys(fullUserData).length > 0 && (
-          <Link to={"/" + fullUserData.username}>
-            <UserPhoto
-              src={
-                fullUserData.profilePhoto ||
-                "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
-              }
-            />
-          </Link>
-        )}
+        <Link to={"/" + tweet.username || fullUserData.username}>
+          <UserPhoto
+            src={
+              tweet.profilePhoto ||
+              JSON.parse(localStorage.getItem("user")).profilePhoto ||
+              "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+            }
+          />
+        </Link>
       </UserPhotoContainer>
       <TweetBody>
         <TweetUpperBar>
           <TweetInfoContainer>
             <UserName>
               <TweetAuthor>
-                {Object.keys(fullUserData).length > 0 && (
-                  <Link to={"/" + fullUserData.username}>
-                    {fullUserData.name}
-                  </Link>
-                )}
+                <Link to={"/" + tweet.username || fullUserData.username}>
+                  {tweet.name || JSON.parse(localStorage.getItem("user")).name}
+                </Link>
               </TweetAuthor>
-              {Object.keys(fullUserData).length > 0 && fullUserData.isVerified && (
+              {tweet.isVerified && (
                 <UserVerifiedIconContainer>
                   <MdVerified />
                 </UserVerifiedIconContainer>
               )}
             </UserName>
             <UserHandle>
-              @{Object.keys(fullUserData).length > 0 && fullUserData.username}
+              @
+              {tweet.username ||
+                JSON.parse(localStorage.getItem("user")).username}
             </UserHandle>
             <TimeSincePosted>
               {timePosted < 60
@@ -203,7 +205,7 @@ function Tweet({ tweet }) {
         <TweetText>{tweet.text}</TweetText>
         {tweet.image && <TweetImage src={tweet.image} />}
         <TweetLowerBar>
-          <Link to={`/${fullUserData.username}/status/${tweet._id}`}>
+          <Link to={`/${tweet.username}/status/${tweet._id}`}>
             <TweetIconCountContainer>
               <TweetLowerBarIconContainer>
                 <FaRegComment />

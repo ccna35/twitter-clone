@@ -16,6 +16,7 @@ const createTweet = async (tweetData) => {
 
 const getAllTweets = async (userData) => {
   const res = await axios.get(API_URL + userData.username);
+  console.log(res.data);
   return res.data;
 };
 

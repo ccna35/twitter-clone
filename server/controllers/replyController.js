@@ -9,7 +9,7 @@ const User = require("../models/userModel");
 const getReplies = asyncHandler(async (req, res) => {
   const finalReplies = [];
   const replies = await Reply.find({ tweet: req.params.id });
-  console.log(typeof replies[0].user);
+  // console.log(typeof replies[0].user);
 
   // for (reply of replies) {
   //   const { name, username, profilePhoto } = await User.findById(reply.user);

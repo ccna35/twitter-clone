@@ -8,10 +8,54 @@ const User = require("../models/userModel");
 
 const getTweets = asyncHandler(async (req, res) => {
   const userID = await User.findOne({ username: req.params.id });
-  const tweets = await Tweet.find({ user: userID }).sort({
-    createdAt: -1,
-  });
-  res.status(200).json(tweets);
+
+  const tweetList = [];
+
+  const tweets = await Tweet.find({ user: userID })
+    .sort({
+      createdAt: -1,
+    })
+    .lean();
+
+  tweets.map((tweet) =>
+    tweetList.push({
+      name: userID.name,
+      username: userID.username,
+      profilePhoto: userID.profilePhoto,
+      isVerified: userID.isVerified,
+      ...tweet,
+    })
+  );
+
+  for (user of userID.following) {
+    // console.log(user);
+    const userID = await User.findOne({ username: user });
+    const tweets = await Tweet.find({ user: userID })
+      .sort({
+        createdAt: -1,
+      })
+      .lean();
+
+    tweets.map((tweet) =>
+      tweetList.push({
+        name: userID.name,
+        username: userID.username,
+        profilePhoto: userID.profilePhoto,
+        isVerified: userID.isVerified,
+        ...tweet,
+      })
+    );
+
+    // tweetList = [...tweetList, ...tweets];
+    // console.log(tweets);
+  }
+
+  console.log(tweetList);
+
+  // const tweets = await Tweet.find({ user: userID }).sort({
+  //   createdAt: -1,
+  // });
+  res.status(200).json(tweetList);
 });
 
 const getTweet = asyncHandler(async (req, res) => {

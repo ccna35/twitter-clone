@@ -165,6 +165,7 @@ export const tweetSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = true;
       state.tweets = [action.payload, ...state.tweets];
+      console.log(action.payload);
     },
     [createTweet.rejected]: (state, action) => {
       state.isLoading = false;
