@@ -12,7 +12,7 @@ export const RegisterModalContainer = styled.div`
 
 export const RegisterModal = styled.div`
   padding: 2rem;
-  width: 40rem;
+  width: min(100vw, 40rem);
   background-color: white;
   border-radius: 1rem;
 `;

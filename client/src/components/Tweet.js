@@ -136,12 +136,13 @@ function Tweet({ tweet }) {
     }
   };
 
-  console.log(fullUserData.username);
+  const tweetUsername =
+    tweet.username === undefined ? fullUserData.username : tweet.username;
 
   return (
     <TweetContainer>
       <UserPhotoContainer>
-        <Link to={"/" + tweet.username || fullUserData.username}>
+        <Link to={"/" + tweetUsername}>
           <UserPhoto
             src={
               tweet.profilePhoto ||
@@ -156,7 +157,7 @@ function Tweet({ tweet }) {
           <TweetInfoContainer>
             <UserName>
               <TweetAuthor>
-                <Link to={"/" + tweet.username || fullUserData.username}>
+                <Link to={"/" + tweetUsername}>
                   {tweet.name || JSON.parse(localStorage.getItem("user")).name}
                 </Link>
               </TweetAuthor>
@@ -166,11 +167,7 @@ function Tweet({ tweet }) {
                 </UserVerifiedIconContainer>
               )}
             </UserName>
-            <UserHandle>
-              @
-              {tweet.username ||
-                JSON.parse(localStorage.getItem("user")).username}
-            </UserHandle>
+            <UserHandle>@{tweetUsername}</UserHandle>
             <TimeSincePosted>
               {timePosted < 60
                 ? timePosted + "m"

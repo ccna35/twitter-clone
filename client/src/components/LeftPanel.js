@@ -82,6 +82,11 @@ function LeftPanel() {
     setThemesModal((prev) => !prev);
   };
 
+  const userProfilePhoto =
+    fullUserData.profilePhoto === null
+      ? "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+      : fullUserData.profilePhoto;
+
   return (
     <LeftPanelStyle>
       <LeftPanelContainer>
@@ -189,14 +194,7 @@ function LeftPanel() {
             ref={leftPanelRef}
           >
             <UserPhotoContainer size="small">
-              <UserPhoto
-                src={
-                  localStorage.getItem("user") &&
-                  JSON.parse(localStorage.getItem("user")).profilePhoto !== null
-                    ? JSON.parse(localStorage.getItem("user")).profilePhoto
-                    : "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
-                }
-              />
+              <UserPhoto src={userProfilePhoto} />
             </UserPhotoContainer>
             <LeftPanelUserInfo>
               <LeftPanelUserName>
@@ -213,16 +211,7 @@ function LeftPanel() {
               <LeftPanelUserPopUp>
                 <UserPopUpInfo>
                   <UserPhotoContainer size="small">
-                    <UserPhoto
-                      src={
-                        localStorage.getItem("user") &&
-                        JSON.parse(localStorage.getItem("user"))
-                          .profilePhoto !== null
-                          ? JSON.parse(localStorage.getItem("user"))
-                              .profilePhoto
-                          : "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
-                      }
-                    />
+                    <UserPhoto src={userProfilePhoto} />
                   </UserPhotoContainer>
                   <UserPopUpNameUsername>
                     <LeftPanelUserName>
