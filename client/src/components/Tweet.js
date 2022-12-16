@@ -202,7 +202,7 @@ function Tweet({ tweet }) {
         <TweetText>{tweet.text}</TweetText>
         {tweet.image && <TweetImage src={tweet.image} />}
         <TweetLowerBar>
-          <Link to={`/${tweet.username}/status/${tweet._id}`}>
+          <Link to={`/${tweetUsername}/status/${tweet._id}`}>
             <TweetIconCountContainer>
               <TweetLowerBarIconContainer>
                 <FaRegComment />

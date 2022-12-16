@@ -45,20 +45,18 @@ function Home() {
     dispatch(reset());
   }, [user, dispatch, navigate]);
 
+  const userProfilePhoto =
+    fullUserData.profilePhoto === null
+      ? "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
+      : fullUserData.profilePhoto;
+
   return (
     <StyledHome>
       <HomeNavbar>
         <HomeNavbarTextPhotoContainer>
           <Link to={"/" + JSON.parse(localStorage.getItem("user")).username}>
             <HomeUserPhotoContainer>
-              <UserPhoto
-                src={
-                  Object.keys(fullUserData).length > 0 &&
-                  fullUserData.profilePhoto
-                    ? fullUserData.profilePhoto
-                    : "http://localhost:3000/images/blank-profile-picture-gf8e58e24f_640.png"
-                }
-              />
+              <UserPhoto src={userProfilePhoto} />
             </HomeUserPhotoContainer>
           </Link>
           <HomeNavbarText>Home</HomeNavbarText>
